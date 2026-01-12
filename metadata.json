@@ -1,0 +1,7 @@
+{
+  "name": "Q-Solution Portfolio & CMS",
+  "description": "A high-end professional portfolio for web development and social media marketing experts with a full-featured trilingual admin dashboard and CMS.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
