@@ -48,9 +48,9 @@ const MainContent: React.FC = () => {
       <main>
         <Hero />
         <Services />
-        <Portfolio />
         <WebPricing /> {/* القسم الجديد الخاص بأسعار المواقع */}
         <Pricing /> {/* القسم العام (أصبح الآن للتسويق الرقمي) */}
+        <Portfolio />
         <Contact />
       </main>
       <Footer onAdminClick={() => setView('admin')} />
