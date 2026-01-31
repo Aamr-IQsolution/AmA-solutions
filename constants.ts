@@ -5,8 +5,8 @@ import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
   siteName: "AmA Q-Solution",
-  logo: "https://i.ibb.co/XRR9D9V/logo.png",
-  contactEmail: "info@ama-qsolution.com",
+  logo: "https://i.ibb.co/hxD60pRY/logo-cercle-no-background.png",
+  contactEmail: "Aamr.alawad@gmail.com",
   phone: "+123456789",
   socials: [
     { id: '1', platform: 'Instagram', icon: 'fa-instagram', link: 'https://instagram.com' },
@@ -192,7 +192,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       isPopular: false,
       translations: {
         en: { name: "Starter Ads", buttonText: "Order Now", features: ["1 Social Channel", "8 Posts Monthly", "Basic Ads Setup"] },
-        ar: { name: "الباقة المبتدئة", buttonText: "اطلب الآن", features: ["منصة تواصل واحدة", "8 منشورات شهرياً", "إعداد إعلانات أساسي"] },
+        ar: { name: "الباقة الأساسية", buttonText: "اطلب الآن", features: ["منصة تواصل واحدة", "8 منشورات شهرياً", "إعداد إعلانات أساسي"] },
         nl: { name: "Starter Pakket", buttonText: "Nu Bestellen", features: ["1 Social Media Kanaal", "8 Berichten p/m", "Basis Ads Setup"] }
       }
     },

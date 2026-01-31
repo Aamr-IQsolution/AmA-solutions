@@ -62,9 +62,9 @@ const Pricing: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
           {config.plans.map((plan) => (
-            <div key={plan.id} className={`p-8 glass-card rounded-[40px] border transition-all hover:scale-105 relative ${plan.isPopular ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/10' : 'border-white/5'}`}>
+            <div key={plan.id} className={`p-10 glass-card rounded-[40px] border transition-all hover:scale-105 relative ${plan.isPopular ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/10' : 'border-white/5'}`}>
               {plan.isPopular && (
                 <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 ama-gradient text-black font-black text-[10px] uppercase rounded-full whitespace-nowrap z-20">
                   {lang === 'ar' ? 'الأكثر طلباً' : 'Popular Choice'}
