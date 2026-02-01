@@ -29,6 +29,12 @@ const Hero: React.FC = () => {
         <div className="inline-block px-4 py-1.5 mb-8 text-xs font-bold tracking-[0.2em] text-cyan-400 uppercase glass-card rounded-full border border-cyan-500/20">
           Digital Excellence Solution
         </div>
+
+        {/* Animated Logo */}
+        <div className="w-48 h-48 md:w-1/3 md:h-auto md:max-w-xs p-4 rounded-full bg-white/5 border border-white/10 shadow-lg mb-8 animate-float"> 
+            <img src={config.logo} alt="Logo" className="w-full h-full rounded-full" />
+        </div>
+
         <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-[1.1] max-w-5xl tracking-tight">
           {heroData.title.split(' ').map((word, i) => (
             <span key={i} className={i % 2 !== 0 ? 'ama-text-gradient' : ''}>
@@ -56,6 +62,22 @@ const Hero: React.FC = () => {
           </a>
         </div>
       </div>
+      <style jsx>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };
