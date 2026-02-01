@@ -202,9 +202,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 349,
       isPopular: false,
       translations: {
-        en: { name: "Starter Ads", buttonText: "Order Now", features: ["1 Social Channel", "8 Posts Monthly", "Basic Ads Setup"] },
-        ar: { name: "الباقة الأساسية", buttonText: "اطلب الآن", features: ["منصة تواصل واحدة", "8 منشورات شهرياً", "إعداد إعلانات أساسي"] },
-        nl: { name: "Starter Pakket", buttonText: "Nu Bestellen", features: ["1 Social Media Kanaal", "8 Berichten p/m", "Basis Ads Setup"] }
+        en: { name: "Starter Ads", buttonText: "Order Now", features: ["1 Social Channel", "Content Management", "4 Posts Monthly", "Ad Account Setup Creation", "Visual Identity/Logo/Colors Creation +€50"] },
+        ar: { name: "الباقة الأساسية", buttonText: "اطلب الآن", features: ["منصة تواصل واحدة", "إدارة المحتوى", "4 منشورات شهرياً", "إنشاء إعدادات الحساب الإعلاني", "إنشاء هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Starter Pakket", buttonText: "Nu Bestellen", features: ["1 Social Media Kanaal", "Contentbeheer", "4 Berichten p/m", "Advertentieaccount Aanmaken", "Visuele Identiteit/Logo/Kleuren Creatie +€50"] }
       }
     },
     {
@@ -212,9 +212,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 649,
       isPopular: true,
       translations: {
-        en: { name: "Grow Plan", buttonText: "Order Now", features: ["2 Social Channels", "12 Posts Monthly", "Ads Management", "Stories Design"] },
-        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["منصتي تواصل", "12 منشور شهرياً", "إدارة إعلانات ممولة", "تصميم ستوريات"] },
-        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["2 Social Kanalen", "12 Berichten p/m", "Ads Management", "Stories Design"] }
+        en: { name: "Grow Plan", buttonText: "Order Now", features: ["2 Social Channels", "6 Posts Monthly", "Create 1 Ad Campaign Monthly", "Ad Campaign Management", "Create 1 Professional Video Monthly", "Create 4 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["منصتي تواصل", "6 منشورات شهرياً", "إنشاء حملة إعلانية شهرياً", "إدارة الحملات الإعلانية", "إنشاء 1 فيديو إحترافي شهرياً", "إنشاء 4 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["2 Social Kanalen", "6 Berichten p/m", "Maak 1 advertentiecampagne per maand", "Advertentiecampagnebeheer", "Maak 1 professionele video per maand", "Maak 4 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     },
     {
@@ -222,9 +222,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 999,
       isPopular: false,
       translations: {
-        en: { name: "Pro Plan", buttonText: "Order Now", features: ["3 Social Channels", "20 Posts Monthly", "Full Strategy", "Community Management"] },
-        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["3 منصات تواصل", "20 منشور شهرياً", "استراتيجية كاملة", "إدارة تعليقات وردود"] },
-        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["3 Social Kanalen", "20 Berichten p/m", "Volledige Strategie", "Community Beheer"] }
+        en: { name: "Pro Plan", buttonText: "Order Now", features: ["3 Social Channels", "8 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["3 منصات تواصل", "8 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["3 Social Kanalen", "8 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video's per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     },
     {
@@ -245,7 +245,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       isPopular: false,
       translations: {
         en: { name: "Landing Page", buttonText: "Start Project", features: ["Professional Design", "Mobile Friendly", "Contact Form", "SEO Ready"] },
-        ar: { name: "صفحة هبوط", buttonText: "ابدأ مشروعك", features: ["تصميم احترافي", "متوافق مع الجوال", "نموذج تواصل", "تحسين محركات البحث"] },
+        ar: { name: "صفحة أساسية", buttonText: "ابدأ مشروعك", features: ["تصميم احترافي", "متوافق مع الجوال", "نموذج تواصل", "تحسين محركات البحث"] },
         nl: { name: "Landingspagina", buttonText: "Project Starten", features: ["Professioneel Design", "Mobielvriendelijk", "Contactformulier", "SEO Klaar"] }
       }
     },
