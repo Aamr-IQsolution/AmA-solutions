@@ -1,8 +1,6 @@
 /**
  * تذييل الصفحة (Footer).
  * يحتوي على شعار الموقع الختامي، حقوق الملكية الفكرية، واسم فريق البرمجة. 
- * كما يتضمن زراً مخفياً بشكل أيقونة "قفل" يتيح للمسؤولين الانتقال إلى صفحة 
- * تسجيل الدخول للوصول إلى لوحة التحكم.
  * يتم الآن جلب جميع النصوص من إعدادات الموقع لضمان القابلية للتعديل الكامل.
  */
 import React from 'react';
@@ -27,14 +25,6 @@ const Footer: React.FC<{ onAdminClick: () => void }> = ({ onAdminClick }) => {
           
           <div className="flex items-center gap-3 text-xs opacity-40 hover:opacity-100 transition-opacity">
             <span>{footerData.credits}</span>
-            {/* Secret Login Button */}
-            <button 
-              onClick={onAdminClick}
-              className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors cursor-default"
-              aria-label="Admin Access"
-            >
-              <i className="fa-solid fa-lock text-[8px]"></i>
-            </button>
           </div>
         </div>
       </div>

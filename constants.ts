@@ -5,9 +5,9 @@ import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
   siteName: "AmA-DigitAdmiral",
-  logo: "https://i.ibb.co/hxD60pRY/logo-cercle-no-background.png",
+  logo: "https://i.ibb.co/cc3SfQRn/Am-A-Digit-Admiral.jpg",
   contactEmail: "Aamr.alawad@gmail.com",
-  phone: "+123456789",
+  phone: "+31685582647",
   socials: [
     { id: '1', platform: 'Instagram', icon: 'fa-instagram', link: 'https://instagram.com' },
     { id: '2', platform: 'Facebook', icon: 'fa-facebook', link: 'https://facebook.com' },
@@ -40,9 +40,9 @@ export const INITIAL_CONFIG: SiteConfig = {
     nl: { title: "Webdesign Prijzen", highlight: "Webdesign", description: "Professionele hoogwaardige ontwikkeling voor moderne bedrijven." }
   },
   footer: {
-    en: { copyright: "All rights reserved", credits: "Designed & Developed by Expert Programming Team" },
-    ar: { copyright: "جميع الحقوق محفوظة", credits: "تصميم وتطوير فريق البرمجة الخبير" },
-    nl: { copyright: "Alle rechten voorbehouden", credits: "Ontworpen en ontwikkeld door Expert Programming Team" }
+    en: { copyright: "All rights reserved", credits: "Designed & Developed by AmA-DigitAdmeral" },
+    ar: { copyright: "جميع الحقوق محفوظة", credits: "تصميم وتطوير فريق AmA-DigitAdmeral" },
+    nl: { copyright: "Alle rechten voorbehouden", credits: "Ontworpen en ontwikkeld door AmA-DigitAdmeral" }
   },
   services: [
     {
@@ -102,9 +102,9 @@ export const INITIAL_CONFIG: SiteConfig = {
           expertDetails: "نقوم بإنشاء وتعديل الفيدوهات بشكل إحترافي لصناع المحتوى وتصميم صور إحترافية صديقة لمحركات البحث بأفضل معايير الجودة المناسبة لكل منصة."
         },
         nl: { 
-          name: "Professionele Advertentievideo's + Foto's", 
+          name: "Professionele Advertentievideo\'s + Foto\'s", 
           description: "Professionele video creatie en bewerking, en foto ontwerp en bewerking.",
-          expertDetails: "We creëren en bewerken professioneel video's voor content creators en ontwerpen professionele, SEO-vriendelijke afbeeldingen met de beste kwaliteitsnormen die geschikt zijn voor elk platform."
+          expertDetails: "We creëren en bewerken professioneel video\'s voor content creators en ontwerpen professionele, SEO-vriendelijke afbeeldingen met de beste kwaliteitsnormen die geschikt zijn voor elk platform."
         }
       }
     },
@@ -125,7 +125,7 @@ export const INITIAL_CONFIG: SiteConfig = {
         nl: { 
           name: "E-Commerce Uitmuntendheid", 
           description: "Robuuste online winkels ontworpen om bezoekers om te zetten in loyale klanten.",
-          expertDetails: "Wij bouwen conversiegerichte e-commerce platforms. Van aangepaste Shopify-thema's tot headless commerce oplossingen met naadloze betalingsgateways."
+          expertDetails: "Wij bouwen conversiegerichte e-commerce platforms. Van aangepaste Shopify-thema\'s tot headless commerce oplossingen met naadloze betalingsgateways."
         }
       }
     },
@@ -136,7 +136,7 @@ export const INITIAL_CONFIG: SiteConfig = {
         en: { 
           name: "Brand Visual Identity", 
           description: "Crafting iconic visual languages that tell your unique brand story.",
-          expertDetails: "Visual identity is more than a logo; it's a system. We define typography, color theory, and UI component libraries that ensure brand consistency across all digital and physical touchpoints."
+          expertDetails: "Visual identity is more than a logo; it\'s a system. We define typography, color theory, and UI component libraries that ensure brand consistency across all digital and physical touchpoints."
         },
         ar: { 
           name: "الهوية البصرية للعلامة", 
@@ -175,13 +175,13 @@ export const INITIAL_CONFIG: SiteConfig = {
   portfolio: [
     {
       id: "p1",
-      image: "https://picsum.photos/600/400?random=11",
-      category: "E-Commerce",
-      link: "https://google.com",
+      image: "https://i.ibb.co/qFdqnGWB/Am-A-facelofo-after-editting-with-codes-background-1.jpg",
+      category: "Content Creation",
+      link: "https://www.facebook.com/admeral.ama2",
       translations: {
-        en: { title: "Modern Fashion Hub", description: "A sleek, dark-themed online store." },
-        ar: { title: "مركز أزياء عصري", description: "متجر إلكتروني أنيق بطابع عصري داكن." },
-        nl: { title: "Moderne Mode Hub", description: "Een strakke online winkel met een donker thema." }
+        en: { title: "Content Creation", description: "Content Creator / Ads Management & Video/Photo Editing and Creation + Content Management" },
+        ar: { title: "صناعة محتوى", description: "صانع محتوى / إدارة إعلانات و تعديل وإنشاء فيدوهات وصور + إدارة محتوى" },
+        nl: { title: "Contentcreatie", description: "Content Creator / Advertentiebeheer & Video/Foto Bewerken en Maken + Content Management" }
       }
     },
     {
@@ -193,6 +193,17 @@ export const INITIAL_CONFIG: SiteConfig = {
         en: { title: "Tasneem", description: "Content management, design, advertising campaigns." },
         ar: { title: "بقالة تسنييم", description: "إدارة محتوى, تصميم , حملات إعلانية." },
         nl: { title: "Tasneem", description: "Contentbeheer, ontwerp, advertentiecampagnes." }
+      }
+    },
+    {
+      id: "p3",
+      image: "https://i.ibb.co/cc3SfQRn/Am-A-Digit-Admiral.jpg",
+      category: "Web Design",
+      link: "",
+      translations: {
+        en: { title: "Website Design", description: "AmA-DigitAdmeral - Basic/Informational/Contact/Service Website" },
+        ar: { title: "تصميم موقع", description: "AmA-DigitAdmeral - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
+        nl: { title: "Website Ontwerp", description: "AmA-DigitAdmeral - Basis/Informatieve/Contact/Diensten Website" }
       }
     }
   ],
@@ -212,9 +223,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 649,
       isPopular: true,
       translations: {
-        en: { name: "Grow Plan", buttonText: "Order Now", features: ["2 Social Channels", "6 Posts Monthly", "Create 1 Ad Campaign Monthly", "Ad Campaign Management", "Create 1 Professional Video Monthly", "Create 4 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["منصتي تواصل", "6 منشورات شهرياً", "إنشاء حملة إعلانية شهرياً", "إدارة الحملات الإعلانية", "إنشاء 1 فيديو إحترافي شهرياً", "إنشاء 4 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["2 Social Kanalen", "6 Berichten p/m", "Maak 1 advertentiecampagne per maand", "Advertentiecampagnebeheer", "Maak 1 professionele video per maand", "Maak 4 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
+        en: { name: "Grow Plan", buttonText: "Order Now", features: ["1 to 2 Social Channels", "6 Posts Monthly", "Create 1 Ad Campaign Monthly", "Ad Campaign Management", "Create 1 Video Monthly", "Create 4 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["من 1 إلى 2 منصات تواصل", "6 منشورات شهرياً", "إنشاء حملة إعلانية شهرياً", "إدارة الحملات الإعلانية", "إنشاء 1 فيديو شهرياً", "إنشاء 4 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["1 tot 2 Sociale Kanalen", "6 Berichten p/m", "Maak 1 advertentiecampagne per maand", "Advertentiecampagnebeheer", "Maak 1 video per maand", "Maak 4 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     },
     {
@@ -222,9 +233,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 999,
       isPopular: false,
       translations: {
-        en: { name: "Pro Plan", buttonText: "Order Now", features: ["3 Social Channels", "8 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["3 منصات تواصل", "8 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["3 Social Kanalen", "8 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video's per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
+        en: { name: "Pro Plan", buttonText: "Order Now", features: ["1 to 3 Social Channels", "8 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["من 1 إلى 3 منصات تواصل", "8 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["1 tot 3 Sociale Kanalen", "8 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video\'s per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     },
     {
@@ -232,9 +243,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 1899,
       isPopular: false,
       translations: {
-        en: { name: "Elite Scale", buttonText: "Order Now", features: ["Comprehensive ad campaign strategy", "Multi-Channel Ads", "Professional video content creation", "Ad account management (4 platforms)", "Linking and securing ad accounts", "Ad platform quality and IP management", "Weekly Analytics", "Priority Support", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة النخبة", buttonText: "اطلب الآن", features: ["إستراتيجية حملات إعلانية شاملة", "إعلانات متعددة المنصات", "صناعة محتوى فيديو إحترافي", "إدارة الحسابات الإعلانية (4 منصات)", "ربط وتأمين الحسابات الإعلانية", "إدارة جودة المنصات الإعلانية وحقوق الملكية الفكرية", "تحليلات أسبوعية", "دعم فني ذو أولوية", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Uitgebreide advertentiecampagnestrategie", "Multi-Channel Ads", "Professionele videocontentcreatie", "Advertentieaccountbeheer (4 platforms)", "Koppelen en beveiligen van advertentieaccounts", "Kwaliteitsbeheer van advertentieplatforms en intellectueel eigendom", "Wekelijkse Analytics", "Priority Support", "Visuele identiteit/logo/kleuren +€50"] }
+        en: { name: "Elite Scale", buttonText: "Order Now", features: ["Comprehensive ad campaign strategy", "Multi-Channel Ads", "Create 1 to 3 (professional) videos", "Ad account management (1 to 4 platforms)", "Linking and securing ad accounts", "Ad platform quality and IP management", "Weekly Analytics", "Priority Support", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة النخبة", buttonText: "اطلب الآن", features: ["إستراتيجية حملات إعلانية شاملة", "إعلانات متعددة المنصات", "إنشاء 1 إلى 3 فيديو (إحترافي)", "إدارة الحسابات الإعلانية من 1 إلى 4 منصات", "ربط وتأمين الحسابات الإعلانية", "إدارة جودة المنصات الإعلانية وحقوق الملكية الفكرية", "تحليلات أسبوعية", "دعم فني ذو أولوية", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Uitgebreide advertentiecampagnestrategie", "Multi-Channel Ads", "Maak 1 tot 3 (professionele) video\'s", "Advertentieaccountbeheer (1 tot 4 platforms)", "Koppelen en beveiligen van advertentieaccounts", "Kwaliteitsbeheer van advertentieplatforms en intellectueel eigendom", "Wekelijkse Analytics", "Priority Support", "Visuele identiteit/logo/kleuren +€50"] }
       }
     }
   ],
@@ -256,7 +267,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed"] },
         ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً"] },
-        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid"] }
+        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina\'s", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid"] }
       }
     },
     {
