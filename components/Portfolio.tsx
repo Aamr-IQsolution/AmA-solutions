@@ -40,7 +40,7 @@ const Portfolio: React.FC = () => {
           <p className="text-gray-400 max-w-xl mx-auto">{config.portfolioHeader[lang].description}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {config.portfolio.map((project) => {
             const ProjectWrapper = project.link ? 'a' : 'div';
             const wrapperProps = project.link ? { 

@@ -89,22 +89,22 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "3",
-      icon: "fa-magnifying-glass-chart",
+      icon: "fa-film",
       translations: {
         en: { 
-          name: "SEO & Optimization", 
-          description: "Dominate search results with our advanced SEO engineering.",
-          expertDetails: "Beyond simple keywords, we focus on technical SEO: Core Web Vitals, schema markup, and high-authority link building. We ensure your business ranks where it matters, driving organic growth consistently."
+          name: "Professional Ad Videos + Photos", 
+          description: "Professional video creation and editing, and photo design and editing.",
+          expertDetails: "We create and edit videos professionally for content creators and design professional, SEO-friendly images with the best quality standards suitable for each platform."
         },
         ar: { 
-          name: "تحسين محركات البحث SEO", 
-          description: "سيطر على نتائج البحث من خلال هندسة SEO المتقدمة التي نقدمها.",
-          expertDetails: "بعيداً عن الكلمات المفتاحية البسيطة، نركز على الـ SEO التقني: مؤشرات أداء الويب الأساسية، المخططات الهيكلية، وبناء الروابط القوية. نضمن تصدر عملك للنتائج الأولى لضمان نمو طبيعي مستدام."
+          name: "فيدوهات إعلانية إحترافية+ صور", 
+          description: "إنشاء وتعديل مقاطع الفيديو بشكل إحترافي وتصميم وتعديل الصور",
+          expertDetails: "نقوم بإنشاء وتعديل الفيدوهات بشكل إحترافي لصناع المحتوى وتصميم صور إحترافية صديقة لمحركات البحث بأفضل معايير الجودة المناسبة لكل منصة."
         },
         nl: { 
-          name: "SEO & Optimalisatie", 
-          description: "Domineer de zoekresultaten met onze geavanceerde SEO-engineering.",
-          expertDetails: "Verder dan simpele trefwoorden, richten we ons op technische SEO: Core Web Vitals, schema markup en linkbuilding met hoge autoriteit voor organische groei."
+          name: "Professionele Advertentievideo's + Foto's", 
+          description: "Professionele video creatie en bewerking, en foto ontwerp en bewerking.",
+          expertDetails: "We creëren en bewerken professioneel video's voor content creators en ontwerpen professionele, SEO-vriendelijke afbeeldingen met de beste kwaliteitsnormen die geschikt zijn voor elk platform."
         }
       }
     },
@@ -182,6 +182,17 @@ export const INITIAL_CONFIG: SiteConfig = {
         en: { title: "Modern Fashion Hub", description: "A sleek, dark-themed online store." },
         ar: { title: "مركز أزياء عصري", description: "متجر إلكتروني أنيق بطابع عصري داكن." },
         nl: { title: "Moderne Mode Hub", description: "Een strakke online winkel met een donker thema." }
+      }
+    },
+    {
+      id: "p2",
+      image: "https://i.ibb.co/PvfL3nSr/Logo-Tasneem-Min-round-no-background.png",
+      category: "Social Media",
+      link: "https://www.facebook.com/profile.php?id=61583301257685",
+      translations: {
+        en: { title: "Tasneem", description: "Content management, design, advertising campaigns." },
+        ar: { title: "بقالة تسنييم", description: "إدارة محتوى, تصميم , حملات إعلانية." },
+        nl: { title: "Tasneem", description: "Contentbeheer, ontwerp, advertentiecampagnes." }
       }
     }
   ],

@@ -34,11 +34,11 @@ const WebPricing: React.FC = () => {
     
     let message = "";
     if (lang === 'ar') {
-      message = `مرحباً فريق AmA،\nأود بدء مشروع ويب جديد باختيار باقة: "${planName}" بسعر ${price}.\nيرجى التواصل معي لتزويدكم بالمتطلبات.`;
+      message = `مرحباً فريق AmA-DigitAdmiral،\nأود بدء مشروع ويب جديد باختيار باقة: "${planName}" بسعر ${price}.\nيرجى التواصل معي لتزويدكم بالمتطلبات.`;
     } else if (lang === 'nl') {
-      message = `Hallo AmA-team,\nIk wil graag een nieuw webproject starten met het pakket: "${planName}" voor ${price}.\nNeem contact met mij op voor de vereisten.`;
+      message = `Hallo AmA-DigitAdmiral-team,\nIk wil graag een nieuw webproject starten met het pakket: "${planName}" voor ${price}.\nNeem contact met mij op voor de vereisten.`;
     } else {
-      message = `Hello AmA Team,\nI would like to start a new web project by choosing the package: "${planName}" for ${price}.\nPlease contact me to provide you with the requirements.`;
+      message = `Hello AmA-DigitAdmiral Team,\nI would like to start a new web project by choosing the package: "${planName}" for ${price}.\nPlease contact me to provide you with the requirements.`;
     }
     
     setContactMessage(message);

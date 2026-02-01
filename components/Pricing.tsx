@@ -35,11 +35,11 @@ const Pricing: React.FC = () => {
     
     let message = "";
     if (lang === 'ar') {
-      message = `مرحباً فريق AmA،\nأنا مهتم بطلب باقة التسويق: "${planName}" بسعر ${price}.\nيرجى التواصل معي لمناقشة التفاصيل.`;
+      message = `مرحباً فريق AmA-DigitAdmiral،\nأنا مهتم بطلب باقة التسويق: "${planName}" بسعر ${price}.\nيرجى التواصل معي لمناقشة التفاصيل.`;
     } else if (lang === 'nl') {
-      message = `Hallo AmA-team,\nIk ben geïnteresseerd in het bestellen van het marketingpakket: "${planName}" voor ${price}.\nNeem contact met mij op om de details te bespreken.`;
+      message = `Hallo AmA-DigitAdmiral-team,\nIk ben geïnteresseerd in het bestellen van het marketingpakket: "${planName}" voor ${price}.\nNeem contact met mij op om de details te bespreken.`;
     } else {
-      message = `Hello AmA Team,\nI am interested in ordering the Marketing Package: "${planName}" for ${price}.\nPlease contact me to discuss the details.`;
+      message = `Hello AmA-DigitAdmiral Team,\nI am interested in ordering the Marketing Package: "${planName}" for ${price}.\nPlease contact me to discuss the details.`;
     }
     
     setContactMessage(message);
@@ -89,8 +89,7 @@ const Pricing: React.FC = () => {
               </ul>
               <button 
                 onClick={() => handleOrder(plan)}
-                className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${plan.isPopular ? 'ama-gradient text-black shadow-lg shadow-cyan-500/20' : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'}`}
-              >
+                className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${plan.isPopular ? 'ama-gradient text-black shadow-lg shadow-cyan-500/20' : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'}`}>
                 {plan.translations[lang].buttonText}
               </button>
             </div>
