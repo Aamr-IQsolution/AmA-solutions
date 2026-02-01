@@ -232,9 +232,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 1899,
       isPopular: false,
       translations: {
-        en: { name: "Elite Scale", buttonText: "Order Now", features: ["Multi-Channel Ads", "Video Content", "Weekly Analytics", "Priority Support"] },
-        ar: { name: "باقة النخبة", buttonText: "اطلب الآن", features: ["إعلانات متعددة المنصات", "صناعة محتوى فيديو", "تحليلات أسبوعية", "دعم فني ذو أولوية"] },
-        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Multi-Channel Ads", "Video Content", "Wekelijkse Analytics", "Priority Support"] }
+        en: { name: "Elite Scale", buttonText: "Order Now", features: ["Comprehensive ad campaign strategy", "Multi-Channel Ads", "Professional video content creation", "Ad account management (4 platforms)", "Linking and securing ad accounts", "Ad platform quality and IP management", "Weekly Analytics", "Priority Support", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة النخبة", buttonText: "اطلب الآن", features: ["إستراتيجية حملات إعلانية شاملة", "إعلانات متعددة المنصات", "صناعة محتوى فيديو إحترافي", "إدارة الحسابات الإعلانية (4 منصات)", "ربط وتأمين الحسابات الإعلانية", "إدارة جودة المنصات الإعلانية وحقوق الملكية الفكرية", "تحليلات أسبوعية", "دعم فني ذو أولوية", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Uitgebreide advertentiecampagnestrategie", "Multi-Channel Ads", "Professionele videocontentcreatie", "Advertentieaccountbeheer (4 platforms)", "Koppelen en beveiligen van advertentieaccounts", "Kwaliteitsbeheer van advertentieplatforms en intellectueel eigendom", "Wekelijkse Analytics", "Priority Support", "Visuele identiteit/logo/kleuren +€50"] }
       }
     }
   ],
