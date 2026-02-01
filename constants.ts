@@ -4,7 +4,7 @@
 import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
-  siteName: "AmA Q-Solution",
+  siteName: "AmA-DigitAdmiral",
   logo: "https://i.ibb.co/hxD60pRY/logo-cercle-no-background.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+123456789",
