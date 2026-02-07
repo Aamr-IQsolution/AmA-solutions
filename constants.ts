@@ -4,8 +4,8 @@
 import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
-  siteName: "AmA-DigitAdmiral",
-  logo: "https://i.ibb.co/cc3SfQRn/Am-A-Digit-Admiral.jpg",
+  siteName: "axonxcode",
+  logo: "https://i.ibb.co/cc3SfQRn/axonxcode.jpg",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
   socials: [
@@ -40,9 +40,9 @@ export const INITIAL_CONFIG: SiteConfig = {
     nl: { title: "Webdesign Prijzen", highlight: "Webdesign", description: "Professionele hoogwaardige ontwikkeling voor moderne bedrijven." }
   },
   footer: {
-    en: { copyright: "All rights reserved", credits: "Designed & Developed by AmA-DigitAdmeral" },
-    ar: { copyright: "جميع الحقوق محفوظة", credits: "تصميم وتطوير فريق AmA-DigitAdmeral" },
-    nl: { copyright: "Alle rechten voorbehouden", credits: "Ontworpen en ontwikkeld door AmA-DigitAdmeral" }
+    en: { copyright: "All rights reserved", credits: "Designed & Developed by axonxcode" },
+    ar: { copyright: "جميع الحقوق محفوظة", credits: "تصميم وتطوير فريق axonxcode" },
+    nl: { copyright: "Alle rechten voorbehouden", credits: "Ontworpen en ontwikkeld door axonxcode" }
   },
   services: [
     {
@@ -197,13 +197,13 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "p3",
-      image: "https://i.ibb.co/cc3SfQRn/Am-A-Digit-Admiral.jpg",
+      image: "https://i.ibb.co/cc3SfQRn/axonxcode.jpg",
       category: "Web Design",
       link: "",
       translations: {
-        en: { title: "Website Design", description: "AmA-DigitAdmeral - Basic/Informational/Contact/Service Website" },
-        ar: { title: "تصميم موقع", description: "AmA-DigitAdmeral - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
-        nl: { title: "Website Ontwerp", description: "AmA-DigitAdmeral - Basis/Informatieve/Contact/Diensten Website" }
+        en: { title: "Website Design", description: "axonxcode - Basic/Informational/Contact/Service Website" },
+        ar: { title: "تصميم موقع", description: "axonxcode - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
+        nl: { title: "Website Ontwerp", description: "axonxcode - Basis/Informatieve/Contact/Diensten Website" }
       }
     }
   ],
