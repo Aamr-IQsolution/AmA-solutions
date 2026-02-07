@@ -5,7 +5,7 @@ import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
   siteName: "axonxcode",
-  logo: "https://i.ibb.co/cc3SfQRn/axonxcode.jpg",
+  logo: "https://i.ibb.co/7xMPCbk5/axonxcode-ronded.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
   socials: [
@@ -197,7 +197,7 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "p3",
-      image: "https://i.ibb.co/cc3SfQRn/axonxcode.jpg",
+      image: "https://i.ibb.co/7xMPCbk5/axonxcode-ronded.png",
       category: "Web Design",
       link: "",
       translations: {
