@@ -15,9 +15,18 @@ export const INITIAL_CONFIG: SiteConfig = {
     { id: '4', platform: 'GitHub', icon: 'fa-github', link: 'https://github.com' },
   ],
   hero: {
-    en: { title: "Connect. Create. Engage.", subtitle: "Professional Web Design & Social Media Marketing Experts in the Netherlands." },
-    ar: { title: "تواصل. ابتكار. تفاعل.", subtitle: "خبراء تصميم المواقع المتميزين وخدمات التسويق الرقمي المتكاملة في هولندا." },
-    nl: { title: "Verbind. Creëer. Betrek.", subtitle: "Professionele Webdesign & Social Media Marketing Experts in Nederland." }
+    en: { 
+      title: "Connect. Create. Engage.", 
+      subtitle: '"AxonXcode: We turn digital visions into tangible reality." We specialize in building smartphone applications and websites that combine programming intelligence (Axon) and precision in execution (Xcode).' 
+    },
+    ar: { 
+      title: "تواصل. ابتكار. تفاعل.", 
+      subtitle: '"AxonXcode: نحول الرؤى الرقمية إلى واقع ملموس." نحن متخصصون في بناء تطبيقات الهواتف الذكية والمواقع الإلكترونية التي تجمع بين الذكاء البرمجي (Axon) والدقة في التنفيذ (Xcode).' 
+    },
+    nl: { 
+      title: "Verbind. Creëer. Betrek.", 
+      subtitle: '"AxonXcode: Wij zetten digitale visies om in tastbare realiteit." Wij zijn gespecialiseerd in het bouwen van smartphoneapplicaties en websites die programmeerintelligentie (Axon) en precisie in uitvoering (Xcode) combineren.' 
+    }
   },
   servicesHeader: {
     en: { title: "Our Specialized Services", highlight: "Specialized" },
@@ -146,7 +155,7 @@ export const INITIAL_CONFIG: SiteConfig = {
         nl: { 
           name: "Visuele Merkidentiteit", 
           description: "Iconische visuele talen creëren die uw unieke merkverhaal vertellen.",
-          expertDetails: "Visuele identiteit is meer dan een logo. We definiëren typografie, kleurtheorie en UI-componentbibliotheken die merkconsistentie garanderen."
+          expertDetails: "Visuele identiteit is meer than een logo. We definiëren typografie, kleurtheorie en UI-componentbibliotheken die merkconsistentie garanderen."
         }
       }
     },
@@ -175,7 +184,7 @@ export const INITIAL_CONFIG: SiteConfig = {
   portfolio: [
     {
       id: "p1",
-      image: "https://i.ibb.co/qFdqnGWB/Am-A-facelofo-after-editting-with-codes-background-1.jpg",
+      image: "/assets/AmA facelofo after editting with codes background-1.jpg",
       category: "Content Creation",
       link: "https://www.facebook.com/admeral.ama2",
       translations: {
@@ -186,17 +195,28 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "p2",
-      image: "https://i.ibb.co/PvfL3nSr/Logo-Tasneem-Min-round-no-background.png",
+      image: "/assets/Logo-Tasneem-Min-round-no-background.png",
       category: "Social Media",
       link: "https://www.facebook.com/profile.php?id=61583301257685",
       translations: {
         en: { title: "Tasneem", description: "Content management, design, advertising campaigns." },
-        ar: { title: "بقالة تسنييم", description: "إدارة محتوى, تصميم , حملات إعلانية." },
+        ar: { title: "بقالة تسنيم", description: "إدارة محتوى, تصميم , حملات إعلانية." },
         nl: { title: "Tasneem", description: "Contentbeheer, ontwerp, advertentiecampagnes." }
       }
     },
     {
       id: "p3",
+      image: "/assets/SamaaMarket-400-400.png",
+      category: "Web Design",
+      link: "https://samaamarket.com/",
+      translations: {
+        en: { title: "E-commerce store", description: "SamaaMarket - E-commerce store design / sale / delivery / content management" },
+        ar: { title: "متجر إلكتروني", description: "SamaaMarket- تصميم متجر إلكتروني / بيع / توصيل / إدارة محتوى" },
+        nl: { title: "E-commerce winkel", description: "SamaaMarket - Ontwerp van e-commerce winkel / verkoop / levering / contentbeheer" }
+      }
+    },
+    {
+      id: "p4",
       image: "https://i.ibb.co/7xMPCbk5/axonxcode-ronded.png",
       category: "Web Design",
       link: "",

@@ -1,15 +1,29 @@
 /**
  * قسم الواجهة الترحيبية (Hero Section).
- * هذا القسم هو أول ما يراه الزائر عند دخول الموقع، ويحتوي على العنوان الرئيسي الجذاب، 
+ * هذا القسم هو أول ما يراه الزائر عند دخول الموقع، ويحتوي على العنوان الرئيسي الجذاب, 
  * وصف موجز للخدمات، وأزرار "دعوة للاتخاذ إجراء" (CTA) لتوجيه المستخدم للتواصل أو رؤية الأعمال.
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 
 const Hero: React.FC = () => {
   const { lang, config } = useApp();
   const heroData = config.hero[lang];
+  const [bgOpacity, setBgOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const newOpacity = Math.max(0, 1 - scrollPosition / 400); // Fade out over 400px of scrolling
+      setBgOpacity(newOpacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -20,19 +34,18 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-40 pb-32 px-4 overflow-hidden bg-gray-900 text-white">
-      {/* Geometric Shapes Background */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          {/* Animated Circle 1 */}
-          <circle cx="10%" cy="20%" r="40" fill="none" stroke="#00E5FF" strokeWidth="2" className="animate-pulse-slow" />
-          {/* Animated Circle 2 */}
-          <circle cx="85%" cy="80%" r="60" fill="none" stroke="#FF007A" strokeWidth="2" className="animate-pulse-slow delay-1000" />
-          {/* Animated Triangle */}
-           <polygon points="50,150 150,50 250,150" fill="rgba(255, 255, 255, 0.05)" className="animate-spin-slow" />
-        </svg>
-      </div>
-
+    <section
+      className="relative pt-40 pb-32 px-4 overflow-hidden text-white"
+    >
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-opacity duration-300 ease-in-out"
+        style={{
+          backgroundImage: "url('/assets/Aamr-with-agroup-op-workers.png')",
+          opacity: bgOpacity,
+          zIndex: -1,
+        }}
+      />
+      <div className="absolute inset-0 bg-black/70 z-0"></div>
 
       {/* Background Glows (kept from original) */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[120px]"></div>
@@ -55,7 +68,7 @@ const Hero: React.FC = () => {
             </span>
           ))}
         </h1>
-        <p className="text-xl text-gray-400 mb-12 max-w-2xl leading-relaxed">
+        <p className="text-xl text-gray-300 mb-12 max-w-2xl leading-relaxed">
           {heroData.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-6">
@@ -89,36 +102,6 @@ const Hero: React.FC = () => {
         }
         .animate-float {
           animation: float 6s ease-in-out infinite;
-        }
-        @keyframes pulse-slow {
-          0%, 100% {
-            opacity: 0.3;
-            transform: scale(0.95);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes spin-slow {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .animate-spin-slow {
-            animation: spin-slow 20s linear infinite;
-            transform-origin: center;
-        }
-
-        .delay-1000 {
-            animation-delay: 1s;
         }
       `}</style>
     </section>
