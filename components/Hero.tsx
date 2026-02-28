@@ -3,27 +3,14 @@
  * هذا القسم هو أول ما يراه الزائر عند دخول الموقع، ويحتوي على العنوان الرئيسي الجذاب, 
  * وصف موجز للخدمات، وأزرار "دعوة للاتخاذ إجراء" (CTA) لتوجيه المستخدم للتواصل أو رؤية الأعمال.
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
+import ThreeDBackground from './ThreeDBackground'; // استيراد المكون الجديد
 
 const Hero: React.FC = () => {
   const { lang, config } = useApp();
   const heroData = config.hero[lang];
-  const [bgOpacity, setBgOpacity] = useState(1);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const newOpacity = Math.max(0, 1 - scrollPosition / 400); // Fade out over 400px of scrolling
-      setBgOpacity(newOpacity);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -37,14 +24,7 @@ const Hero: React.FC = () => {
     <section
       className="relative pt-40 pb-32 px-4 overflow-hidden text-white"
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-opacity duration-300 ease-in-out"
-        style={{
-          backgroundImage: "url('/assets/Aamr-with-agroup-op-workers.png')",
-          opacity: bgOpacity,
-          zIndex: -1,
-        }}
-      />
+      <ThreeDBackground /> {/* إضافة مكون الخلفية ثلاثية الأبعاد */}
       <div className="absolute inset-0 bg-black/70 z-0"></div>
 
       {/* Background Glows (kept from original) */}
