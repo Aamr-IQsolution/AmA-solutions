@@ -5,7 +5,7 @@ import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
   siteName: "axonxcode",
-  logo: "https://i.ibb.co/7xMPCbk5/axonxcode-ronded.png",
+  logo: "/assets/axonxcode-ronded.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
   socials: [
@@ -102,9 +102,9 @@ export const INITIAL_CONFIG: SiteConfig = {
           expertDetails: "نقوم بإنشاء وتعديل الفيدوهات بشكل إحترافي لصناع المحتوى وتصميم صور إحترافية صديقة لمحركات البحث بأفضل معايير الجودة المناسبة لكل منصة."
         },
         nl: { 
-          name: "Professionele Advertentievideo\'s + Foto\'s", 
+          name: "Professionele Advertentievideo's + Foto's", 
           description: "Professionele video creatie en bewerking, en foto ontwerp en bewerking.",
-          expertDetails: "We creëren en bewerken professioneel video\'s voor content creators en ontwerpen professionele, SEO-vriendelijke afbeeldingen met de beste kwaliteitsnormen die geschikt zijn voor elk platform."
+          expertDetails: "We creëren en bewerken professioneel video's voor content creators en ontwerpen professionele, SEO-vriendelijke afbeeldingen met de beste kwaliteitsnormen die geschikt zijn voor elk platform."
         }
       }
     },
@@ -125,7 +125,7 @@ export const INITIAL_CONFIG: SiteConfig = {
         nl: { 
           name: "E-Commerce Uitmuntendheid", 
           description: "Robuuste online winkels ontworpen om bezoekers om te zetten in loyale klanten.",
-          expertDetails: "Wij bouwen conversiegerichte e-commerce platforms. Van aangepaste Shopify-thema\'s tot headless commerce oplossingen met naadloze betalingsgateways."
+          expertDetails: "Wij bouwen conversiegerichte e-commerce platforms. Van aangepaste Shopify-thema's tot headless commerce oplossingen met naadloze betalingsgateways."
         }
       }
     },
@@ -136,7 +136,7 @@ export const INITIAL_CONFIG: SiteConfig = {
         en: { 
           name: "Brand Visual Identity", 
           description: "Crafting iconic visual languages that tell your unique brand story.",
-          expertDetails: "Visual identity is more than a logo; it\'s a system. We define typography, color theory, and UI component libraries that ensure brand consistency across all digital and physical touchpoints."
+          expertDetails: "Visual identity is more than a logo; it's a system. We define typography, color theory, and UI component libraries that ensure brand consistency across all digital and physical touchpoints."
         },
         ar: { 
           name: "الهوية البصرية للعلامة", 
@@ -235,7 +235,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: { name: "Pro Plan", buttonText: "Order Now", features: ["1 to 3 Social Channels", "8 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
         ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["من 1 إلى 3 منصات تواصل", "8 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["1 tot 3 Sociale Kanalen", "8 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video\'s per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
+        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["1 tot 3 Sociale Kanalen", "8 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video's per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     },
     {
@@ -245,7 +245,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: { name: "Elite Scale", buttonText: "Order Now", features: ["Comprehensive ad campaign strategy", "Multi-Channel Ads", "Create 1 to 3 (professional) videos", "Ad account management (1 to 4 platforms)", "Linking and securing ad accounts", "Ad platform quality and IP management", "Weekly Analytics", "Priority Support", "Visual Identity/Logo/Colors +€50"] },
         ar: { name: "باقة النخبة", buttonText: "اطلب الآن", features: ["إستراتيجية حملات إعلانية شاملة", "إعلانات متعددة المنصات", "إنشاء 1 إلى 3 فيديو (إحترافي)", "إدارة الحسابات الإعلانية من 1 إلى 4 منصات", "ربط وتأمين الحسابات الإعلانية", "إدارة جودة المنصات الإعلانية وحقوق الملكية الفكرية", "تحليلات أسبوعية", "دعم فني ذو أولوية", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Uitgebreide advertentiecampagnestrategie", "Multi-Channel Ads", "Maak 1 tot 3 (professionele) video\'s", "Advertentieaccountbeheer (1 tot 4 platforms)", "Koppelen en beveiligen van advertentieaccounts", "Kwaliteitsbeheer van advertentieplatforms en intellectueel eigendom", "Wekelijkse Analytics", "Priority Support", "Visuele identiteit/logo/kleuren +€50"] }
+        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Uitgebreide advertentiecampagnestrategie", "Multi-Channel Ads", "Maak 1 tot 3 (professionele) video's", "Advertentieaccountbeheer (1 tot 4 platforms)", "Koppelen en beveiligen van advertentieaccounts", "Kwaliteitsbeheer van advertentieplatforms en intellectueel eigendom", "Wekelijkse Analytics", "Priority Support", "Visuele identiteit/logo/kleuren +€50"] }
       }
     }
   ],
@@ -267,7 +267,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed"] },
         ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً"] },
-        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina\'s", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid"] }
+        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid"] }
       }
     },
     {
@@ -431,6 +431,7 @@ export const UI_TEXTS = {
     save: "Wijzigingen opslaan",
     edit: "Bewerken",
     delete: "Verwijderen",
+
     add: "Toevoegen",
     settings: "Instellingen",
     dashboard: "Dashboard",

@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-4 group cursor-pointer" onClick={() => { window.scrollTo({top: 0, behavior: 'smooth'}); setIsMobileMenuOpen(false); }}>
              <div className="relative">
                <div className="absolute -inset-1 ama-gradient rounded-full blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
-               <img src={config.logo} alt="Logo" className="relative h-12 w-12 md:h-14 md:w-14 rounded-full object-cover bg-black border border-white/20 shadow-lg" />
+               <img src={config.logo} alt="Logo" className="relative h-10 w-10 md:h-12 md:w-12 rounded-full object-cover bg-black border border-white/20 shadow-lg" />
              </div>
             <span className="text-xl md:text-3xl font-black tracking-tighter ama-text-gradient uppercase">
               {config.siteName}
