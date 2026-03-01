@@ -49,10 +49,10 @@ const MainContent: React.FC = () => {
       <main>
         <Hero />
         <Services />
-        <Team /> {/* إضافة قسم الفريق هنا */}
         <WebPricing />
         <Pricing />
         <Portfolio />
+        <Team />
         <Contact />
       </main>
       <Footer onAdminClick={() => setView('admin')} />
