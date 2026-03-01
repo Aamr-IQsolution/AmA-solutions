@@ -6,7 +6,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 
-const Footer: React.FC<{ onAdminClick: () => void }> = ({ onAdminClick }) => {
+const Footer: React.FC = () => {
   const { lang, config } = useApp();
   const footerData = config.footer[lang];
   

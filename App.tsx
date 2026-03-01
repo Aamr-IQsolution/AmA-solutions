@@ -3,23 +3,19 @@
  */
 import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
-import { UI_TEXTS } from './constants';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
-import Team from './components/Team'; // استيراد قسم الفريق
+import Team from './components/Team';
 import Portfolio from './components/Portfolio';
 import Pricing from './components/Pricing';
 import WebPricing from './components/WebPricing';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import AdminPanel from './pages/AdminPanel';
-import Login from './pages/Login';
 import LanguagePicker from './components/LanguagePicker';
 
 const MainContent: React.FC = () => {
-  const { lang, user } = useApp();
-  const [view, setView] = useState<'home' | 'admin'>('home');
+  const { lang } = useApp();
   const [showLangPicker, setShowLangPicker] = useState(true);
 
   useEffect(() => {
@@ -38,11 +34,6 @@ const MainContent: React.FC = () => {
     return <LanguagePicker onSelect={handleLangSelect} />;
   }
 
-  if (view === 'admin') {
-    if (!user) return <Login onBack={() => setView('home')} />;
-    return <AdminPanel onBack={() => setView('home')} />;
-  }
-
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -55,7 +46,7 @@ const MainContent: React.FC = () => {
         <Team />
         <Contact />
       </main>
-      <Footer onAdminClick={() => setView('admin')} />
+      <Footer />
     </div>
   );
 };
