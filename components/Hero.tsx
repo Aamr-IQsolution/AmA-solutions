@@ -50,10 +50,10 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-black/70 z-0"></div>
 
       {/* Background Glows (kept from original) */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[120px]"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-600/20 rounded-full blur-[120px]"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[120px] z-10"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-600/20 rounded-full blur-[120px] z-10"></div>
 
-      <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-20">
         <div className="inline-block px-4 py-1.5 mb-8 text-xs font-bold tracking-[0.2em] text-cyan-400 uppercase glass-card rounded-full border border-cyan-500/20">
           Digital Excellence Solution
         </div>

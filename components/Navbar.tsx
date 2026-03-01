@@ -1,166 +1,131 @@
-/**
- * مكون شريط التنقل (Navigation Bar).
- * يحتوي على شعار الموقع، روابط الانتقال السريع بين الأقسام، ومبدل اللغة مع الأعلام.
- * المكون متجاوب تماماً، حيث يظهر بشكل مختلف على الهواتف مع قائمة جانبية سهلة الاستخدام.
- */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { Language } from '../types';
 
 const Navbar: React.FC = () => {
-  const { lang, setLang, config } = useApp();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const t = UI_TEXTS[lang];
+  const { lang, config, setLang } = useApp();
+  const [isOpen, setIsOpen] = useState(false);
+  const texts = UI_TEXTS[lang];
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const navLinks = [
+    { id: 'home', text: texts.home },
+    { id: 'services', text: texts.services },
+    { id: 'team', text: texts.team },
+    { id: 'portfolio', text: texts.portfolio },
+    { id: 'web-pricing', text: texts.webPrices },
+    { id: 'pricing', text: texts.prices },
+    { id: 'contact', text: texts.contact },
+  ];
+
+  const LanguageSwitcher = () => {
+    const languages: { code: Language; name: string; flag: string }[] = [
+      { code: 'ar', name: 'AR', flag: '/assets/Flag_of_Saudi_Arabia.svg' },
+      { code: 'en', name: 'EN', flag: '/assets/gb.svg' },
+      { code: 'nl', name: 'NL', flag: '/assets/nl.svg' },
+    ];
+
+    return (
+      <div className="flex items-center space-x-2" dir="ltr">
+        {languages.map(l => (
+          <button
+            key={l.code}
+            onClick={() => {
+              setLang(l.code);
+            }}
+            className={`w-12 h-8 rounded-md bg-cover bg-center transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 shadow-lg ${
+              lang === l.code ? 'ring-2 ring-cyan-400' : 'opacity-70 hover:opacity-100'
+            }`}
+            style={{ backgroundImage: `url(${l.flag})` }}
+            aria-label={`Switch to ${l.name} language`}
+          />
+        ))}
+      </div>
+    );
+  };
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setIsOpen(false);
+    
     const element = document.getElementById(id);
     if (element) {
-      const yOffset = -80;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
+      const headerOffset = 80; // Navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-  const getFlagUrl = (l: Language) => {
-    switch (l) {
-      case 'ar': return 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg';
-      case 'en': return 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg';
-      case 'nl': return 'https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg';
-      default: return '';
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-      isMobileMenuOpen 
-      ? 'bg-[#050510] py-4 border-b border-white/10' 
-      : isScrolled 
-        ? 'bg-[#050510]/95 backdrop-blur-xl py-4 border-b border-white/10 shadow-2xl' 
-        : 'bg-[#050510] md:bg-transparent md:backdrop-blur-none py-5 md:py-8 border-b border-white/5 md:border-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-full">
-          {/* Logo Section */}
-          <div className="flex items-center gap-4 group cursor-pointer" onClick={() => { window.scrollTo({top: 0, behavior: 'smooth'}); setIsMobileMenuOpen(false); }}>
-             <div className="relative">
-               <div className="absolute -inset-1 ama-gradient rounded-full blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
-               <img src={config.logo} alt="Logo" className="relative h-10 w-10 md:h-12 md:w-12 rounded-full object-cover bg-black border border-white/20 shadow-lg" />
-             </div>
-            <span className="text-xl md:text-3xl font-black tracking-tighter ama-text-gradient uppercase">
-              {config.siteName}
-            </span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-30 backdrop-blur-lg border-b border-gray-800">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-20">
+          <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src={config.logo} alt={`${config.siteName} Logo`} className="h-12 w-12 rounded-full object-cover"/>
+            <span className="self-center text-2xl font-black text-white whitespace-nowrap">{config.siteName}</span>
+          </a>
+          
+          <div className="hidden lg:flex items-center space-x-8">
+            {/* Desktop Navigation Links */}
+            <nav className="flex items-center space-x-8">
+              {navLinks.map(link => (
+                <a 
+                  key={link.id} 
+                  href={`#${link.id}`}
+                  onClick={(e) => scrollToSection(e, link.id)}
+                  className="font-bold text-lg text-white hover:text-cyan-400 transition-colors duration-300"
+                >
+                  {link.text}
+                </a>
+              ))}
+            </nav>
+
+            {/* Desktop Language Switcher */}
+            <LanguageSwitcher />
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10 rtl:space-x-reverse">
-            {[
-              { id: 'services', label: t.services },
-              { id: 'portfolio', label: t.portfolio },
-              { id: 'prices', label: t.prices },
-              { id: 'contact', label: t.contact }
-            ].map((link) => (
-              <a 
-                key={link.id}
-                href={`#${link.id}`} 
-                onClick={(e) => scrollToSection(e, link.id)} 
-                className="relative text-gray-300 hover:text-white transition-all font-bold text-sm lg:text-base uppercase tracking-widest group py-2"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 ama-gradient transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Language Selector (Desktop) */}
-            <div className="relative hidden md:flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/20 shadow-sm">
-                <img 
-                  src={getFlagUrl(lang)} 
-                  className="w-full h-full object-cover" 
-                  alt="Flag"
-                />
-              </div>
-              <select 
-                value={lang} 
-                onChange={(e) => setLang(e.target.value as Language)}
-                className="appearance-none bg-white/5 border border-white/10 rounded-full px-5 py-2 text-xs lg:text-sm font-black text-white focus:ring-1 focus:ring-cyan-500 outline-none cursor-pointer uppercase transition-all hover:bg-white/10"
-              >
-                <option value="ar" className="bg-[#050510]">AR</option>
-                <option value="en" className="bg-[#050510]">EN</option>
-                <option value="nl" className="bg-[#050510]">NL</option>
-              </select>
-            </div>
-
-            {/* Mobile Menu Toggle */}
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 border border-white/20 text-white shadow-inner active:scale-90 transition-all"
-            >
-              <i className={`fa-solid ${isMobileMenuOpen ? 'fa-xmark' : 'fa-bars-staggered'} text-2xl`}></i>
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}></path>
+              </svg>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`md:hidden fixed inset-x-0 top-[75px] bg-[#050510] border-b border-white/10 overflow-hidden transition-all duration-500 ease-in-out ${
-        isMobileMenuOpen ? 'max-h-screen opacity-100 shadow-[0_20px_40px_rgba(0,0,0,0.8)]' : 'max-h-0 opacity-0'
-      }`}>
-        <div className="p-8 flex flex-col space-y-5">
-          {[
-            { id: 'services', label: t.services, icon: 'fa-briefcase' },
-            { id: 'portfolio', label: t.portfolio, icon: 'fa-images' },
-            { id: 'prices', label: t.prices, icon: 'fa-tags' },
-            { id: 'contact', label: t.contact, icon: 'fa-paper-plane' }
-          ].map((link) => (
-            <a 
-              key={link.id}
-              href={`#${link.id}`}
-              onClick={(e) => scrollToSection(e, link.id)}
-              className="flex items-center gap-5 text-gray-200 hover:text-white font-black text-sm uppercase tracking-widest py-5 px-6 rounded-2xl bg-white/5 border border-white/5 transition-all active:bg-white/10 shadow-sm"
-            >
-              <i className={`fa-solid ${link.icon} w-8 text-cyan-400 text-xl`}></i>
-              {link.label}
-            </a>
-          ))}
-          
-          <div className="pt-8 mt-4 border-t border-white/10 flex flex-col gap-6">
-            <div className="flex items-center justify-between px-2">
-               <span className="text-xs font-black uppercase tracking-[0.2em] text-gray-500">اللغة / Language</span>
-               <div className="flex gap-3">
-                 {[
-                   { code: 'ar', flag: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg' },
-                   { code: 'en', flag: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg' },
-                   { code: 'nl', flag: 'https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg' }
-                 ].map((l) => (
-                   <button 
-                    key={l.code}
-                    onClick={() => { setLang(l.code as Language); setIsMobileMenuOpen(false); }}
-                    className={`flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${
-                      lang === l.code ? 'ama-gradient border-transparent shadow-lg shadow-cyan-500/20' : 'bg-white/5 border-white/10'
-                    }`}
-                   >
-                     <img src={l.flag} className="w-10 h-10 rounded-full object-cover border border-white/10" alt={l.code} />
-                     <span className={`text-[10px] font-black uppercase ${lang === l.code ? 'text-black' : 'text-gray-400'}`}>{l.code}</span>
-                   </button>
-                 ))}
-               </div>
-            </div>
+      {/* Mobile Menu (collapsible) */}
+      {isOpen && (
+        <div className="lg:hidden bg-gray-900 bg-opacity-90">
+          <div className="flex flex-col items-center py-6 space-y-5">
+            {/* Mobile Navigation Links */}
+            <nav className="flex flex-col items-center space-y-5">
+              {navLinks.map(link => (
+                <a 
+                  key={link.id} 
+                  href={`#${link.id}`}
+                  onClick={(e) => scrollToSection(e, link.id)}
+                  className="font-bold text-xl text-white hover:text-cyan-400 transition-colors duration-300"
+                >
+                  {link.text}
+                </a>
+              ))}
+            </nav>
+            
+            <hr className="w-2/3 border-gray-700 my-2" />
+
+            {/* Mobile Language Switcher */}
+            <LanguageSwitcher />
           </div>
         </div>
-      </div>
-    </nav>
+      )}
+    </header>
   );
 };
 

@@ -7,9 +7,10 @@ import { UI_TEXTS } from './constants';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import Team from './components/Team'; // استيراد قسم الفريق
 import Portfolio from './components/Portfolio';
 import Pricing from './components/Pricing';
-import WebPricing from './components/WebPricing'; // استيراد القسم الجديد
+import WebPricing from './components/WebPricing';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminPanel from './pages/AdminPanel';
@@ -48,8 +49,9 @@ const MainContent: React.FC = () => {
       <main>
         <Hero />
         <Services />
-        <WebPricing /> {/* القسم الجديد الخاص بأسعار المواقع */}
-        <Pricing /> {/* القسم العام (أصبح الآن للتسويق الرقمي) */}
+        <Team /> {/* إضافة قسم الفريق هنا */}
+        <WebPricing />
+        <Pricing />
         <Portfolio />
         <Contact />
       </main>

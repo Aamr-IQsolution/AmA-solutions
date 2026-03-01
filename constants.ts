@@ -11,8 +11,8 @@ export const INITIAL_CONFIG: SiteConfig = {
   socials: [
     { id: '1', platform: 'Instagram', icon: 'fa-instagram', link: 'https://instagram.com' },
     { id: '2', platform: 'Facebook', icon: 'fa-facebook', link: 'https://facebook.com' },
-    { id: '3', platform: 'LinkedIn', icon: 'fa-linkedin', link: 'https://linkedin.com' },
-    { id: '4', platform: 'GitHub', icon: 'fa-github', link: 'https://github.com' },
+    { id: '3', platform: 'LinkedIn', icon: 'fa-linkedin', link: 'https://www.linkedin.com/in/aamr-alawad-35444b361' },
+    { id: '4', platform: 'GitHub', icon: 'fa-github', link: 'https://github.com/Aamr-IQsolution' },
   ],
   hero: {
     en: { 
@@ -47,6 +47,11 @@ export const INITIAL_CONFIG: SiteConfig = {
     en: { title: "Web Design Pricing", highlight: "Web Design", description: "Professional high-end development for modern businesses." },
     ar: { title: "أسعار تصميم المواقع", highlight: "تصميم المواقع", description: "تطوير احترافي وحلول ذكية للشركات العصرية بأسعار تنافسية." },
     nl: { title: "Webdesign Prijzen", highlight: "Webdesign", description: "Professionele hoogwaardige ontwikkeling voor moderne bedrijven." }
+  },
+  teamHeader: {
+    en: { title: "Meet Our Experts", highlight: "Experts" },
+    ar: { title: "تعرف على خبرائنا", highlight: "خبرائنا" },
+    nl: { title: "Ontmoet Onze Experts", highlight: "Experts" }
   },
   footer: {
     en: { copyright: "All rights reserved", credits: "Designed & Developed by axonxcode" },
@@ -181,6 +186,29 @@ export const INITIAL_CONFIG: SiteConfig = {
       }
     }
   ],
+  team: [
+    {
+      id: "t1",
+      image: "/assets/profile-aamr.png",
+      translations: {
+        en: {
+          name: "Aamr Al-Awwad",
+          title: "Software Engineer & Digital Marketer",
+          bio: "A software engineer specializing in building integrated digital solutions. I combine code precision with digital marketing professionalism. I turn ideas into smart applications and manage your social media presence to ensure your brand's growth."
+        },
+        ar: {
+          name: "عامر العواد",
+          title: "مهندس برمجيات ومسوق رقمي",
+          bio: "مهندس برمجيات متخصص في بناء الحلول الرقمية المتكاملة، أجمع بين دقة الكود واحترافية التسويق الرقمي. أحول الأفكار إلى تطبيقات ذكية وادير حضورك على السوشيال ميديا لضمان نمو علامتك التجارية."
+        },
+        nl: {
+          name: "Aamr Al-Awwad",
+          title: "Software Engineer & Digitale Marketeer",
+          bio: "Een software engineer gespecialiseerd in het bouwen van geïntegreerde digitale oplossingen. Ik combineer code-precisie met professionaliteit in digitale marketing. Ik zet ideeën om in slimme applicaties en beheer uw aanwezigheid op sociale media om de groei van uw merk te garanderen."
+        }
+      }
+    }
+  ],
   portfolio: [
     {
       id: "p1",
@@ -309,6 +337,7 @@ export const UI_TEXTS = {
     services: "Services",
     portfolio: "Works",
     prices: "Pricing",
+    team: "Our Team",
     webPrices: "Web Development",
     contact: "Contact Us",
     admin: "Dashboard",
@@ -376,6 +405,7 @@ export const UI_TEXTS = {
     services: "خدماتنا",
     portfolio: "أعمالنا",
     prices: "أسعار التسويق",
+    team: "فريقنا",
     webPrices: "أسعار المواقع",
     contact: "تواصل معنا",
     admin: "لوحة التحكم",
@@ -443,6 +473,7 @@ export const UI_TEXTS = {
     services: "Diensten",
     portfolio: "Werken",
     prices: "Marketing Prijzen",
+    team: "Ons Team",
     webPrices: "Web Prijzen",
     contact: "Contact",
     admin: "Beheer",
