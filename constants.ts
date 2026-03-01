@@ -4,7 +4,7 @@
 import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
-  siteName: "axonxcode",
+  siteName: "axonXcode",
   logo: "/assets/axonxcode-ronded.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
@@ -17,15 +17,15 @@ export const INITIAL_CONFIG: SiteConfig = {
   hero: {
     en: { 
       title: "Connect. Create. Engage.", 
-      subtitle: '"AxonXcode: We turn digital visions into tangible reality." We specialize in building smartphone applications and websites that combine programming intelligence (Axon) and precision in execution (Xcode).' 
+      subtitle: '"axonXcode: We turn digital visions into tangible reality." We specialize in building smartphone applications and websites that combine programming intelligence (Axon) and precision in execution (Xcode).' 
     },
     ar: { 
       title: "تواصل. ابتكار. تفاعل.", 
-      subtitle: '"AxonXcode: نحول الرؤى الرقمية إلى واقع ملموس." نحن متخصصون في بناء تطبيقات الهواتف الذكية والمواقع الإلكترونية التي تجمع بين الذكاء البرمجي (Axon) والدقة في التنفيذ (Xcode).' 
+      subtitle: '"axonXcode: نحول الرؤى الرقمية إلى واقع ملموس." نحن متخصصون في بناء تطبيقات الهواتف الذكية والمواقع الإلكترونية التي تجمع بين الذكاء البرمجي (Axon) والدقة في التنفيذ (Xcode).' 
     },
     nl: { 
       title: "Verbind. Creëer. Betrek.", 
-      subtitle: '"AxonXcode: Wij zetten digitale visies om in tastbare realiteit." Wij zijn gespecialiseerd in het bouwen van smartphoneapplicaties en websites die programmeerintelligentie (Axon) en precisie in uitvoering (Xcode) combineren.' 
+      subtitle: '"axonXcode: Wij zetten digitale visies om in tastbare realiteit." Wij zijn gespecialiseerd in het bouwen van smartphoneapplicaties en websites die programmeerintelligentie (Axon) en precisie in uitvoering (Xcode) combineren.' 
     }
   },
   servicesHeader: {
@@ -54,9 +54,9 @@ export const INITIAL_CONFIG: SiteConfig = {
     nl: { title: "Ontmoet Onze Experts", highlight: "Experts" }
   },
   footer: {
-    en: { copyright: "All rights reserved", credits: "Designed & Developed by axonxcode" },
-    ar: { copyright: "جميع الحقوق محفوظة", credits: "تصميم وتطوير فريق axonxcode" },
-    nl: { copyright: "Alle rechten voorbehouden", credits: "Ontworpen en ontwikkeld door axonxcode" }
+    en: { copyright: "All rights reserved", credits: "Designed & Developed by axonXcode" },
+    ar: { copyright: "جميع الحقوق محفوظة", credits: "تصميم وتطوير فريق axonXcode" },
+    nl: { copyright: "Alle rechten voorbehouden", credits: "Ontworpen en ontwikkeld door axonXcode" }
   },
   services: [
     {
@@ -249,9 +249,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       category: "Web Design",
       link: "",
       translations: {
-        en: { title: "Website Design", description: "axonxcode - Basic/Informational/Contact/Service Website" },
-        ar: { title: "تصميم موقع", description: "axonxcode - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
-        nl: { title: "Website Ontwerp", description: "axonxcode - Basis/Informatieve/Contact/Diensten Website" }
+        en: { title: "Website Design", description: "axonXcode - Basic/Informational/Contact/Service Website" },
+        ar: { title: "تصميم موقع", description: "axonXcode - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
+        nl: { title: "Website Ontwerp", description: "axonXcode - Basis/Informatieve/Contact/Diensten Website" }
       }
     }
   ],

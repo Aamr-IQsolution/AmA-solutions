@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { Language } from '../types';
@@ -7,6 +7,21 @@ const Navbar: React.FC = () => {
   const { lang, config, setLang } = useApp();
   const [isOpen, setIsOpen] = useState(false);
   const texts = UI_TEXTS[lang];
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const navLinks = [
     { id: 'home', text: texts.home },
@@ -68,12 +83,12 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-30 backdrop-blur-lg border-b border-gray-800">
+    <header ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-30 backdrop-blur-lg border-b border-gray-800">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src={config.logo} alt={`${config.siteName} Logo`} className="h-12 w-12 rounded-full object-cover"/>
-            <span className="self-center text-2xl font-black text-white whitespace-nowrap">{config.siteName}</span>
+            <span className="self-center text-2xl font-black text-white whitespace-nowrap ama-text-gradient">{config.siteName}</span>
           </a>
           
           <div className="hidden lg:flex items-center space-x-8">
@@ -107,30 +122,28 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu (collapsible) */}
-      {isOpen && (
-        <div className="lg:hidden bg-gray-900 bg-opacity-90">
-          <div className="flex flex-col items-center py-6 space-y-5">
-            {/* Mobile Navigation Links */}
-            <nav className="flex flex-col items-center space-y-5">
-              {navLinks.map(link => (
-                <a 
-                  key={link.id} 
-                  href={`#${link.id}`}
-                  onClick={(e) => scrollToSection(e, link.id)}
-                  className="font-bold text-xl text-white hover:text-cyan-400 transition-colors duration-300"
-                >
-                  {link.text}
-                </a>
-              ))}
-            </nav>
-            
-            <hr className="w-2/3 border-gray-700 my-2" />
+      <div className={`lg:hidden bg-gray-900 bg-opacity-90 overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 invisible'}`}>
+        <div className="flex flex-col items-center py-6 space-y-5">
+          {/* Mobile Navigation Links */}
+          <nav className="flex flex-col items-center space-y-5">
+            {navLinks.map(link => (
+              <a 
+                key={link.id} 
+                href={`#${link.id}`}
+                onClick={(e) => scrollToSection(e, link.id)}
+                className="font-bold text-xl text-white hover:text-cyan-400 transition-colors duration-300"
+              >
+                {link.text}
+              </a>
+            ))}
+          </nav>
+          
+          <hr className="w-2/3 border-gray-700 my-2" />
 
-            {/* Mobile Language Switcher */}
-            <LanguageSwitcher />
-          </div>
+          {/* Mobile Language Switcher */}
+          <LanguageSwitcher />
         </div>
-      )}
+      </div>
     </header>
   );
 };
