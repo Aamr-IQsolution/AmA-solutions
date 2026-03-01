@@ -23,18 +23,21 @@ const LanguagePicker: React.FC<LanguagePickerProps> = ({ onSelect }) => {
   const languages = [
     { 
       code: 'ar' as Language, 
+      name: 'AR',
       label: 'العربية', 
       sub: 'أهلاً بك في عالم الإبداع الرقمي', 
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg' 
+      flag: '/assets/sy.svg' 
     },
     { 
       code: 'en' as Language, 
+      name: 'EN',
       label: 'English', 
       sub: 'Welcome to digital excellence', 
       flag: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg' 
     },
     { 
       code: 'nl' as Language, 
+      name: 'NL',
       label: 'Nederlands', 
       sub: 'Welkom bij digitale uitmuntendheid', 
       flag: 'https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg' 
@@ -70,8 +73,13 @@ const LanguagePicker: React.FC<LanguagePickerProps> = ({ onSelect }) => {
               style={{ animationDelay: `${idx * 150}ms` }}
             >
               <div className="flex flex-col items-center gap-4 md:gap-6">
-                <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white/10 group-hover:border-cyan-400 transition-colors shadow-xl bg-black/20">
+                <div className="relative w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white/10 group-hover:border-cyan-400 transition-colors shadow-xl bg-black/20">
                   <img src={lang.flag} alt={lang.label} className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-white font-black text-xl md:text-2xl tracking-widest" style={{ textShadow: '0 0 8px rgba(0,0,0,0.9)' }}>
+                      {lang.name}
+                    </span>
+                  </div>
                 </div>
                 <div className="text-center">
                   <h3 className="text-xl md:text-2xl font-black text-white mb-2 group-hover:ama-text-gradient transition-colors">

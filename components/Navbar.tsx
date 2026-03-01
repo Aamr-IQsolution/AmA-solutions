@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
 
   const LanguageSwitcher = () => {
     const languages: { code: Language; name: string; flag: string }[] = [
-      { code: 'ar', name: 'AR', flag: '/assets/Flag_of_Saudi_Arabia.svg' },
+      { code: 'ar', name: 'AR', flag: '/assets/sy.svg' },
       { code: 'en', name: 'EN', flag: '/assets/gb.svg' },
       { code: 'nl', name: 'NL', flag: '/assets/nl.svg' },
     ];
@@ -33,12 +33,18 @@ const Navbar: React.FC = () => {
             onClick={() => {
               setLang(l.code);
             }}
-            className={`w-12 h-8 rounded-md bg-cover bg-center transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 shadow-lg ${
+            className={`relative w-12 h-8 rounded-md bg-cover bg-center transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 shadow-lg ${
               lang === l.code ? 'ring-2 ring-cyan-400' : 'opacity-70 hover:opacity-100'
             }`}
             style={{ backgroundImage: `url(${l.flag})` }}
             aria-label={`Switch to ${l.name} language`}
-          />
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <span className="text-white font-black text-sm tracking-widest" style={{ textShadow: '0 0 5px rgba(0,0,0,0.7)' }}>
+                {l.name}
+              </span>
+            </div>
+          </button>
         ))}
       </div>
     );
