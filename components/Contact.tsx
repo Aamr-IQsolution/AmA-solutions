@@ -26,7 +26,7 @@ const Contact: React.FC = () => {
     e.preventDefault();
     const subject = encodeURIComponent(`New Project Inquiry from ${formData.name}`);
     const body = encodeURIComponent(
-      `Hello AmA Team,\n\nI am interested in your services.\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      `Hello ${config.siteName} Team,\n\nI am interested in your services.\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
     );
     window.location.href = `mailto:${config.contactEmail}?subject=${subject}&body=${body}`;
     setContactMessage('');

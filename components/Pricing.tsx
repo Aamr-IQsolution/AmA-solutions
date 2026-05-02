@@ -37,14 +37,15 @@ const Pricing: React.FC = () => {
   const handleOrder = (plan: Plan) => {
     const planName = plan.translations[lang].name;
     const price = `${t.currency}${plan.price}`;
+    const brand = config.siteName;
 
     let message = '';
     if (lang === 'ar') {
-      message = `مرحباً فريق AmA-DigitAdmiral،\nأنا مهتم بطلب باقة التسويق: "${planName}" بسعر ${price}.\nيرجى التواصل معي لمناقشة التفاصيل.`;
+      message = `مرحباً فريق ${brand}،\nأنا مهتم بطلب باقة التسويق: "${planName}" بسعر ${price}.\nيرجى التواصل معي لمناقشة التفاصيل.`;
     } else if (lang === 'nl') {
-      message = `Hallo AmA-DigitAdmiral-team,\nIk ben geïnteresseerd in het bestellen van het marketingpakket: "${planName}" voor ${price}.\nNeem contact met mij op om de details te bespreken.`;
+      message = `Hallo ${brand}-team,\nIk ben geïnteresseerd in het marketingpakket: "${planName}" voor ${price}.\nNeem contact met mij op om de details te bespreken.`;
     } else {
-      message = `Hello AmA-DigitAdmiral Team,\nI am interested in ordering the Marketing Package: "${planName}" for ${price}.\nPlease contact me to discuss the details.`;
+      message = `Hello ${brand} Team,\nI am interested in the marketing package: "${planName}" for ${price}.\nPlease contact me to discuss the details.`;
     }
 
     setContactMessage(message);

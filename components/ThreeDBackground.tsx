@@ -2,41 +2,35 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export interface ThreeDBackgroundProps {
-  mode?: 'global' | 'section';
-  /** Scales time-based rotation; baseline reference 0.12. Example: 0.0005 = very slow hero. */
+  /** Scales time-based rotation; baseline 0.12. Example: 0.0005 = very slow. */
   speed?: number;
   scrollReact?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
 
+/**
+ * خلفية WebGL داخل حاوية Hero — حجم الحاوية يحدد أبعاد الـ canvas (ليست full-viewport).
+ */
 const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
-  mode = 'global',
   speed,
-  scrollReact,
+  scrollReact = false,
   className,
   style,
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const effectiveScroll = scrollReact ?? mode === 'global';
   const timeScale = speed !== undefined ? speed / 0.12 : 1;
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const host = wrapRef.current;
+    if (!canvas || !host) return;
 
-    const isSection = mode === 'section';
-    const host = isSection ? wrapRef.current : null;
-
-    const getSize = () => {
-      if (isSection && host) {
-        const w = Math.max(1, host.clientWidth);
-        const h = Math.max(1, host.clientHeight);
-        return { w, h };
-      }
-      return { w: window.innerWidth, h: window.innerHeight };
-    };
+    const getSize = () => ({
+      w: Math.max(1, host.clientWidth),
+      h: Math.max(1, host.clientHeight),
+    });
 
     const { w: initW, h: initH } = getSize();
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -63,12 +57,22 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     scene.add(mesh);
 
     const wireGeo = new THREE.IcosahedronGeometry(1.62, 1);
-    const wireMat = new THREE.MeshBasicMaterial({ color: 0x00f5d4, wireframe: true, transparent: true, opacity: 0.35 });
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0x00f5d4,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35,
+    });
     const wire = new THREE.Mesh(wireGeo, wireMat);
     scene.add(wire);
 
     const coreGeo = new THREE.IcosahedronGeometry(0.85, 0);
-    const coreMat = new THREE.MeshBasicMaterial({ color: 0x7b2fff, wireframe: true, transparent: true, opacity: 0.5 });
+    const coreMat = new THREE.MeshBasicMaterial({
+      color: 0x7b2fff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.5,
+    });
     const core = new THREE.Mesh(coreGeo, coreMat);
     scene.add(core);
 
@@ -97,7 +101,13 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     }
     const partGeo = new THREE.BufferGeometry();
     partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const partMat = new THREE.PointsMaterial({ color: 0x00f5d4, size: 0.022, transparent: true, opacity: 0.7, sizeAttenuation: true });
+    const partMat = new THREE.PointsMaterial({
+      color: 0x00f5d4,
+      size: 0.022,
+      transparent: true,
+      opacity: 0.7,
+      sizeAttenuation: true,
+    });
     const particles = new THREE.Points(partGeo, partMat);
     scene.add(particles);
 
@@ -121,7 +131,7 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
       const total = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress = total > 0 ? window.scrollY / total : 0;
     };
-    if (effectiveScroll) {
+    if (scrollReact) {
       window.addEventListener('scroll', handleScroll);
     }
 
@@ -133,7 +143,7 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
       animationFrameId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime() * timeScale;
 
-      if (effectiveScroll) {
+      if (scrollReact) {
         smoothScroll += (scrollProgress - smoothScroll) * 0.06;
       } else {
         smoothScroll += (0 - smoothScroll) * 0.12;
@@ -172,8 +182,7 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
       light2.position.z = -4 * Math.sin(t * 0.4 + 1);
 
       const hue = (t * 30) % 360;
-      const c = new THREE.Color(`hsl(${hue}, 100%, 60%)`);
-      wireMat.color = c;
+      wireMat.color = new THREE.Color(`hsl(${hue}, 100%, 60%)`);
 
       camera.position.x = Math.sin(t * 0.15) * 0.4;
       camera.position.y = Math.cos(t * 0.12) * 0.25 - s * 0.6;
@@ -191,21 +200,16 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     };
 
     window.addEventListener('resize', handleResize);
-    const ro =
-      isSection && host
-        ? new ResizeObserver(() => {
-            handleResize();
-          })
-        : null;
-    if (ro && host) ro.observe(host);
+    const ro = new ResizeObserver(handleResize);
+    ro.observe(host);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (effectiveScroll) {
+      if (scrollReact) {
         window.removeEventListener('scroll', handleScroll);
       }
       window.removeEventListener('resize', handleResize);
-      ro?.disconnect();
+      ro.disconnect();
 
       geoMain.dispose();
       matMain.dispose();
@@ -223,33 +227,23 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
       scene.remove(mesh, wire, core, ring, ring2, particles, ambient, light1, light2, light3);
       renderer.dispose();
     };
-  }, [mode, timeScale, effectiveScroll]);
-
-  if (mode === 'section') {
-    return (
-      <div
-        ref={wrapRef}
-        className={className}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
-          overflow: 'hidden',
-          ...style,
-        }}
-      >
-        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
-      </div>
-    );
-  }
+  }, [timeScale, scrollReact]);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      ref={wrapRef}
       className={className}
-      style={{ position: 'fixed', top: 0, left: 0, zIndex: -2, pointerEvents: 'none', ...style }}
-    />
+      style={{
+        position: 'absolute',
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+        overflow: 'hidden',
+        ...style,
+      }}
+    >
+      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+    </div>
   );
 };
 

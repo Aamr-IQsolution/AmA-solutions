@@ -1,13 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&display=swap');
+/**
+ * أنماط عامة للتطبيق — التوجيه والانتقال وشريط التمرير.
+ * ألوان المكونات وبطاقات الـ glass تُعرَّف في styles/theme.css تحت .new-design-wrapper
+ */
 
 :root {
-  --ink: #f5f7ff;
-  --muted: #98a2b3;
-  --surface: rgba(255, 255, 255, 0.05);
+  --app-brand-start: #3b7cb8;
+  --app-brand-end: #2d5f8f;
+  --app-bg: #f8f9fa;
+  --app-text: #111111;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Outfit', 'Inter', sans-serif;
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  overflow-x: hidden;
+}
+
+[dir='rtl'] {
+  font-family: 'Cairo', 'Inter', sans-serif;
+}
+
+section {
+  scroll-margin-top: 100px;
 }
 
 .page-stack {
@@ -27,32 +47,15 @@ body {
   }
 }
 
-.page-hero-shell {
-  position: relative;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.page-hero-card {
-  background:
-    linear-gradient(130deg, rgba(8, 13, 28, 0.95), rgba(18, 24, 46, 0.82)),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.08), rgba(244, 114, 182, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 24px 80px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+::-webkit-scrollbar-track {
+  background: #e9ecef;
 }
 
-.page-eyebrow {
-  color: #67e8f9;
-}
-
-.home-link-card {
-  background: linear-gradient(160deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.58));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-}
-
-.home-link-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(34, 211, 238, 0.55);
-  box-shadow: 0 20px 42px rgba(6, 182, 212, 0.14);
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--app-brand-start), var(--app-brand-end));
+  border-radius: 10px;
 }

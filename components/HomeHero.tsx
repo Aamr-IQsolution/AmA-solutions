@@ -12,7 +12,7 @@ const HomeHero: React.FC = () => {
 
   return (
     <section className={styles.section} aria-label="Hero">
-      <ThreeDBackground mode="section" speed={0.0005} scrollReact={false} style={{ opacity: 0.3 }} />
+      <ThreeDBackground speed={0.0005} scrollReact={false} style={{ opacity: 0.3 }} />
       <div className={styles.inner}>
         <div className={`${styles.layout} ${isRTL ? styles.rtl : ''}`}>
           <div className={styles.colText}>

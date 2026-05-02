@@ -5,9 +5,9 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import SectionHeader from './SectionHeader';
 import styles from './Team.module.css';
-import type { SectionContent } from '../types';
+import type { Language, SectionContent } from '../types';
 
-const emptyHeader: Record<'en' | 'ar' | 'nl', SectionContent> = {
+const emptyHeader: Record<Language, SectionContent> = {
   en: { title: '', highlight: '' },
   ar: { title: '', highlight: '' },
   nl: { title: '', highlight: '' },

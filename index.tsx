@@ -1,8 +1,7 @@
 /**
- * هذا الملف هو نقطة انطلاق التطبيق (Entry Point).
- * يقوم بتهيئة مكتبة React وربط المكون الرئيسي (App) بعنصر HTML الأساسي في الصفحة،
- * كما يضمن تحميل التطبيق بشكل صحيح داخل المتصفح.
+ * نقطة انطلاق التطبيق — يُستورد CSS العام هنا لضمان تضمينه في الـ bundle (Vite).
  */
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';

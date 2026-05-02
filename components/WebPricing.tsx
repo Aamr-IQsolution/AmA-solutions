@@ -37,14 +37,15 @@ const WebPricing: React.FC = () => {
   const handleStartProject = (plan: Plan) => {
     const planName = plan.translations[lang].name;
     const price = `${t.currency}${plan.price}`;
+    const brand = config.siteName;
 
     let message = '';
     if (lang === 'ar') {
-      message = `مرحباً فريق AmA-DigitAdmiral،\nأود بدء مشروع ويب جديد باختيار باقة: "${planName}" بسعر ${price}.\nيرجى التواصل معي لتزويدكم بالمتطلبات.`;
+      message = `مرحباً فريق ${brand}،\nأود بدء مشروع ويب جديد باختيار باقة: "${planName}" بسعر ${price}.\nيرجى التواصل معي لتزويدكم بالمتطلبات.`;
     } else if (lang === 'nl') {
-      message = `Hallo AmA-DigitAdmiral-team,\nIk wil graag een nieuw webproject starten met het pakket: "${planName}" voor ${price}.\nNeem contact met mij op voor de vereisten.`;
+      message = `Hallo ${brand}-team,\nIk wil graag een nieuw webproject starten met het pakket: "${planName}" voor ${price}.\nNeem contact met mij op voor de vereisten.`;
     } else {
-      message = `Hello AmA-DigitAdmiral Team,\nI would like to start a new web project by choosing the package: "${planName}" for ${price}.\nPlease contact me to provide you with the requirements.`;
+      message = `Hello ${brand} Team,\nI would like to start a new web project with the package: "${planName}" for ${price}.\nPlease contact me with the requirements.`;
     }
 
     setContactMessage(message);
