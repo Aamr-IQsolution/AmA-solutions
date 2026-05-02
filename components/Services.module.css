@@ -1,0 +1,182 @@
+.sectionHome {
+  padding: 40px 20px;
+  background: var(--ax-bg-muted);
+  position: relative;
+}
+
+.innerHome {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.headHome {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.titleHome {
+  font-size: var(--ax-font-h2);
+  font-weight: 500;
+  color: var(--ax-black);
+  margin: 0 0 12px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.highlightHome {
+  color: var(--ax-primary);
+}
+
+.ruleHome {
+  width: 64px;
+  height: 3px;
+  background: var(--ax-primary);
+  border-radius: 999px;
+  margin: 0 auto;
+  opacity: 0.5;
+}
+
+.gridHome {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .gridHome {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gridHome {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.cardHome {
+  background: var(--ax-glass-bg);
+  backdrop-filter: var(--ax-glass-blur);
+  -webkit-backdrop-filter: var(--ax-glass-blur);
+  border: 0.5px solid var(--ax-border);
+  border-radius: var(--ax-radius-lg);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.cardHome:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ax-shadow-glass);
+}
+
+.cardHomeOpen {
+  box-shadow: var(--ax-shadow-glass);
+}
+
+.iconHome {
+  width: 48px;
+  height: 48px;
+  background: rgba(59, 124, 184, 0.1);
+  border-radius: var(--ax-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  color: var(--ax-primary);
+}
+
+.iconHome i {
+  font-size: 22px;
+}
+
+.nameHome {
+  font-size: var(--ax-font-h3);
+  font-weight: 500;
+  color: var(--ax-black);
+  margin: 0 0 10px;
+}
+
+.descHome {
+  font-size: 13px;
+  color: var(--ax-text-muted);
+  line-height: 1.5;
+  margin: 0 0 16px;
+  flex: 1 1 auto;
+}
+
+.expertToggle {
+  border-top: 0.5px solid var(--ax-border);
+  padding-top: 14px;
+  margin-top: auto;
+}
+
+.toggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: start;
+}
+
+.toggleLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ax-primary);
+}
+
+.chevron {
+  font-size: 10px;
+  color: var(--ax-primary);
+  transition: transform 0.3s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.detailsShell {
+  overflow: hidden;
+  transition: max-height 0.45s ease, opacity 0.35s ease;
+}
+
+.detailsShellOpen {
+  max-height: 320px;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+.detailsShellClosed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.panelHome {
+  padding: 14px;
+  background: rgba(59, 124, 184, 0.06);
+  border-radius: var(--ax-radius-md);
+  border: 0.5px solid var(--ax-stats-border);
+  font-size: 13px;
+  color: var(--ax-text-body);
+  line-height: 1.5;
+}
+
+.panelRule {
+  width: 32px;
+  height: 2px;
+  background: var(--ax-primary);
+  border-radius: 999px;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}

@@ -52,6 +52,50 @@ export interface SocialChannel {
   link: string;
 }
 
+export interface HomeStats {
+  projects: number;
+  clients: number;
+  translations: Record<Language, { projectsLabel: string; clientsLabel: string }>;
+}
+
+export interface TestimonialEntry {
+  initials: string;
+  translations: Record<Language, { name: string; role: string; quote: string }>;
+}
+
+export interface FaqEntry {
+  translations: Record<Language, { question: string; answer: string }>;
+}
+
+export interface HomeSectionCopy {
+  pricing: Record<Language, {
+    titleBefore: string;
+    titleHighlight: string;
+    titleAfter: string;
+    subtitle: string;
+    seeAll: string;
+    popularBadge: string;
+    orderNow: string;
+  }>;
+  testimonials: Record<Language, {
+    titleBefore: string;
+    titleHighlight: string;
+    titleAfter: string;
+  }>;
+  faq: Record<Language, {
+    titleBefore: string;
+    titleHighlight: string;
+    titleAfter: string;
+  }>;
+  cta: Record<Language, { title: string; subtitle: string; button: string }>;
+}
+
+export interface TeamMember {
+  id: string;
+  image: string;
+  translations: Record<Language, { name: string; title: string; bio: string }>;
+}
+
 export interface SiteConfig {
   siteName: string;
   logo: string;
@@ -59,12 +103,18 @@ export interface SiteConfig {
   phone: string;
   socials: SocialChannel[];
   hero: Record<Language, { title: string; subtitle: string }>;
+  stats: HomeStats;
+  testimonials: TestimonialEntry[];
+  faqs: FaqEntry[];
+  homeSectionCopy: HomeSectionCopy;
   servicesHeader: Record<Language, SectionContent>;
   portfolioHeader: Record<Language, SectionContent>;
   pricingHeader: Record<Language, SectionContent>;
   webPricingHeader: Record<Language, SectionContent>;
+  teamHeader: Record<Language, SectionContent>;
   footer: Record<Language, { copyright: string; credits: string }>;
   services: Service[];
+  team: TeamMember[];
   portfolio: Project[];
   plans: Plan[];
   webPlans: Plan[];

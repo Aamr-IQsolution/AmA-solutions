@@ -2,20 +2,21 @@
  * المكون الرئيسي للتطبيق (Root Component).
  */
 import React, { useState, useEffect } from 'react';
-import { AppProvider, useApp } from './context/AppContext';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Team from './components/Team';
-import Portfolio from './components/Portfolio';
-import Pricing from './components/Pricing';
-import WebPricing from './components/WebPricing';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import LanguagePicker from './components/LanguagePicker';
+import HomePage from './pages/HomePage';
+import ServicesPage from './pages/ServicesPage';
+import TeamPage from './pages/TeamPage';
+import PortfolioPage from './pages/PortfolioPage';
+import WebPricingPage from './pages/WebPricingPage';
+import MarketingPricingPage from './pages/MarketingPricingPage';
+import ContactPage from './pages/ContactPage';
 
-const MainContent: React.FC = () => {
-  const { lang } = useApp();
+const AppLayout: React.FC = () => {
+  const location = useLocation();
   const [showLangPicker, setShowLangPicker] = useState(true);
 
   useEffect(() => {
@@ -37,14 +38,19 @@ const MainContent: React.FC = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main>
-        <Hero />
-        <Services />
-        <WebPricing />
-        <Pricing />
-        <Portfolio />
-        <Team />
-        <Contact />
+      <main className="page-stack">
+        <div key={location.pathname} className="page-route-fade">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/team" element={<TeamPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/web-pricing" element={<WebPricingPage />} />
+            <Route path="/pricing" element={<MarketingPricingPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
     </div>
@@ -54,7 +60,9 @@ const MainContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <AppProvider>
-      <MainContent />
+      <BrowserRouter>
+        <AppLayout />
+      </BrowserRouter>
     </AppProvider>
   );
 };

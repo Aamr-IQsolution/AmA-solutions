@@ -1,0 +1,44 @@
+.section {
+  background: var(--ax-bg-muted);
+  padding: 32px 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    max-width: 960px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+.card {
+  background: var(--ax-stats-bg);
+  backdrop-filter: var(--ax-glass-blur);
+  -webkit-backdrop-filter: var(--ax-glass-blur);
+  border: 0.5px solid var(--ax-stats-border);
+  border-radius: var(--ax-radius-lg);
+  padding: 20px;
+  text-align: center;
+}
+
+.value {
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--ax-primary);
+  margin: 0 0 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--ax-text-muted);
+  margin: 0;
+}

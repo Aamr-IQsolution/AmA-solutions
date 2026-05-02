@@ -1,23 +1,53 @@
-
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const ThreeDBackground = () => {
+export interface ThreeDBackgroundProps {
+  mode?: 'global' | 'section';
+  /** Scales time-based rotation; baseline reference 0.12. Example: 0.0005 = very slow hero. */
+  speed?: number;
+  scrollReact?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
+  mode = 'global',
+  speed,
+  scrollReact,
+  className,
+  style,
+}) => {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const effectiveScroll = scrollReact ?? mode === 'global';
+  const timeScale = speed !== undefined ? speed / 0.12 : 1;
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-
     const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const isSection = mode === 'section';
+    const host = isSection ? wrapRef.current : null;
+
+    const getSize = () => {
+      if (isSection && host) {
+        const w = Math.max(1, host.clientWidth);
+        const h = Math.max(1, host.clientHeight);
+        return { w, h };
+      }
+      return { w: window.innerWidth, h: window.innerHeight };
+    };
+
+    const { w: initW, h: initH } = getSize();
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(initW, initH);
     renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(60, initW / initH, 0.1, 100);
     camera.position.set(0, 0, 5);
 
     const geoMain = new THREE.IcosahedronGeometry(1.6, 1);
@@ -91,16 +121,23 @@ const ThreeDBackground = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress = total > 0 ? window.scrollY / total : 0;
     };
-    window.addEventListener('scroll', handleScroll);
+    if (effectiveScroll) {
+      window.addEventListener('scroll', handleScroll);
+    }
 
     const clock = new THREE.Clock();
     let smoothScroll = 0;
 
+    let animationFrameId = 0;
     const animate = () => {
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
+      animationFrameId = requestAnimationFrame(animate);
+      const t = clock.getElapsedTime() * timeScale;
 
-      smoothScroll += (scrollProgress - smoothScroll) * 0.06;
+      if (effectiveScroll) {
+        smoothScroll += (scrollProgress - smoothScroll) * 0.06;
+      } else {
+        smoothScroll += (0 - smoothScroll) * 0.12;
+      }
       const s = smoothScroll;
 
       mesh.rotation.x = s * Math.PI * 1.8 + t * 0.12;
@@ -147,21 +184,73 @@ const ThreeDBackground = () => {
     animate();
 
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const { w, h } = getSize();
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(w, h);
     };
+
     window.addEventListener('resize', handleResize);
+    const ro =
+      isSection && host
+        ? new ResizeObserver(() => {
+            handleResize();
+          })
+        : null;
+    if (ro && host) ro.observe(host);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animationFrameId);
+      if (effectiveScroll) {
+        window.removeEventListener('scroll', handleScroll);
+      }
       window.removeEventListener('resize', handleResize);
-      // Proper cleanup needed here. For simplicity, we're not disposing of Three.js objects.
+      ro?.disconnect();
+
+      geoMain.dispose();
+      matMain.dispose();
+      wireGeo.dispose();
+      wireMat.dispose();
+      coreGeo.dispose();
+      coreMat.dispose();
+      ringGeo.dispose();
+      ringMat.dispose();
+      ring2Geo.dispose();
+      ring2Mat.dispose();
+      partGeo.dispose();
+      partMat.dispose();
+
+      scene.remove(mesh, wire, core, ring, ring2, particles, ambient, light1, light2, light3);
+      renderer.dispose();
     };
-  }, []);
+  }, [mode, timeScale, effectiveScroll]);
 
-  return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -2, pointerEvents: 'none' }} />;
+  if (mode === 'section') {
+    return (
+      <div
+        ref={wrapRef}
+        className={className}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+          ...style,
+        }}
+      >
+        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+      </div>
+    );
+  }
 
+  return (
+    <canvas
+      ref={canvasRef}
+      className={className}
+      style={{ position: 'fixed', top: 0, left: 0, zIndex: -2, pointerEvents: 'none', ...style }}
+    />
+  );
 };
 
 export default ThreeDBackground;

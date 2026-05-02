@@ -5,18 +5,41 @@
  */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { UI_TEXTS } from '../constants';
+import styles from './Services.module.css';
 
-const Services: React.FC = () => {
+export type ServicesVariant = 'default' | 'home';
+
+interface ServicesProps {
+  variant?: ServicesVariant;
+}
+
+const Services: React.FC<ServicesProps> = ({ variant = 'default' }) => {
   const { lang, config } = useApp();
-  const t = UI_TEXTS[lang];
   const [openServiceId, setOpenServiceId] = useState<string | null>(null);
+  const isHome = variant === 'home';
+
+  const expertLabel =
+    lang === 'ar' ? 'حلول الخبراء' : lang === 'nl' ? 'Expertoplossingen' : 'Expert Solutions';
 
   const renderTitle = () => {
     const header = config.servicesHeader[lang];
     const fullTitle = header.title;
     const highlight = header.highlight;
-    
+
+    if (isHome) {
+      if (highlight && fullTitle.includes(highlight)) {
+        const parts = fullTitle.split(highlight);
+        return (
+          <>
+            {parts[0]}
+            <span className={styles.highlightHome}>{highlight}</span>
+            {parts[1]}
+          </>
+        );
+      }
+      return fullTitle;
+    }
+
     if (highlight && fullTitle.includes(highlight)) {
       const parts = fullTitle.split(highlight);
       return (
@@ -34,6 +57,63 @@ const Services: React.FC = () => {
     setOpenServiceId(openServiceId === id ? null : id);
   };
 
+  if (isHome) {
+    return (
+      <section id="services" className={styles.sectionHome}>
+        <div className={styles.innerHome}>
+          <div className={styles.headHome}>
+            <h2 className={styles.titleHome}>{renderTitle()}</h2>
+            <div className={styles.ruleHome} />
+          </div>
+
+          <div className={styles.gridHome}>
+            {config.services.map((service) => {
+              const open = openServiceId === service.id;
+              return (
+                <div
+                  key={service.id}
+                  className={`${styles.cardHome} ${open ? styles.cardHomeOpen : ''}`}
+                >
+                  <div className={styles.iconHome}>
+                    <i className={`fa-solid ${service.icon}`} aria-hidden />
+                  </div>
+                  <h3 className={styles.nameHome}>{service.translations[lang].name}</h3>
+                  <p className={styles.descHome}>{service.translations[lang].description}</p>
+
+                  <div className={styles.expertToggle}>
+                    <button
+                      type="button"
+                      onClick={() => toggleDetails(service.id)}
+                      className={styles.toggleBtn}
+                    >
+                      <span className={styles.toggleLabel}>{expertLabel}</span>
+                      <i
+                        className={`fa-solid fa-chevron-down ${styles.chevron} ${
+                          open ? styles.chevronOpen : ''
+                        }`}
+                        aria-hidden
+                      />
+                    </button>
+                    <div
+                      className={`${styles.detailsShell} ${
+                        open ? styles.detailsShellOpen : styles.detailsShellClosed
+                      }`}
+                    >
+                      <div className={styles.panelHome}>
+                        <div className={styles.panelRule} />
+                        {service.translations[lang].expertDetails}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="services" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -45,49 +125,66 @@ const Services: React.FC = () => {
             <div className="w-24 h-1 ama-gradient rounded-full mb-6 mx-auto md:mx-0"></div>
           </div>
         </div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {config.services.map((service) => (
-            <div 
-              key={service.id} 
+            <div
+              key={service.id}
               className={`p-10 glass-card rounded-[40px] border transition-all duration-500 group relative overflow-hidden flex flex-col h-full ${
-                openServiceId === service.id ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/10' : 'border-white/5 hover:border-cyan-500/30'
+                openServiceId === service.id
+                  ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/10'
+                  : 'border-white/5 hover:border-cyan-500/30'
               }`}
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-cyan-500/10 transition-all"></div>
-              
+
               <div className="w-16 h-16 ama-gradient rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/20 group-hover:rotate-6 transition-transform">
                 <i className={`fa-solid ${service.icon} text-2xl text-black`}></i>
               </div>
-              
-              <h3 className="text-2xl font-black text-white mb-4 tracking-tight">{service.translations[lang].name}</h3>
-              
+
+              <h3 className="text-2xl font-black text-white mb-4 tracking-tight">
+                {service.translations[lang].name}
+              </h3>
+
               <p className="text-gray-400 mb-8 leading-relaxed text-base flex-grow">
                 {service.translations[lang].description}
               </p>
 
               <div className="border-t border-white/5 pt-6 mt-auto">
-                <button 
+                <button
                   onClick={() => toggleDetails(service.id)}
                   className="flex items-center justify-between w-full group/btn"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 group-hover/btn:text-white transition-colors">
-                      {lang === 'ar' ? 'حلول الخبراء' : 'Expert Solutions'}
+                      {expertLabel}
                     </span>
-                    <i className={`fa-solid fa-chevron-down text-[10px] text-cyan-400 transition-transform duration-300 ${openServiceId === service.id ? 'rotate-180' : ''}`}></i>
+                    <i
+                      className={`fa-solid fa-chevron-down text-[10px] text-cyan-400 transition-transform duration-300 ${
+                        openServiceId === service.id ? 'rotate-180' : ''
+                      }`}
+                    ></i>
                   </div>
-                  <div className={`w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all ${openServiceId === service.id ? 'bg-white text-black' : 'group-hover/btn:border-cyan-500/50 text-gray-400'}`}>
+                  <div
+                    className={`w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all ${
+                      openServiceId === service.id
+                        ? 'bg-white text-black'
+                        : 'group-hover/btn:border-cyan-500/50 text-gray-400'
+                    }`}
+                  >
                     <i className={`fa-solid fa-arrow-${lang === 'ar' ? 'left' : 'right'} text-xs`}></i>
                   </div>
                 </button>
 
-                {/* Dropdown Content */}
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openServiceId === service.id ? 'max-h-[300px] mt-6 opacity-100' : 'max-h-0 opacity-0'}`}>
-                   <div className="p-6 bg-white/5 rounded-3xl border border-white/5 text-sm text-gray-300 leading-relaxed italic animate-in slide-in-from-top-4">
-                      <div className="ama-gradient w-8 h-1 rounded-full mb-4 opacity-50"></div>
-                      {service.translations[lang].expertDetails}
-                   </div>
+                <div
+                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    openServiceId === service.id ? 'max-h-[300px] mt-6 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <div className="p-6 bg-white/5 rounded-3xl border border-white/5 text-sm text-gray-300 leading-relaxed italic animate-in slide-in-from-top-4">
+                    <div className="ama-gradient w-8 h-1 rounded-full mb-4 opacity-50"></div>
+                    {service.translations[lang].expertDetails}
+                  </div>
                 </div>
               </div>
             </div>

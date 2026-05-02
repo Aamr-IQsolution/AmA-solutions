@@ -5,7 +5,7 @@ import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
   siteName: "axonXcode",
-  logo: "/assets/axonxcode-ronded.png",
+  logo: "/assets/semple-logo-last-rounded-no-wight-color.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
   socials: [
@@ -27,6 +27,273 @@ export const INITIAL_CONFIG: SiteConfig = {
       title: "Verbind. Creëer. Betrek.", 
       subtitle: '"axonXcode: Wij zetten digitale visies om in tastbare realiteit." Wij zijn gespecialiseerd in het bouwen van smartphoneapplicaties en websites die programmeerintelligentie (Axon) en precisie in uitvoering (Xcode) combineren.' 
     }
+  },
+  stats: {
+    projects: 4,
+    clients: 15,
+    translations: {
+      en: { projectsLabel: "Projects delivered", clientsLabel: "Happy clients" },
+      ar: { projectsLabel: "مشاريع منجزة", clientsLabel: "عملاء راضون" },
+      nl: { projectsLabel: "Projecten", clientsLabel: "Tevreden klanten" },
+    },
+  },
+  testimonials: [
+    {
+      initials: "JD",
+      translations: {
+        en: {
+          name: "Jan de Vries",
+          role: "Owner, De Vries Handel",
+          quote: "Excellent service and professional work. Our new website increased online sales by 40%!",
+        },
+        ar: {
+          name: "Jan de Vries",
+          role: "مالك، De Vries Handel",
+          quote: "خدمة ممتازة وعمل احترافي. موقعنا الجديد زاد مبيعاتنا عبر الإنترنت بنسبة 40٪!",
+        },
+        nl: {
+          name: "Jan de Vries",
+          role: "Eigenaar, De Vries Handel",
+          quote: "Uitstekende service en professioneel werk. Onze nieuwe website heeft onze online verkoop met 40% verhoogd!",
+        },
+      },
+    },
+    {
+      initials: "MB",
+      translations: {
+        en: {
+          name: "Maria Bakker",
+          role: "Marketing Manager",
+          quote: "Very happy with their social media campaigns. Our reach tripled in just 3 months!",
+        },
+        ar: {
+          name: "Maria Bakker",
+          role: "مديرة تسويق",
+          quote: "سعيدة جداً بحملات التواصل الاجتماعي. تضاعف وصولنا ثلاث مرات في 3 أشهر فقط!",
+        },
+        nl: {
+          name: "Maria Bakker",
+          role: "Marketing Manager",
+          quote: "Zeer tevreden met hun social media campagnes. Ons bereik is verdriedubbeld in slechts 3 maanden!",
+        },
+      },
+    },
+    {
+      initials: "PJ",
+      translations: {
+        en: {
+          name: "Pieter Jansen",
+          role: "CEO, TechStart NL",
+          quote: "A professional team with great technical expertise. They delivered our business app perfectly.",
+        },
+        ar: {
+          name: "Pieter Jansen",
+          role: "الرئيس التنفيذي، TechStart NL",
+          quote: "فريق محترف بخبرة تقنية رائعة. سلّموا تطبيق عملنا بشكل مثالي.",
+        },
+        nl: {
+          name: "Pieter Jansen",
+          role: "CEO, TechStart NL",
+          quote: "Professioneel team met geweldige technische expertise. Ze hebben onze bedrijfsapp perfect opgeleverd.",
+        },
+      },
+    },
+  ],
+  faqs: [
+    {
+      translations: {
+        en: {
+          question: "How long does a web project take?",
+          answer: "A standard website takes 4–6 weeks, depending on complexity and features.",
+        },
+        ar: {
+          question: "كم يستغرق مشروع ويب؟",
+          answer: "الموقع القياسي يستغرق 4–6 أسابيع حسب التعقيد والميزات.",
+        },
+        nl: {
+          question: "Hoe lang duurt een webproject?",
+          answer: "Een standaard website neemt 4-6 weken in beslag, afhankelijk van de complexiteit en functionaliteiten.",
+        },
+      },
+    },
+    {
+      translations: {
+        en: {
+          question: "Which technologies do you use?",
+          answer: "We work with modern tech like React, Next.js, Python, and cloud platforms for best performance.",
+        },
+        ar: {
+          question: "ما التقنيات التي تستخدمونها؟",
+          answer: "نعمل بتقنيات حديثة مثل React وNext.js وPython ومنصات سحابية لأفضل أداء.",
+        },
+        nl: {
+          question: "Welke technologieën gebruiken jullie?",
+          answer: "Wij werken met moderne tech zoals React, Next.js, Python en cloud platforms voor optimale prestaties.",
+        },
+      },
+    },
+    {
+      translations: {
+        en: {
+          question: "Do you offer maintenance after launch?",
+          answer: "Yes—we offer maintenance plans for updates, security, and technical support.",
+        },
+        ar: {
+          question: "هل تقدمون صيانة بعد التسليم؟",
+          answer: "نعم، لدينا خطط صيانة للتحديثات والأمان والدعم الفني.",
+        },
+        nl: {
+          question: "Bieden jullie onderhoud na oplevering?",
+          answer: "Ja, wij bieden verschillende onderhoudsplannen aan voor updates, beveiliging en technische ondersteuning.",
+        },
+      },
+    },
+    {
+      translations: {
+        en: {
+          question: "Can you improve my existing website?",
+          answer: "Absolutely—we can analyze and optimize your site for performance and user experience.",
+        },
+        ar: {
+          question: "هل يمكن تحسين موقعي الحالي؟",
+          answer: "بالطبع—نحلل ونحسن موقعك للأداء وتجربة المستخدم.",
+        },
+        nl: {
+          question: "Kunnen jullie mijn bestaande website verbeteren?",
+          answer: "Absoluut! Wij kunnen uw huidige website analyseren en optimaliseren voor betere prestaties en gebruikerservaring.",
+        },
+      },
+    },
+    {
+      translations: {
+        en: {
+          question: "What does a basic website cost?",
+          answer: "A basic website starts from €899. We offer packages for every budget and need.",
+        },
+        ar: {
+          question: "كم تكلفة موقع أساسي؟",
+          answer: "يبدأ الموقع الأساسي من 899 يورو. لدينا باقات لكل ميزانية.",
+        },
+        nl: {
+          question: "Wat zijn de kosten voor een basis website?",
+          answer: "Een basis website begint vanaf €899. We bieden verschillende pakketten aan voor elk budget en behoefte.",
+        },
+      },
+    },
+    {
+      translations: {
+        en: {
+          question: "Do I get access to the source code?",
+          answer: "Yes—all code is yours. We deliver full ownership and documentation at handover.",
+        },
+        ar: {
+          question: "هل أحصل على الشيفرة المصدرية؟",
+          answer: "نعم، الشيفرة لك بالكامل مع التسليم والتوثيق.",
+        },
+        nl: {
+          question: "Krijg ik toegang tot de broncode?",
+          answer: "Ja, alle code is van u. We leveren volledige eigendom en documentatie bij oplevering.",
+        },
+      },
+    },
+    {
+      translations: {
+        en: {
+          question: "Do you offer payment plans?",
+          answer: "Yes—we offer flexible payment options. Contact us for a personal proposal.",
+        },
+        ar: {
+          question: "هل توجد خطط دفع؟",
+          answer: "نعم، نوفر خيارات دفع مرنة. تواصل معنا لعرض مخصص.",
+        },
+        nl: {
+          question: "Werken jullie met betalingsplannen?",
+          answer: "Ja, we bieden flexibele betalingsopties aan. Neem contact op voor een persoonlijk voorstel.",
+        },
+      },
+    },
+  ],
+  homeSectionCopy: {
+    pricing: {
+      en: {
+        titleBefore: "Our ",
+        titleHighlight: "Packages",
+        titleAfter: "",
+        subtitle: "Choose the plan that fits you",
+        seeAll: "View all packages →",
+        popularBadge: "Most popular",
+        orderNow: "Order now",
+      },
+      ar: {
+        titleBefore: "",
+        titleHighlight: "الباقات",
+        titleAfter: " لدينا",
+        subtitle: "اختر الباقة المناسبة لك",
+        seeAll: "عرض كل الباقات ←",
+        popularBadge: "الأكثر شعبية",
+        orderNow: "اطلب الآن",
+      },
+      nl: {
+        titleBefore: "Onze ",
+        titleHighlight: "Pakketten",
+        titleAfter: "",
+        subtitle: "Kies het pakket dat bij u past",
+        seeAll: "Bekijk alle pakketten →",
+        popularBadge: "Meest populair",
+        orderNow: "Bestel nu",
+      },
+    },
+    testimonials: {
+      en: {
+        titleBefore: "What our clients ",
+        titleHighlight: "say",
+        titleAfter: "",
+      },
+      ar: {
+        titleBefore: "ماذا ",
+        titleHighlight: "يقول",
+        titleAfter: " عملاؤنا",
+      },
+      nl: {
+        titleBefore: "Wat onze klanten ",
+        titleHighlight: "zeggen",
+        titleAfter: "",
+      },
+    },
+    faq: {
+      en: {
+        titleBefore: "",
+        titleHighlight: "FAQ",
+        titleAfter: "",
+      },
+      ar: {
+        titleBefore: "",
+        titleHighlight: "الأسئلة الشائعة",
+        titleAfter: "",
+      },
+      nl: {
+        titleBefore: "Veelgestelde ",
+        titleHighlight: "vragen",
+        titleAfter: "",
+      },
+    },
+    cta: {
+      en: {
+        title: "Ready to grow digitally?",
+        subtitle: "Tell us about your project—we’ll get back to you quickly.",
+        button: "Contact us",
+      },
+      ar: {
+        title: "جاهز للنمو رقمياً؟",
+        subtitle: "صف لنا مشروعك وسنعود إليك بسرعة.",
+        button: "تواصل معنا",
+      },
+      nl: {
+        title: "Klaar om digitaal te groeien?",
+        subtitle: "Vertel ons over uw project—we reageren snel.",
+        button: "Neem contact op",
+      },
+    },
   },
   servicesHeader: {
     en: { title: "Our Specialized Services", highlight: "Specialized" },
@@ -331,6 +598,9 @@ export const INITIAL_CONFIG: SiteConfig = {
   ]
 };
 
+/** Logo with white circle background — footer / brand lockups */
+export const FOOTER_BRAND_LOGO = '/assets/axonxcode-ronded.png';
+
 export const UI_TEXTS = {
   en: {
     home: "Home",
@@ -398,7 +668,9 @@ export const UI_TEXTS = {
     icon: "Icon Class",
     link: "URL Link",
     addSocial: "Add Channel",
-    expertDetails: "Expert Deep Explanation"
+    expertDetails: "Expert Deep Explanation",
+    homeHeroPrimary: "Begin your project",
+    homeHeroSecondary: "Book a consultation",
   },
   ar: {
     home: "الرئيسية",
@@ -466,7 +738,9 @@ export const UI_TEXTS = {
     icon: "كود الأيقونة (fontawesome)",
     link: "الرابط",
     addSocial: "إضافة قناة تواصل",
-    expertDetails: "شرح الخبراء المعمق"
+    expertDetails: "شرح الخبراء المعمق",
+    homeHeroPrimary: "ابدأ مشروعك",
+    homeHeroSecondary: "احجز استشارة",
   },
   nl: {
     home: "Home",
@@ -535,6 +809,8 @@ export const UI_TEXTS = {
     icon: "Icoonklasse",
     link: "Link",
     addSocial: "Kanaal Toevoegen",
-    expertDetails: "Expert Diepgaande Uitleg"
+    expertDetails: "Expert Diepgaande Uitleg",
+    homeHeroPrimary: "Begin je project",
+    homeHeroSecondary: "Boek consultatie",
   }
 };

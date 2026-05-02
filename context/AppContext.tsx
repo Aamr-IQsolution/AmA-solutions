@@ -26,8 +26,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
   
   const [config, setConfigState] = useState<SiteConfig>(() => {
-    const saved = localStorage.getItem('siteConfig');
-    return saved ? JSON.parse(saved) : INITIAL_CONFIG;
+    try {
+      const saved = localStorage.getItem('siteConfig');
+      if (!saved) return INITIAL_CONFIG;
+      const parsed = JSON.parse(saved) as Partial<SiteConfig>;
+      return {
+        ...INITIAL_CONFIG,
+        ...parsed,
+        stats: parsed.stats ?? INITIAL_CONFIG.stats,
+        testimonials: parsed.testimonials ?? INITIAL_CONFIG.testimonials,
+        faqs: parsed.faqs ?? INITIAL_CONFIG.faqs,
+        homeSectionCopy: parsed.homeSectionCopy ?? INITIAL_CONFIG.homeSectionCopy,
+      };
+    } catch {
+      return INITIAL_CONFIG;
+    }
   });
 
   const [contactMessage, setContactMessage] = useState('');
