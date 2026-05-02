@@ -1,10 +1,19 @@
 /**
- * شاشة اختيار اللغة — Phase 2 ثيم فاتح
+ * شاشة اختيار اللغة — نصوصها حسب لغة المتصفح (قبل تحديد تفضيل المستخدم).
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useApp } from '../context/AppContext';
+import { LANGUAGE_PICKER_UI } from '../constants';
 import { Language } from '../types';
 import styles from './LanguagePicker.module.css';
+
+function detectBrowserLanguage(): Language {
+  if (typeof navigator === 'undefined') return 'en';
+  const n = navigator.language.toLowerCase();
+  if (n.startsWith('ar')) return 'ar';
+  if (n.startsWith('nl')) return 'nl';
+  return 'en';
+}
 
 interface LanguagePickerProps {
   onSelect: () => void;
@@ -12,6 +21,11 @@ interface LanguagePickerProps {
 
 const LanguagePicker: React.FC<LanguagePickerProps> = ({ onSelect }) => {
   const { setLang, config } = useApp();
+
+  const pickerCopy = useMemo(() => {
+    const loc = detectBrowserLanguage();
+    return LANGUAGE_PICKER_UI[loc];
+  }, []);
 
   const handleSelection = (l: Language) => {
     setLang(l);
@@ -58,9 +72,11 @@ const LanguagePicker: React.FC<LanguagePickerProps> = ({ onSelect }) => {
             />
           </div>
           <h1 className={styles.title}>
-            Choose Your <span className={styles.titleAccent}>Language</span>
+            {pickerCopy.titleBefore}
+            <span className={styles.titleAccent}>{pickerCopy.titleAccent}</span>
+            {pickerCopy.titleAfter}
           </h1>
-          <p className={styles.sub}>إختر لغتك المفضلة للمتابعة</p>
+          <p className={styles.sub}>{pickerCopy.hint}</p>
         </header>
 
         <div className={styles.grid}>

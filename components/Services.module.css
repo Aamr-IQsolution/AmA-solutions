@@ -147,19 +147,25 @@
 }
 
 .detailsShell {
-  overflow: hidden;
-  transition: max-height 0.45s ease, opacity 0.35s ease;
+  display: grid;
+  transition: grid-template-rows 0.45s ease-out, opacity 0.35s ease, margin-top 0.35s ease;
 }
 
 .detailsShellOpen {
-  max-height: 320px;
+  grid-template-rows: 1fr;
   opacity: 1;
   margin-top: 14px;
 }
 
 .detailsShellClosed {
-  max-height: 0;
+  grid-template-rows: 0fr;
   opacity: 0;
+  margin-top: 0;
+}
+
+.detailsInner {
+  min-height: 0;
+  overflow: hidden;
 }
 
 .panelHome {

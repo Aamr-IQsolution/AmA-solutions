@@ -34,6 +34,7 @@ const HomeHero: React.FC = () => {
                 alt=""
                 className={styles.mockImg}
                 loading="lazy"
+                decoding="async"
                 width={640}
                 height={480}
               />

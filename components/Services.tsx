@@ -70,16 +70,18 @@ const Services: React.FC = () => {
                       aria-hidden
                     />
                   </button>
-                  <div
-                    className={`${styles.detailsShell} ${
-                      open ? styles.detailsShellOpen : styles.detailsShellClosed
-                    }`}
-                  >
-                    <div className={styles.panelHome}>
-                      <div className={styles.panelRule} />
-                      {service.translations[lang].expertDetails}
+                    <div
+                      className={`${styles.detailsShell} ${
+                        open ? styles.detailsShellOpen : styles.detailsShellClosed
+                      }`}
+                    >
+                      <div className={styles.detailsInner}>
+                        <div className={styles.panelHome}>
+                          <div className={styles.panelRule} />
+                          {service.translations[lang].expertDetails}
+                        </div>
+                      </div>
                     </div>
-                  </div>
                 </div>
               </div>
             );

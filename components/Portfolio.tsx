@@ -39,40 +39,51 @@ const Portfolio: React.FC = () => {
 
         <div className={styles.grid}>
           {config.portfolio.map((project) => {
-            const ProjectWrapper = project.link ? 'a' : 'div';
-            const wrapperProps = project.link
-              ? {
-                  href: project.link,
-                  target: '_blank' as const,
-                  rel: 'noopener noreferrer' as const,
-                }
-              : {};
+            const title = project.translations[lang].title;
+            const linkAria = project.link ? `${explore}: ${title}` : undefined;
+
+            const inner = (
+              <>
+                <img
+                  src={project.image}
+                  alt=""
+                  className={styles.img}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className={styles.overlay} aria-hidden />
+                <div className={styles.body}>
+                  <span className={styles.badge}>{project.category}</span>
+                  <h3 className={styles.cardTitle}>{title}</h3>
+                  <p className={styles.cardDesc}>{project.translations[lang].description}</p>
+                  {project.link ? (
+                    <span className={styles.cta}>
+                      {explore}{' '}
+                      <i
+                        className={`fa-solid fa-chevron-${lang === 'ar' ? 'left' : 'right'} ${styles.ctaIcon}`}
+                        aria-hidden
+                      />
+                    </span>
+                  ) : null}
+                </div>
+              </>
+            );
 
             return (
               <article key={project.id} className={styles.card}>
-                <ProjectWrapper {...wrapperProps} className={styles.media}>
-                  <img
-                    src={project.image}
-                    alt={project.translations[lang].title}
-                    className={styles.img}
-                    loading="lazy"
-                  />
-                  <div className={styles.overlay} aria-hidden />
-                  <div className={styles.body}>
-                    <span className={styles.badge}>{project.category}</span>
-                    <h3 className={styles.cardTitle}>{project.translations[lang].title}</h3>
-                    <p className={styles.cardDesc}>{project.translations[lang].description}</p>
-                    {project.link ? (
-                      <span className={styles.cta}>
-                        {explore}{' '}
-                        <i
-                          className={`fa-solid fa-chevron-${lang === 'ar' ? 'left' : 'right'} ${styles.ctaIcon}`}
-                          aria-hidden
-                        />
-                      </span>
-                    ) : null}
-                  </div>
-                </ProjectWrapper>
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.media}
+                    aria-label={linkAria}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div className={styles.media}>{inner}</div>
+                )}
               </article>
             );
           })}

@@ -35,6 +35,7 @@ const Team: React.FC = () => {
                     alt={name}
                     className={styles.avatar}
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className={styles.content}>

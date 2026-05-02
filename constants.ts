@@ -601,6 +601,31 @@ export const INITIAL_CONFIG: SiteConfig = {
 /** Logo with white circle background — footer / brand lockups */
 export const FOOTER_BRAND_LOGO = '/assets/axonxcode-ronded.png';
 
+/** نصوص شاشة اختيار اللغة — تعرض حسب لغة المتصفح قبل حفظ تفضيل المستخدم */
+export const LANGUAGE_PICKER_UI: Record<
+  Language,
+  { titleBefore: string; titleAccent: string; titleAfter: string; hint: string }
+> = {
+  en: {
+    titleBefore: 'Choose your ',
+    titleAccent: 'language',
+    titleAfter: '',
+    hint: 'Select a language to continue',
+  },
+  ar: {
+    titleBefore: 'اختر ',
+    titleAccent: 'لغتك',
+    titleAfter: '',
+    hint: 'اختر لغتك المفضلة للمتابعة',
+  },
+  nl: {
+    titleBefore: 'Kies je ',
+    titleAccent: 'taal',
+    titleAfter: '',
+    hint: 'Selecteer een taal om verder te gaan',
+  },
+};
+
 export const UI_TEXTS = {
   en: {
     home: "Home",
@@ -671,6 +696,14 @@ export const UI_TEXTS = {
     expertDetails: "Expert Deep Explanation",
     homeHeroPrimary: "Begin your project",
     homeHeroSecondary: "Book a consultation",
+    contactFormName: "Name",
+    contactFormMessage: "Message",
+    contactFormNamePh: "John Doe",
+    contactFormEmailPh: "john@example.com",
+    contactFormMessagePh: "Tell us about your project...",
+    contactMailSubject: "New project inquiry from {name}",
+    contactMailBody:
+      'Hello {brand} Team,\n\nI am interested in your services.\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}',
   },
   ar: {
     home: "الرئيسية",
@@ -741,6 +774,14 @@ export const UI_TEXTS = {
     expertDetails: "شرح الخبراء المعمق",
     homeHeroPrimary: "ابدأ مشروعك",
     homeHeroSecondary: "احجز استشارة",
+    contactFormName: "الاسم",
+    contactFormMessage: "الرسالة",
+    contactFormNamePh: "الاسم الكامل",
+    contactFormEmailPh: "example@email.com",
+    contactFormMessagePh: "صف لنا مشروعك أو استفسارك...",
+    contactMailSubject: "استفسار مشروع جديد من {name}",
+    contactMailBody:
+      'مرحباً فريق {brand}،\n\nأنا مهتم بخدماتكم.\n\nالاسم: {name}\nالبريد: {email}\n\nالرسالة:\n{message}',
   },
   nl: {
     home: "Home",
@@ -812,5 +853,13 @@ export const UI_TEXTS = {
     expertDetails: "Expert Diepgaande Uitleg",
     homeHeroPrimary: "Begin je project",
     homeHeroSecondary: "Boek consultatie",
+    contactFormName: "Naam",
+    contactFormMessage: "Bericht",
+    contactFormNamePh: "Jan Jansen",
+    contactFormEmailPh: "jan@voorbeeld.nl",
+    contactFormMessagePh: "Vertel kort over uw project...",
+    contactMailSubject: "Nieuw projectaanvraag van {name}",
+    contactMailBody:
+      'Hallo {brand}-team,\n\nIk ben geïnteresseerd in jullie diensten.\n\nNaam: {name}\nE-mail: {email}\n\nBericht:\n{message}',
   }
 };

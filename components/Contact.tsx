@@ -24,9 +24,15 @@ const Contact: React.FC = () => {
 
   const handleSendMail = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`New Project Inquiry from ${formData.name}`);
+    const subject = encodeURIComponent(
+      t.contactMailSubject.replace('{name}', formData.name)
+    );
     const body = encodeURIComponent(
-      `Hello ${config.siteName} Team,\n\nI am interested in your services.\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      t.contactMailBody
+        .replace('{brand}', config.siteName)
+        .replace('{name}', formData.name)
+        .replace('{email}', formData.email)
+        .replace('{message}', formData.message)
     );
     window.location.href = `mailto:${config.contactEmail}?subject=${subject}&body=${body}`;
     setContactMessage('');
@@ -65,7 +71,7 @@ const Contact: React.FC = () => {
                   <i className="fa-solid fa-envelope text-xl" aria-hidden />
                 </div>
                 <div>
-                  <p className={styles.label}>Email</p>
+                  <p className={styles.label}>{t.email}</p>
                   <p className={styles.value}>{config.contactEmail}</p>
                 </div>
               </div>
@@ -74,7 +80,7 @@ const Contact: React.FC = () => {
                   <i className="fa-brands fa-whatsapp text-2xl" aria-hidden />
                 </div>
                 <div>
-                  <p className={styles.label}>WhatsApp</p>
+                  <p className={styles.label}>{t.whatsapp}</p>
                   <p className={styles.value}>{config.phone}</p>
                 </div>
               </div>
@@ -101,7 +107,7 @@ const Contact: React.FC = () => {
             <form className={styles.form} onSubmit={handleSendMail}>
               <div className={styles.row2}>
                 <div className={styles.field}>
-                  <label htmlFor="contact-name">Name</label>
+                  <label htmlFor="contact-name">{t.contactFormName}</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -110,12 +116,12 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     className={styles.input}
-                    placeholder="John Doe"
+                    placeholder={t.contactFormNamePh}
                     autoComplete="name"
                   />
                 </div>
                 <div className={styles.field}>
-                  <label htmlFor="contact-email">Email</label>
+                  <label htmlFor="contact-email">{t.email}</label>
                   <input
                     id="contact-email"
                     type="email"
@@ -124,13 +130,13 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className={styles.input}
-                    placeholder="john@example.com"
+                    placeholder={t.contactFormEmailPh}
                     autoComplete="email"
                   />
                 </div>
               </div>
               <div className={styles.field}>
-                <label htmlFor="contact-message">Message</label>
+                <label htmlFor="contact-message">{t.contactFormMessage}</label>
                 <textarea
                   id="contact-message"
                   name="message"
@@ -138,7 +144,7 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   className={styles.textarea}
-                  placeholder="Tell us about your project..."
+                  placeholder={t.contactFormMessagePh}
                 />
               </div>
               <button type="submit" className={styles.submit}>
