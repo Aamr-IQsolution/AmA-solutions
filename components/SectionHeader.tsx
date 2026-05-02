@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './SectionHeader.module.css';
 
 interface SectionHeaderProps {
   title: string;
@@ -10,17 +11,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, highlight, descrip
   const titleParts = title.split(highlight);
 
   return (
-    <div className="text-center max-w-4xl mx-auto">
-      <h2 className="text-5xl md:text-6xl font-black text-white leading-tight">
+    <div className={styles.wrap}>
+      <h2 className={styles.title}>
         {titleParts[0]}
-        <span className="ama-text-gradient">{highlight}</span>
+        <span className={styles.highlight}>{highlight}</span>
         {titleParts[1]}
       </h2>
-      {description && (
-        <p className="mt-4 text-lg text-gray-300">
-          {description}
-        </p>
-      )}
+      {description ? <p className={styles.desc}>{description}</p> : null}
     </div>
   );
 };

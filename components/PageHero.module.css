@@ -1,0 +1,76 @@
+.shell {
+  padding-top: 88px;
+  padding-bottom: 24px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-top: 96px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--ax-glass-bg);
+  backdrop-filter: var(--ax-glass-blur);
+  -webkit-backdrop-filter: var(--ax-glass-blur);
+  border: 0.5px solid var(--ax-border);
+  border-radius: var(--ax-radius-lg);
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 3rem 3.5rem;
+    border-radius: 24px;
+  }
+}
+
+.eyebrow {
+  color: var(--ax-primary);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0;
+}
+
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  color: var(--ax-black);
+  margin: 1rem 0 0;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: var(--ax-font-body);
+  color: var(--ax-text-muted);
+  margin-top: 1.25rem;
+  line-height: 1.65;
+  max-width: 42rem;
+}
+
+.subtitleStart {
+  text-align: start;
+}
+
+.subtitleEnd {
+  text-align: end;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    font-size: 1.05rem;
+  }
+}

@@ -27,18 +27,6 @@ body {
   }
 }
 
-.page-stack::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(34, 211, 238, 0.14), transparent 32%),
-    radial-gradient(circle at 82% 24%, rgba(244, 114, 182, 0.16), transparent 30%),
-    radial-gradient(circle at 56% 88%, rgba(139, 92, 246, 0.12), transparent 34%);
-  z-index: -3;
-}
-
 .page-hero-shell {
   position: relative;
 }

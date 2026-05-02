@@ -1,0 +1,131 @@
+.section {
+  padding: 48px 16px 64px;
+  background: var(--ax-white);
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+.grid {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 56rem;
+  background: var(--ax-glass-bg);
+  backdrop-filter: var(--ax-glass-blur);
+  -webkit-backdrop-filter: var(--ax-glass-blur);
+  border: 0.5px solid var(--ax-border);
+  border-radius: var(--ax-radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--ax-shadow-glass);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .card {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+[dir='rtl'] .card {
+  text-align: right;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 12rem;
+  height: 12rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .avatarWrap {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+
+.avatarGlow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ax-primary), var(--ax-primary-dark));
+  opacity: 0.4;
+  animation: pulseRing 5s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.03);
+  }
+}
+
+.avatar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--ax-white);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.content {
+  flex: 1;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .content {
+    text-align: left;
+  }
+
+  [dir='rtl'] .content {
+    text-align: right;
+  }
+}
+
+.name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ax-black);
+  margin: 0;
+}
+
+.role {
+  color: var(--ax-primary);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.bio {
+  color: var(--ax-text-muted);
+  line-height: 1.65;
+  font-size: var(--ax-font-body);
+  margin: 0;
+}

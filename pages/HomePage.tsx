@@ -7,21 +7,15 @@ import Portfolio from '../components/Portfolio';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/CTASection';
-import '../styles/theme.css';
 import styles from './HomePage.module.css';
 
-/**
- * الصفحة الرئيسية — Phase 1 تصميم جديد (scoped داخل .new-design-wrapper).
- *
- * المحتوى القديم (شبكة Explore + WebPricing + Pricing + Team + Contact على الصفحة الرئيسية)
- * أُزيل هنا؛ تبقى الصفحات المخصصة كما هي. عند الحاجة لاستعادة التجميعة القديمة راجع Git history.
- */
+/** الصفحة الرئيسية — الثيم العام يُطبَّق من App عبر .new-design-wrapper */
 const HomePage: React.FC = () => {
   return (
-    <div className={`new-design-wrapper ${styles.wrapper}`}>
+    <div className={styles.wrapper}>
       <HomeHero />
       <StatisticsCounter />
-      <Services variant="home" />
+      <Services />
       <PricingSection />
       <Portfolio />
       <Testimonials />

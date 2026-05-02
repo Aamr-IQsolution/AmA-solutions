@@ -1,0 +1,173 @@
+.section {
+  padding: 48px 20px 72px;
+  background: var(--ax-white);
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--ax-black);
+  margin: 0 0 1rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.highlight {
+  color: var(--ax-primary);
+}
+
+.desc {
+  font-size: var(--ax-font-body);
+  color: var(--ax-text-muted);
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.card {
+  position: relative;
+  padding: 1.75rem 1.5rem;
+  background: var(--ax-glass-bg);
+  backdrop-filter: var(--ax-glass-blur);
+  -webkit-backdrop-filter: var(--ax-glass-blur);
+  border: 0.5px solid var(--ax-border);
+  border-radius: var(--ax-radius-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ax-shadow-glass);
+}
+
+.cardPopular {
+  border: 2px solid var(--ax-primary);
+}
+
+.badge {
+  position: absolute;
+  top: -0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.35rem 0.85rem;
+  background: var(--ax-primary);
+  color: var(--ax-white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.planName {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ax-primary);
+  margin: 0 0 0.75rem;
+  display: block;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ax-black);
+}
+
+.period {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ax-text-muted);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.list li {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 12px;
+  color: var(--ax-text-muted);
+  line-height: 1.45;
+  margin-bottom: 0.65rem;
+}
+
+.check {
+  color: var(--ax-primary);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.cta {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: var(--ax-radius-md);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 0.5px solid var(--ax-border);
+  background: var(--ax-white);
+  color: var(--ax-black);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.cta:hover {
+  background: var(--ax-stats-bg);
+  border-color: var(--ax-stats-border);
+}
+
+.ctaPrimary {
+  background: var(--ax-primary);
+  color: var(--ax-white);
+  border-color: transparent;
+}
+
+.ctaPrimary:hover {
+  background: var(--ax-primary-dark);
+  color: var(--ax-white);
+}

@@ -14,6 +14,7 @@ import PortfolioPage from './pages/PortfolioPage';
 import WebPricingPage from './pages/WebPricingPage';
 import MarketingPricingPage from './pages/MarketingPricingPage';
 import ContactPage from './pages/ContactPage';
+import './styles/theme.css';
 
 const AppLayout: React.FC = () => {
   const location = useLocation();
@@ -36,9 +37,9 @@ const AppLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="new-design-wrapper min-h-screen flex flex-col">
       <Navbar />
-      <main className="page-stack">
+      <main className="page-stack flex-1">
         <div key={location.pathname} className="page-route-fade">
           <Routes>
             <Route path="/" element={<HomePage />} />
