@@ -13,16 +13,24 @@ const Navbar: React.FC = () => {
   const [navHidden, setNavHidden] = useState(false);
   const texts = UI_TEXTS[lang];
   const navRef = useRef<HTMLElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+    const handlePointerOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+      const insideHeader = navRef.current?.contains(target);
+      const insideMenu = overlayRef.current?.contains(target);
+      if (insideHeader || insideMenu) return;
+      setIsOpen(false);
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handlePointerOutside);
+    document.addEventListener('touchstart', handlePointerOutside, { passive: true });
+    return () => {
+      document.removeEventListener('mousedown', handlePointerOutside);
+      document.removeEventListener('touchstart', handlePointerOutside);
+    };
   }, []);
 
   useEffect(() => {
@@ -137,7 +145,12 @@ const Navbar: React.FC = () => {
       </header>
 
       {isOpen ? (
-        <div className={navStyles.overlayHome} role="dialog" aria-modal="true">
+        <div
+          ref={overlayRef}
+          className={navStyles.overlayHome}
+          role="dialog"
+          aria-modal="true"
+        >
           <button
             type="button"
             className={navStyles.closeHome}

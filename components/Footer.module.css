@@ -1,21 +1,63 @@
 .footerHome {
   background: #000000;
   color: #ffffff;
-  padding: 32px 20px;
+  padding: 48px 20px 40px;
 }
 
 .innerHome {
-  max-width: 900px;
+  max-width: 1120px;
   margin: 0 auto;
-  text-align: center;
 }
 
-.rowHome {
+.mainGrid {
+  display: grid;
+  gap: 40px;
+  margin-bottom: 40px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 900px) {
+  .mainGrid {
+    grid-template-columns: minmax(200px, 260px) minmax(0, 1fr);
+    gap: 48px 64px;
+    align-items: start;
+  }
+}
+
+.brandColumn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  text-align: center;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .brandColumn {
+    align-items: flex-start;
+    text-align: start;
+  }
+}
+
+.brandLink {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+@media (min-width: 900px) {
+  .brandLink {
+    align-items: flex-start;
+  }
+}
+
+.brandLink:hover {
+  opacity: 0.9;
 }
 
 .logoHome {
@@ -26,31 +68,172 @@
   background: #ffffff;
 }
 
+.brandName {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
 .socialsHome {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+@media (min-width: 900px) {
+  .socialsHome {
+    justify-content: flex-start;
+  }
+}
+
 .socialHome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   color: #3b7cb8;
-  font-size: 20px;
-  transition: transform 0.2s ease;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .socialHome:hover {
-  transform: scale(1.1);
+  transform: translateY(-2px);
+  background: rgba(59, 124, 184, 0.2);
+  color: #7eb8e8;
+}
+
+.sitemap {
+  min-width: 0;
+}
+
+.sitemapTitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .sitemapTitle {
+    text-align: start;
+  }
+}
+
+.sitemapGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 10px;
+  align-items: start;
+}
+
+@media (min-width: 720px) {
+  .sitemapGrid {
+    gap: 24px 32px;
+  }
+}
+
+@media (min-width: 900px) {
+  .sitemapGrid {
+    gap: 24px 40px;
+  }
+}
+
+.sitemapCol {
+  min-width: 0;
+  text-align: center;
+}
+
+@media (min-width: 720px) {
+  .sitemapCol {
+    text-align: start;
+  }
+}
+
+.sitemapHeading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3b7cb8;
+  display: inline-block;
+  min-width: 0;
+  max-width: 100%;
+  line-height: 1.25;
+  hyphens: auto;
+}
+
+@media (min-width: 720px) {
+  .sitemapHeading {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+  }
+}
+
+.sitemapList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .sitemapList {
+    align-items: flex-start;
+    gap: 11px;
+  }
+}
+
+.sitemapLink {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  line-height: 1.35;
+  transition: color 0.2s ease, padding-inline-start 0.2s ease;
+  display: inline-block;
+  max-width: 100%;
+  word-break: break-word;
+  text-align: center;
+}
+
+@media (min-width: 720px) {
+  .sitemapLink {
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: start;
+  }
+}
+
+.sitemapLink:hover {
+  color: #ffffff;
+  padding-inline-start: 4px;
 }
 
 .copyHome {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
-  border-top: 0.5px solid rgba(255, 255, 255, 0.15);
-  padding-top: 20px;
+  text-align: center;
+  padding-top: 8px;
   margin: 0;
 }
 
@@ -58,4 +241,5 @@
   font-size: 12px;
   color: rgba(255, 255, 255, 0.45);
   margin: 8px 0 0;
+  text-align: center;
 }

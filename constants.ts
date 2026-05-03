@@ -10,7 +10,7 @@ export const INITIAL_CONFIG: SiteConfig = {
   phone: "+31685582647",
   socials: [
     { id: '1', platform: 'Instagram', icon: 'fa-instagram', link: 'https://instagram.com' },
-    { id: '2', platform: 'Facebook', icon: 'fa-facebook', link: 'https://facebook.com' },
+    { id: '2', platform: 'Facebook', icon: 'fa-facebook', link: 'https://www.facebook.com/profile.php?id=61587772950053' },
     { id: '3', platform: 'LinkedIn', icon: 'fa-linkedin', link: 'https://www.linkedin.com/in/aamr-alawad-35444b361' },
     { id: '4', platform: 'GitHub', icon: 'fa-github', link: 'https://github.com/Aamr-IQsolution' },
   ],
@@ -512,7 +512,7 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "p4",
-      image: "https://i.ibb.co/7xMPCbk5/axonxcode-ronded.png",
+      image: "/assets/semple-logo-last-rounded-no-wight-color.png",
       category: "Web Design",
       link: "",
       translations: {
@@ -597,9 +597,6 @@ export const INITIAL_CONFIG: SiteConfig = {
     }
   ]
 };
-
-/** Logo with white circle background — footer / brand lockups */
-export const FOOTER_BRAND_LOGO = '/assets/axonxcode-ronded.png';
 
 /** نصوص شاشة اختيار اللغة — تعرض حسب لغة المتصفح قبل حفظ تفضيل المستخدم */
 export const LANGUAGE_PICKER_UI: Record<
@@ -704,6 +701,10 @@ export const UI_TEXTS = {
     contactMailSubject: "New project inquiry from {name}",
     contactMailBody:
       'Hello {brand} Team,\n\nI am interested in your services.\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}',
+    footerSitemap: "Sitemap",
+    footerColExplore: "Explore",
+    footerColPricing: "Pricing",
+    footerColContact: "Contact",
   },
   ar: {
     home: "الرئيسية",
@@ -782,6 +783,10 @@ export const UI_TEXTS = {
     contactMailSubject: "استفسار مشروع جديد من {name}",
     contactMailBody:
       'مرحباً فريق {brand}،\n\nأنا مهتم بخدماتكم.\n\nالاسم: {name}\nالبريد: {email}\n\nالرسالة:\n{message}',
+    footerSitemap: "خريطة الموقع",
+    footerColExplore: "تصفح",
+    footerColPricing: "الأسعار والباقات",
+    footerColContact: "تواصل",
   },
   nl: {
     home: "Home",
@@ -861,5 +866,9 @@ export const UI_TEXTS = {
     contactMailSubject: "Nieuw projectaanvraag van {name}",
     contactMailBody:
       'Hallo {brand}-team,\n\nIk ben geïnteresseerd in jullie diensten.\n\nNaam: {name}\nE-mail: {email}\n\nBericht:\n{message}',
+    footerSitemap: "Sitemap",
+    footerColExplore: "Ontdekken",
+    footerColPricing: "Tarieven",
+    footerColContact: "Contact",
   }
 };

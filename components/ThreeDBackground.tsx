@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export interface ThreeDBackgroundProps {
-  /** Scales time-based rotation; baseline 0.12. Example: 0.0005 = very slow. */
+  /** Scales time-based rotation; baseline 0.12. Example: 0.015 = calm visible motion on white backgrounds. */
   speed?: number;
   scrollReact?: boolean;
   className?: string;
@@ -46,11 +46,11 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
 
     const geoMain = new THREE.IcosahedronGeometry(1.6, 1);
     const matMain = new THREE.MeshPhongMaterial({
-      color: 0x0a0a1a,
-      emissive: 0x100020,
+      color: 0x000000,
+      emissive: 0x000000,
       shininess: 120,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.9,
       side: THREE.DoubleSide,
     });
     const mesh = new THREE.Mesh(geoMain, matMain);
@@ -150,15 +150,15 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
       }
       const s = smoothScroll;
 
-      mesh.rotation.x = s * Math.PI * 1.8 + t * 0.12;
-      mesh.rotation.y = s * Math.PI * 2.4 + t * 0.18;
+      mesh.rotation.x = s * Math.PI * 1.8 + t * 0.25;
+      mesh.rotation.y = s * Math.PI * 2.4 + t * 0.35;
 
       const pulse = 1 + 0.06 * Math.sin(t * 1.8);
       const scrollScale = 1 + s * 0.35;
       mesh.scale.setScalar(pulse * scrollScale);
 
-      wire.rotation.x = -s * Math.PI * 1.2 + t * 0.09;
-      wire.rotation.y = s * Math.PI * 1.6 + t * 0.14;
+      wire.rotation.x = -s * Math.PI * 1.2 + t * 0.18;
+      wire.rotation.y = s * Math.PI * 1.6 + t * 0.28;
       wire.scale.setScalar(pulse * scrollScale);
 
       core.rotation.x = t * 0.6 + s * Math.PI * 3;
@@ -180,9 +180,6 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
       light1.position.z = 4 * Math.sin(t * 0.5);
       light2.position.x = -4 * Math.cos(t * 0.4 + 1);
       light2.position.z = -4 * Math.sin(t * 0.4 + 1);
-
-      const hue = (t * 30) % 360;
-      wireMat.color = new THREE.Color(`hsl(${hue}, 100%, 60%)`);
 
       camera.position.x = Math.sin(t * 0.15) * 0.4;
       camera.position.y = Math.cos(t * 0.12) * 0.25 - s * 0.6;

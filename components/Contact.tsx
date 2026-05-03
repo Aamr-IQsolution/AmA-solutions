@@ -56,6 +56,9 @@ const Contact: React.FC = () => {
   const sendLabel =
     lang === 'ar' ? 'إرسال الرسالة عبر البريد' : lang === 'nl' ? 'Verstuur via e-mail' : 'Send via email';
 
+  const whatsappDigits = config.phone.replace(/\D/g, '');
+  const whatsappHref = `https://wa.me/${whatsappDigits}`;
+
   return (
     <section id="contact" className={styles.section}>
       <div className={styles.inner}>
@@ -75,7 +78,13 @@ const Contact: React.FC = () => {
                   <p className={styles.value}>{config.contactEmail}</p>
                 </div>
               </div>
-              <div className={styles.row}>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.row} ${styles.whatsappLinkRow}`}
+                aria-label={`${t.whatsapp}: ${config.phone}`}
+              >
                 <div className={`${styles.iconBox} ${styles.iconBoxWhats}`}>
                   <i className="fa-brands fa-whatsapp text-2xl" aria-hidden />
                 </div>
@@ -83,7 +92,7 @@ const Contact: React.FC = () => {
                   <p className={styles.label}>{t.whatsapp}</p>
                   <p className={styles.value}>{config.phone}</p>
                 </div>
-              </div>
+              </a>
             </div>
 
             <div className={styles.socials}>

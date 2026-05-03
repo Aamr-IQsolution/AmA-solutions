@@ -78,6 +78,22 @@
   transform: scale(1.05);
 }
 
+.whatsappLinkRow {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.whatsappLinkRow:hover .value {
+  color: var(--ax-primary);
+}
+
+.whatsappLinkRow:focus-visible {
+  outline: 2px solid var(--ax-primary);
+  outline-offset: 4px;
+  border-radius: var(--ax-radius-md);
+}
+
 .iconBoxWhats {
   color: #16a34a;
   border-color: rgba(22, 163, 74, 0.25);
