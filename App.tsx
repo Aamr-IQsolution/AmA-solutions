@@ -21,6 +21,10 @@ const AppLayout: React.FC = () => {
   const [showLangPicker, setShowLangPicker] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.search]);
+
+  useEffect(() => {
     const hasSelected = localStorage.getItem('has_selected_lang');
     if (hasSelected) {
       setShowLangPicker(false);

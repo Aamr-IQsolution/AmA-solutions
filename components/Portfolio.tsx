@@ -27,7 +27,7 @@ const Portfolio: React.FC = () => {
   };
 
   const explore =
-    lang === 'ar' ? 'استكشاف المشروع' : lang === 'nl' ? 'Project bekijken' : 'Explore project';
+    lang === 'ar' ? 'اكتشف المشروع' : lang === 'nl' ? 'Ontdek het project' : 'Discover the project';
 
   return (
     <section id="portfolio" className={styles.section}>

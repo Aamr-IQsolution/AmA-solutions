@@ -40,6 +40,7 @@ export const INITIAL_CONFIG: SiteConfig = {
   testimonials: [
     {
       initials: "JD",
+      image: "/assets/arabic-rounded-400.png",
       translations: {
         en: {
           name: "Jan de Vries",
@@ -60,6 +61,7 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       initials: "MB",
+      image: "/assets/Maria-Bakker-rounded-400.png",
       translations: {
         en: {
           name: "Maria Bakker",
@@ -80,6 +82,7 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       initials: "PJ",
+      image: "/assets/Pieter-Jansen-rounded-400.png",
       translations: {
         en: {
           name: "Pieter Jansen",
@@ -483,9 +486,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       category: "Content Creation",
       link: "https://www.facebook.com/admeral.ama2",
       translations: {
-        en: { title: "Content Creation", description: "Content Creator / Ads Management & Video/Photo Editing and Creation + Content Management" },
-        ar: { title: "صناعة محتوى", description: "صانع محتوى / إدارة إعلانات و تعديل وإنشاء فيدوهات وصور + إدارة محتوى" },
-        nl: { title: "Contentcreatie", description: "Content Creator / Advertentiebeheer & Video/Foto Bewerken en Maken + Content Management" }
+        en: { title: "Content Creation", description: "Content creator / ad management / video creation / photos / full content management" },
+        ar: { title: "صناعة محتوى", description: "صانع محتوى / إدارة إعلانات / إنشاء فيديوهات / صور / إدارة محتوى شامل" },
+        nl: { title: "Contentcreatie", description: "Content creator / advertentiebeheer / video’s maken / foto’s / volledig contentbeheer" }
       }
     },
     {
@@ -494,31 +497,42 @@ export const INITIAL_CONFIG: SiteConfig = {
       category: "Social Media",
       link: "https://www.facebook.com/profile.php?id=61583301257685",
       translations: {
-        en: { title: "Tasneem", description: "Content management, design, advertising campaigns." },
-        ar: { title: "بقالة تسنيم", description: "إدارة محتوى, تصميم , حملات إعلانية." },
-        nl: { title: "Tasneem", description: "Contentbeheer, ontwerp, advertentiecampagnes." }
+        en: { title: "Tasneem", description: "Content management / design / advertising campaigns" },
+        ar: { title: "بقالة تسنيم", description: "إدارة محتوى / تصميم / حملات إعلانية" },
+        nl: { title: "Tasneem", description: "Contentbeheer / ontwerp / advertentiecampagnes" }
       }
     },
     {
       id: "p3",
-      image: "/assets/SamaaMarket-400-400.png",
-      category: "Web Design",
-      link: "https://samaamarket.com/",
+      image: "/assets/sq-simple-backwightcolor.png",
+      category: "WEB SHOP DESIGN",
+      link: "https://souqeastren.vercel.app/",
       translations: {
-        en: { title: "E-commerce store", description: "SamaaMarket - E-commerce store design / sale / delivery / content management" },
-        ar: { title: "متجر إلكتروني", description: "SamaaMarket- تصميم متجر إلكتروني / بيع / توصيل / إدارة محتوى" },
-        nl: { title: "E-commerce winkel", description: "SamaaMarket - Ontwerp van e-commerce winkel / verkoop / levering / contentbeheer" }
+        en: { title: "Web Shop Design", description: "SouqEastren — e‑commerce shop design / data protection / delivery / sales / content management" },
+        ar: { title: "متجر إلكتروني", description: "SouqEastren — تصميم متجر إلكتروني / حماية البيانات / توصيل / بيع / إدارة محتوى" },
+        nl: { title: "Webwinkelontwerp", description: "SouqEastren — webwinkelontwerp / gegevensbescherming / levering / verkoop / contentbeheer" }
       }
     },
     {
       id: "p4",
       image: "/assets/semple-logo-last-rounded-no-wight-color.png",
       category: "Web Design",
-      link: "",
+      link: "/",
       translations: {
         en: { title: "Website Design", description: "axonXcode - Basic/Informational/Contact/Service Website" },
         ar: { title: "تصميم موقع", description: "axonXcode - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
         nl: { title: "Website Ontwerp", description: "axonXcode - Basis/Informatieve/Contact/Diensten Website" }
+      }
+    },
+    {
+      id: "p5",
+      image: "/assets/alasaylef-nobackground.png",
+      category: "WEB DESIGN",
+      link: "https://www.alasaylf.com/",
+      translations: {
+        en: { title: "Website Design", description: "Alasaylf — corporate website / interactive / service-focused / administrative" },
+        ar: { title: "تصميم موقع", description: "Alasaylf — تصميم موقع شركة / تفاعلي / خدمي / إداري" },
+        nl: { title: "Websiteontwerp", description: "Alasaylf — bedrijfswebsite / interactief / diensten / administratief" }
       }
     }
   ],
@@ -627,7 +641,7 @@ export const UI_TEXTS = {
   en: {
     home: "Home",
     services: "Services",
-    portfolio: "Works",
+    portfolio: "Projects",
     prices: "Pricing",
     team: "Our Team",
     webPrices: "Web Development",
@@ -791,7 +805,7 @@ export const UI_TEXTS = {
   nl: {
     home: "Home",
     services: "Diensten",
-    portfolio: "Werken",
+    portfolio: "Projecten",
     prices: "Marketing Prijzen",
     team: "Ons Team",
     webPrices: "Web Prijzen",

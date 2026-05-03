@@ -9,7 +9,7 @@ const PortfolioPage: React.FC = () => {
   return (
     <>
       <PageHero
-        eyebrow={lang === 'ar' ? 'أعمالنا' : lang === 'nl' ? 'Portfolio' : 'Selected Works'}
+        eyebrow={lang === 'ar' ? 'أعمالنا' : lang === 'nl' ? 'Projecten' : 'Projects'}
         title={lang === 'ar' ? 'نماذج من مشاريعنا الناجحة' : lang === 'nl' ? 'Succesvolle case studies' : 'Case Studies That Prove Delivery'}
         subtitle={
           lang === 'ar'

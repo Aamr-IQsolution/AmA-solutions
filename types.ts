@@ -60,6 +60,8 @@ export interface HomeStats {
 
 export interface TestimonialEntry {
   initials: string;
+  /** Circular avatar in testimonials; omit to use initials */
+  image?: string;
   translations: Record<Language, { name: string; role: string; quote: string }>;
 }
 

@@ -84,6 +84,22 @@
   cursor: pointer;
 }
 
+.mailtoLinkRow {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mailtoLinkRow:hover .value {
+  color: var(--ax-primary);
+}
+
+.mailtoLinkRow:focus-visible {
+  outline: 2px solid var(--ax-primary);
+  outline-offset: 4px;
+  border-radius: var(--ax-radius-md);
+}
+
 .whatsappLinkRow:hover .value {
   color: var(--ax-primary);
 }

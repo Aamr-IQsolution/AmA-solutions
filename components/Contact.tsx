@@ -58,6 +58,13 @@ const Contact: React.FC = () => {
 
   const whatsappDigits = config.phone.replace(/\D/g, '');
   const whatsappHref = `https://wa.me/${whatsappDigits}`;
+  const mailtoHref = `mailto:${config.contactEmail}`;
+  const composeEmailAria =
+    lang === 'ar'
+      ? `إنشاء رسالة إلى ${config.contactEmail}`
+      : lang === 'nl'
+        ? `E-mail opstellen aan ${config.contactEmail}`
+        : `Compose email to ${config.contactEmail}`;
 
   return (
     <section id="contact" className={styles.section}>
@@ -69,7 +76,11 @@ const Contact: React.FC = () => {
             <p className={styles.lead}>{lead}</p>
 
             <div className={styles.rows}>
-              <div className={styles.row}>
+              <a
+                href={mailtoHref}
+                className={`${styles.row} ${styles.mailtoLinkRow}`}
+                aria-label={composeEmailAria}
+              >
                 <div className={styles.iconBox}>
                   <i className="fa-solid fa-envelope text-xl" aria-hidden />
                 </div>
@@ -77,7 +88,7 @@ const Contact: React.FC = () => {
                   <p className={styles.label}>{t.email}</p>
                   <p className={styles.value}>{config.contactEmail}</p>
                 </div>
-              </div>
+              </a>
               <a
                 href={whatsappHref}
                 target="_blank"

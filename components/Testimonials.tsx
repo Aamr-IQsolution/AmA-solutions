@@ -20,8 +20,23 @@ const Testimonials: React.FC = () => {
             return (
               <article key={idx} className={styles.card}>
                 <div className={styles.head}>
-                  <div className={styles.avatar} aria-hidden>
-                    {item.initials}
+                  <div
+                    className={`${styles.avatar} ${item.image ? styles.avatarImage : ''}`}
+                    aria-hidden
+                  >
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt=""
+                        className={styles.avatarPhoto}
+                        width={48}
+                        height={48}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      item.initials
+                    )}
                   </div>
                   <div className={styles.meta}>
                     <p className={styles.name}>{tr.name}</p>

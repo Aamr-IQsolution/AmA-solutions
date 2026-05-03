@@ -8,11 +8,12 @@ import { Language } from '../types';
 import styles from './LanguagePicker.module.css';
 
 function detectBrowserLanguage(): Language {
-  if (typeof navigator === 'undefined') return 'en';
+  if (typeof navigator === 'undefined') return 'nl';
   const n = navigator.language.toLowerCase();
   if (n.startsWith('ar')) return 'ar';
   if (n.startsWith('nl')) return 'nl';
-  return 'en';
+  if (n.startsWith('en')) return 'en';
+  return 'nl';
 }
 
 interface LanguagePickerProps {

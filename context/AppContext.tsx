@@ -22,7 +22,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLangState] = useState<Language>(() => {
     const saved = localStorage.getItem('lang');
-    return (saved as Language) || 'ar';
+    return (saved as Language) || 'nl';
   });
   
   const [config, setConfigState] = useState<SiteConfig>(() => {
