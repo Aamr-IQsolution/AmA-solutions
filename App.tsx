@@ -1,12 +1,11 @@
 /**
  * المكون الرئيسي للتطبيق (Root Component).
  */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import LanguagePicker from './components/LanguagePicker';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import TeamPage from './pages/TeamPage';
@@ -18,27 +17,10 @@ import './styles/theme.css';
 
 const AppLayout: React.FC = () => {
   const location = useLocation();
-  const [showLangPicker, setShowLangPicker] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname, location.search]);
-
-  useEffect(() => {
-    const hasSelected = localStorage.getItem('has_selected_lang');
-    if (hasSelected) {
-      setShowLangPicker(false);
-    }
-  }, []);
-
-  const handleLangSelect = () => {
-    localStorage.setItem('has_selected_lang', 'true');
-    setShowLangPicker(false);
-  };
-
-  if (showLangPicker) {
-    return <LanguagePicker onSelect={handleLangSelect} />;
-  }
 
   return (
     <div className="new-design-wrapper min-h-screen flex flex-col">

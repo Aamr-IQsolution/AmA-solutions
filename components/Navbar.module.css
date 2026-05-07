@@ -134,3 +134,55 @@
 .overlayLinkActive {
   color: #3b7cb8;
 }
+
+/* Minimal language segment control — white / blue / black */
+.langSwitch {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.langBtn {
+  margin: 0;
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #000000;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  min-width: 42px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.langBtn + .langBtn {
+  border-inline-start: 1px solid #e5e5e5;
+}
+
+.langBtn:hover:not(.langBtnActive) {
+  background: #f4f7fa;
+  color: #3b7cb8;
+}
+
+.langBtnActive {
+  background: #3b7cb8;
+  color: #ffffff;
+}
+
+.langBtn:focus-visible {
+  outline: 2px solid #3b7cb8;
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.langSwitchMobileWrap {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}

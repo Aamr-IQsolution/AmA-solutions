@@ -612,31 +612,6 @@ export const INITIAL_CONFIG: SiteConfig = {
   ]
 };
 
-/** نصوص شاشة اختيار اللغة — تعرض حسب لغة المتصفح قبل حفظ تفضيل المستخدم */
-export const LANGUAGE_PICKER_UI: Record<
-  Language,
-  { titleBefore: string; titleAccent: string; titleAfter: string; hint: string }
-> = {
-  en: {
-    titleBefore: 'Choose your ',
-    titleAccent: 'language',
-    titleAfter: '',
-    hint: 'Select a language to continue',
-  },
-  ar: {
-    titleBefore: 'اختر ',
-    titleAccent: 'لغتك',
-    titleAfter: '',
-    hint: 'اختر لغتك المفضلة للمتابعة',
-  },
-  nl: {
-    titleBefore: 'Kies je ',
-    titleAccent: 'taal',
-    titleAfter: '',
-    hint: 'Selecteer een taal om verder te gaan',
-  },
-};
-
 export const UI_TEXTS = {
   en: {
     home: "Home",

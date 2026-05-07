@@ -19,10 +19,14 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+const SUPPORTED_LANGS: Language[] = ['nl', 'en', 'ar'];
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  /** Default locale: Dutch (NL). Translations live in `constants` / Context — no i18next in this Vite app. */
   const [lang, setLangState] = useState<Language>(() => {
-    const saved = localStorage.getItem('lang');
-    return (saved as Language) || 'nl';
+    const saved = localStorage.getItem('lang') as Language | null;
+    if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+    return 'nl';
   });
   
   const [config, setConfigState] = useState<SiteConfig>(() => {
@@ -46,6 +50,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [contactMessage, setContactMessage] = useState('');
 
   const setLang = (l: Language) => {
+    if (!SUPPORTED_LANGS.includes(l)) return;
     setLangState(l);
     localStorage.setItem('lang', l);
     document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';

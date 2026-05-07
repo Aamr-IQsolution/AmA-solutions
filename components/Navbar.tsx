@@ -63,33 +63,35 @@ const Navbar: React.FC = () => {
   ];
 
   const LanguageSwitcher = () => {
-    const languages: { code: Language; name: string; flag: string }[] = [
-      { code: 'ar', name: 'AR', flag: '/assets/sy.svg' },
-      { code: 'en', name: 'EN', flag: '/assets/gb.svg' },
-      { code: 'nl', name: 'NL', flag: '/assets/nl.svg' },
+    const options: { code: Language; label: string }[] = [
+      { code: 'nl', label: 'NL' },
+      { code: 'en', label: 'EN' },
+      { code: 'ar', label: 'AR' },
     ];
 
     return (
-      <div className="flex items-center space-x-2" dir="ltr">
-        {languages.map((l) => (
+      <div
+        className={navStyles.langSwitch}
+        role="group"
+        aria-label={texts.selectLang}
+        dir="ltr"
+      >
+        {options.map((opt) => (
           <button
-            key={l.code}
+            key={opt.code}
             type="button"
-            onClick={() => setLang(l.code)}
-            className={`relative w-12 h-8 rounded-md bg-cover bg-center transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3B7CB8] shadow-lg ${
-              lang === l.code ? 'ring-2 ring-[#3B7CB8]' : 'opacity-70 hover:opacity-100'
-            }`}
-            style={{ backgroundImage: `url(${l.flag})` }}
-            aria-label={`Switch to ${l.name} language`}
+            className={`${navStyles.langBtn} ${lang === opt.code ? navStyles.langBtnActive : ''}`}
+            onClick={() => setLang(opt.code)}
+            aria-pressed={lang === opt.code}
+            aria-label={
+              opt.code === 'nl'
+                ? 'Nederlands'
+                : opt.code === 'en'
+                  ? 'English'
+                  : 'العربية'
+            }
           >
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-              <span
-                className="text-white font-black text-sm tracking-widest"
-                style={{ textShadow: '0 0 5px rgba(0,0,0,0.7)' }}
-              >
-                {l.name}
-              </span>
-            </div>
+            {opt.label}
           </button>
         ))}
       </div>
@@ -174,7 +176,7 @@ const Navbar: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div style={{ marginTop: 32 }}>
+          <div className={navStyles.langSwitchMobileWrap}>
             <LanguageSwitcher />
           </div>
         </div>
