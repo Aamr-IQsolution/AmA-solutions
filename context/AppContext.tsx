@@ -41,6 +41,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         testimonials: parsed.testimonials ?? INITIAL_CONFIG.testimonials,
         faqs: parsed.faqs ?? INITIAL_CONFIG.faqs,
         homeSectionCopy: parsed.homeSectionCopy ?? INITIAL_CONFIG.homeSectionCopy,
+        mainPlans: INITIAL_CONFIG.mainPlans,
+        addOns: INITIAL_CONFIG.addOns,
+        plans: INITIAL_CONFIG.plans,
+        webPlans: INITIAL_CONFIG.webPlans,
       };
     } catch {
       return INITIAL_CONFIG;

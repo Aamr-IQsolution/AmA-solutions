@@ -536,10 +536,156 @@ export const INITIAL_CONFIG: SiteConfig = {
       }
     }
   ],
+  mainPlans: [
+    {
+      id: "main-1",
+      annualPrice: 85,
+      annualTotal: 899,
+      setupFeeAnnual: 100,
+      isPopular: false,
+      isCustom: false,
+      translations: {
+        en: {
+          name: "Starter",
+          buttonText: "Get Started",
+          setupFeeNote: "One-time setup fee €100",
+          features: [
+            "Landing Page",
+            "Basic Logo Design",
+            "2 Social Media Platforms Setup",
+            "Hosting + Domain + 1 Official Email",
+            "Website Content Update Once Monthly",
+          ],
+        },
+        ar: {
+          name: "الباقة الأساسية",
+          buttonText: "ابدأ الآن",
+          setupFeeNote: "رسوم التأسيس 100€ تُدفع مرة واحدة",
+          features: [
+            "صفحة واحدة",
+            "تصميم لوغو أساسي",
+            "إنشاء وتجهيز منصتين سوشيال ميديا",
+            "استضافة + نطاق + إيميل رسمي واحد",
+            "تعديل محتوى الموقع مرة شهرياً",
+          ],
+        },
+        nl: {
+          name: "Starter",
+          buttonText: "Begin Nu",
+          setupFeeNote: "Eenmalige installatiekosten €100",
+          features: [
+            "Landingspagina",
+            "Basis Logo Ontwerp",
+            "2 Social Media Platforms Instellen",
+            "Hosting + Domein + 1 Officieel E-mail",
+            "Website Inhoud Update Eenmaal per Maand",
+          ],
+        },
+      },
+    },
+    {
+      id: "main-2",
+      annualPrice: 250,
+      annualTotal: 2540,
+      setupFeeAnnual: 150,
+      isPopular: true,
+      isCustom: false,
+      translations: {
+        en: {
+          name: "Business Growth",
+          buttonText: "Get Started",
+          setupFeeNote: "One-time setup fee €150",
+          features: [
+            "5-Page Professional Website",
+            "Contact Form + SSL Certificate",
+            "CMS Dashboard",
+            "1 Weekly Post on 2 Social Platforms",
+            "2 Paid Ad Campaigns Monthly (ad budget not included — min €30/month)",
+            "Hosting + Domain + 1 Official Email",
+            "Database Included",
+          ],
+        },
+        ar: {
+          name: "باقة النمو",
+          buttonText: "ابدأ الآن",
+          setupFeeNote: "رسوم التأسيس 150€ تُدفع مرة واحدة",
+          features: [
+            "موقع احترافي 5 صفحات",
+            "نموذج اتصال + شهادة SSL",
+            "لوحة تحكم CMS",
+            "منشور أسبوعي على منصتين",
+            "إنشاء وإدارة حملتين إعلانيتين شهرياً (ميزانية الإعلان غير مشمولة — حد أدنى 30€/شهر)",
+            "استضافة + نطاق + إيميل رسمي",
+            "قاعدة بيانات مدمجة",
+          ],
+        },
+        nl: {
+          name: "Business Groei",
+          buttonText: "Begin Nu",
+          setupFeeNote: "Eenmalige installatiekosten €150",
+          features: [
+            "Professionele Website 5 Pagina's",
+            "Contactformulier + SSL Certificaat",
+            "CMS Dashboard",
+            "1 Wekelijkse Post op 2 Platforms",
+            "2 Betaalde Advertentiecampagnes p/m (advertentiebudget niet inbegrepen — min €30/maand)",
+            "Hosting + Domein + 1 Officieel E-mail",
+            "Database Inbegrepen",
+          ],
+        },
+      },
+    },
+    {
+      id: "main-3",
+      annualPrice: 0,
+      annualTotal: 0,
+      setupFeeAnnual: 0,
+      isPopular: false,
+      isCustom: true,
+      translations: {
+        en: {
+          name: "Custom Solutions",
+          buttonText: "Contact Us",
+          setupFeeNote: "",
+          customPriceLabel: "Custom Price",
+          features: [
+            "E-Commerce Development",
+            "Custom Web Applications",
+            "Business Automation",
+            "Technical Problem Solving",
+          ],
+        },
+        ar: {
+          name: "الحلول المتقدمة",
+          buttonText: "تواصل معنا",
+          setupFeeNote: "",
+          customPriceLabel: "سعر مخصص",
+          features: [
+            "تطوير المتاجر الإلكترونية",
+            "تطبيقات ويب مخصصة",
+            "أتمتة الأعمال",
+            "حل المشاكل البرمجية",
+          ],
+        },
+        nl: {
+          name: "Maatwerk Oplossingen",
+          buttonText: "Neem Contact Op",
+          setupFeeNote: "",
+          customPriceLabel: "Prijs op Maat",
+          features: [
+            "E-Commerce Ontwikkeling",
+            "Maatwerk Webapplicaties",
+            "Bedrijfsautomatisering",
+            "Technische Probleemoplossing",
+          ],
+        },
+      },
+    },
+  ],
   plans: [
     {
       id: "sm-1",
-      price: 349,
+      price: 150,
       isPopular: false,
       translations: {
         en: { name: "Starter Ads", buttonText: "Order Now", features: ["1 Social Channel", "Content Management", "4 Posts Monthly", "Ad Account Setup Creation", "Visual Identity/Logo/Colors Creation +€50"] },
@@ -549,32 +695,22 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "sm-2",
-      price: 649,
+      price: 199,
       isPopular: true,
       translations: {
-        en: { name: "Grow Plan", buttonText: "Order Now", features: ["1 to 2 Social Channels", "6 Posts Monthly", "Create 1 Ad Campaign Monthly", "Ad Campaign Management", "Create 1 Video Monthly", "Create 4 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["من 1 إلى 2 منصات تواصل", "6 منشورات شهرياً", "إنشاء حملة إعلانية شهرياً", "إدارة الحملات الإعلانية", "إنشاء 1 فيديو شهرياً", "إنشاء 4 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["1 tot 2 Sociale Kanalen", "6 Berichten p/m", "Maak 1 advertentiecampagne per maand", "Advertentiecampagnebeheer", "Maak 1 video per maand", "Maak 4 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
+        en: { name: "Grow Plan", buttonText: "Order Now", features: ["1 to 2 Social Channels", "4 Posts Monthly", "Create 1 Ad Campaign Monthly", "Ad Campaign Management", "Create 1 Video Monthly", "Create 4 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["من 1 إلى 2 منصات تواصل", "4 منشورات شهرياً", "إنشاء حملة إعلانية شهرياً", "إدارة الحملات الإعلانية", "إنشاء 1 فيديو شهرياً", "إنشاء 4 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["1 tot 2 Sociale Kanalen", "4 Berichten p/m", "Maak 1 advertentiecampagne per maand", "Advertentiecampagnebeheer", "Maak 1 video per maand", "Maak 4 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     },
     {
       id: "sm-3",
-      price: 999,
+      price: 300,
       isPopular: false,
       translations: {
-        en: { name: "Pro Plan", buttonText: "Order Now", features: ["1 to 3 Social Channels", "8 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["من 1 إلى 3 منصات تواصل", "8 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["1 tot 3 Sociale Kanalen", "8 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video's per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
-      }
-    },
-    {
-      id: "sm-4",
-      price: 1899,
-      isPopular: false,
-      translations: {
-        en: { name: "Elite Scale", buttonText: "Order Now", features: ["Comprehensive ad campaign strategy", "Multi-Channel Ads", "Create 1 to 3 (professional) videos", "Ad account management (1 to 4 platforms)", "Linking and securing ad accounts", "Ad platform quality and IP management", "Weekly Analytics", "Priority Support", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة النخبة", buttonText: "اطلب الآن", features: ["إستراتيجية حملات إعلانية شاملة", "إعلانات متعددة المنصات", "إنشاء 1 إلى 3 فيديو (إحترافي)", "إدارة الحسابات الإعلانية من 1 إلى 4 منصات", "ربط وتأمين الحسابات الإعلانية", "إدارة جودة المنصات الإعلانية وحقوق الملكية الفكرية", "تحليلات أسبوعية", "دعم فني ذو أولوية", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Elite Pakket", buttonText: "Nu Bestellen", features: ["Uitgebreide advertentiecampagnestrategie", "Multi-Channel Ads", "Maak 1 tot 3 (professionele) video's", "Advertentieaccountbeheer (1 tot 4 platforms)", "Koppelen en beveiligen van advertentieaccounts", "Kwaliteitsbeheer van advertentieplatforms en intellectueel eigendom", "Wekelijkse Analytics", "Priority Support", "Visuele identiteit/logo/kleuren +€50"] }
+        en: { name: "Pro Plan", buttonText: "Order Now", features: ["1 to 3 Social Channels", "6 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
+        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["من 1 إلى 3 منصات تواصل", "6 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
+        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["1 tot 3 Sociale Kanalen", "6 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video's per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
       }
     }
   ],
@@ -609,7 +745,68 @@ export const INITIAL_CONFIG: SiteConfig = {
         nl: { name: "E-Commerce", buttonText: "Project Starten", features: ["Volledige Webshop", "Betalingssysteem", "Voorraadbeheer", "Geautomatiseerde Emails"] }
       }
     }
-  ]
+  ],
+  addOns: [
+    {
+      id: "addon-1",
+      price: 45,
+      icon: "fa-film",
+      duration: "20s",
+      translations: {
+        en: {
+          name: "Promotional Video",
+          description: "20-second promotional video — editing and motion graphics only, no on-site filming",
+        },
+        ar: {
+          name: "فيديو إعلاني",
+          description: "فيديو إعلاني 20 ثانية — مونتاج وموشن جرافيك فقط، بدون تصوير ميداني",
+        },
+        nl: {
+          name: "Promotievideo",
+          description: "20 seconden promotievideo — montage en motion graphics, geen locatieopnames",
+        },
+      },
+    },
+    {
+      id: "addon-2",
+      price: 120,
+      icon: "fa-video",
+      duration: "60s",
+      translations: {
+        en: {
+          name: "Professional Video",
+          description: "60-second professional video — editing and motion graphics only, no on-site filming",
+        },
+        ar: {
+          name: "فيديو احترافي",
+          description: "فيديو احترافي 60 ثانية — مونتاج وموشن جرافيك فقط، بدون تصوير ميداني",
+        },
+        nl: {
+          name: "Professionele Video",
+          description: "60 seconden professionele video — montage en motion graphics, geen locatieopnames",
+        },
+      },
+    },
+    {
+      id: "addon-3",
+      price: 50,
+      icon: "fa-camera",
+      translations: {
+        en: {
+          name: "On-Site Photography",
+          description: "Professional on-site photography session — extra service added to any plan",
+        },
+        ar: {
+          name: "تصوير ميداني",
+          description: "جلسة تصوير ميدانية احترافية — خدمة إضافية تُضاف على أي باقة",
+        },
+        nl: {
+          name: "Locatiefotografie",
+          description: "Professionele locatiefotografiesessie — extra service bij elk pakket",
+        },
+      },
+    },
+  ],
 };
 
 export const UI_TEXTS = {
@@ -619,7 +816,6 @@ export const UI_TEXTS = {
     portfolio: "Projects",
     prices: "Pricing",
     team: "Our Team",
-    webPrices: "Web Development",
     contact: "Contact Us",
     admin: "Dashboard",
     login: "Login",
@@ -701,7 +897,6 @@ export const UI_TEXTS = {
     portfolio: "أعمالنا",
     prices: "أسعار التسويق",
     team: "فريقنا",
-    webPrices: "أسعار المواقع",
     contact: "تواصل معنا",
     admin: "لوحة التحكم",
     login: "تسجيل الدخول",
@@ -783,7 +978,6 @@ export const UI_TEXTS = {
     portfolio: "Projecten",
     prices: "Marketing Prijzen",
     team: "Ons Team",
-    webPrices: "Web Prijzen",
     contact: "Contact",
     admin: "Beheer",
     login: "Inloggen",

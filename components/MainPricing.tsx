@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { MainPlan } from '../types';
-import styles from './PricingSection.module.css';
+import styles from './MainPricing.module.css';
 
 const PERIOD_LABELS = {
   en: '/mo',
@@ -15,12 +15,22 @@ const PERIOD_LABELS = {
   nl: '/mnd',
 } as const;
 
-const PricingSection: React.FC = () => {
+const ANNUAL_TOTAL_LABELS = {
+  en: (total: number) => `€${total.toLocaleString()} billed annually`,
+  ar: (total: number) => `${total.toLocaleString()}€ سنوياً دفعة واحدة`,
+  nl: (total: number) => `€${total.toLocaleString()} per jaar vooruitbetaald`,
+} as const;
+
+const POPULAR_LABELS = {
+  en: 'Most popular',
+  ar: 'الأكثر شعبية',
+  nl: 'Meest populair',
+} as const;
+
+const MainPricing: React.FC = () => {
   const { lang, config, setContactMessage, isRTL } = useApp();
   const t = UI_TEXTS[lang];
-  const copy = config.homeSectionCopy.pricing[lang];
   const navigate = useNavigate();
-  const mainPlans = config.mainPlans;
 
   const handleOrder = (plan: MainPlan) => {
     const tr = plan.translations[lang];
@@ -51,44 +61,41 @@ const PricingSection: React.FC = () => {
 
   const renderCard = (plan: MainPlan) => {
     const tr = plan.translations[lang];
-    const isFeatured = plan.isPopular;
 
     return (
       <div className={styles.cardWrap}>
-        {isFeatured ? <span className={styles.badge}>{copy.popularBadge}</span> : null}
-        <div className={`${styles.card} ${isFeatured ? styles.cardFeatured : ''}`}>
+        {plan.isPopular ? <span className={styles.badge}>{POPULAR_LABELS[lang]}</span> : null}
+        <div className={`${styles.card} ${plan.isPopular ? styles.cardPopular : ''}`}>
           <h3 className={styles.planName}>{tr.name}</h3>
-          <p className={styles.price}>
+          <div className={styles.priceRow}>
             {plan.isCustom ? (
-              tr.customPriceLabel
+              <span className={styles.price}>{tr.customPriceLabel}</span>
             ) : (
               <>
-                {t.currency}
-                {plan.annualPrice}
+                <span className={styles.price}>
+                  {t.currency}
+                  {plan.annualPrice}
+                </span>
                 <span className={styles.period}>{PERIOD_LABELS[lang]}</span>
               </>
             )}
+          </div>
+          <p className={styles.annualTotal}>
+            {!plan.isCustom ? ANNUAL_TOTAL_LABELS[lang](plan.annualTotal) : '\u00A0'}
           </p>
-          {!plan.isCustom ? (
-            <p className={styles.annualHint}>
-              {lang === 'ar'
-                ? `${plan.annualTotal.toLocaleString()}€ سنوياً`
-                : lang === 'nl'
-                  ? `€${plan.annualTotal.toLocaleString()} per jaar`
-                  : `€${plan.annualTotal.toLocaleString()} annually`}
-            </p>
-          ) : (
-            <p className={styles.annualHint}>{'\u00A0'}</p>
-          )}
           <ul className={styles.list}>
-            {tr.features.slice(0, 5).map((f, i) => (
+            {tr.features.map((feature, i) => (
               <li key={i}>
                 <i className={`fa-solid fa-check ${styles.check}`} aria-hidden />
-                <span>{f}</span>
+                <span>{feature}</span>
               </li>
             ))}
           </ul>
-          <button type="button" onClick={() => handleOrder(plan)} className={styles.orderBtn}>
+          <button
+            type="button"
+            onClick={() => handleOrder(plan)}
+            className={`${styles.cta} ${plan.isPopular ? styles.ctaPrimary : ''}`}
+          >
             {tr.buttonText}
           </button>
           <p className={styles.setupNote}>{tr.setupFeeNote || '\u00A0'}</p>
@@ -98,16 +105,13 @@ const PricingSection: React.FC = () => {
   };
 
   return (
-    <section className={styles.section} aria-labelledby="home-pricing-heading">
+    <section className={styles.section} aria-label="Main pricing plans">
       <div className={styles.inner}>
-        <h2 id="home-pricing-heading" className={styles.title}>
-          {copy.titleBefore}
-          <span className={styles.highlight}>{copy.titleHighlight}</span>
-          {copy.titleAfter}
-        </h2>
-        <p className={styles.subtitle}>{copy.subtitle}</p>
-
-        <div className={styles.grid}>{mainPlans.map((plan) => renderCard(plan))}</div>
+        <div className={styles.grid}>
+          {config.mainPlans.map((plan) => (
+            <div key={plan.id}>{renderCard(plan)}</div>
+          ))}
+        </div>
 
         <div className={styles.swiperWrap}>
           <Swiper
@@ -119,18 +123,14 @@ const PricingSection: React.FC = () => {
             centeredSlides
             pagination={{ clickable: true }}
           >
-            {mainPlans.map((plan) => (
+            {config.mainPlans.map((plan) => (
               <SwiperSlide key={plan.id}>{renderCard(plan)}</SwiperSlide>
             ))}
           </Swiper>
         </div>
-
-        <Link to="/pricing" className={styles.seeAll}>
-          {copy.seeAll}
-        </Link>
       </div>
     </section>
   );
 };
 
-export default PricingSection;
+export default MainPricing;

@@ -31,6 +31,33 @@ export interface Plan {
   }>;
 }
 
+export interface MainPlan {
+  id: string;
+  annualPrice: number;
+  annualTotal: number;
+  setupFeeAnnual: number;
+  isPopular: boolean;
+  isCustom: boolean;
+  translations: Record<Language, {
+    name: string;
+    features: string[];
+    buttonText: string;
+    setupFeeNote: string;
+    customPriceLabel?: string;
+  }>;
+}
+
+export interface AddOn {
+  id: string;
+  price: number;
+  icon: string;
+  duration?: string;
+  translations: Record<Language, {
+    name: string;
+    description: string;
+  }>;
+}
+
 export interface Project {
   id: string;
   image: string;
@@ -120,6 +147,8 @@ export interface SiteConfig {
   portfolio: Project[];
   plans: Plan[];
   webPlans: Plan[];
+  mainPlans: MainPlan[];
+  addOns: AddOn[];
 }
 
 export type UserRole = 'OWNER' | 'ADMIN' | 'MODERATOR';

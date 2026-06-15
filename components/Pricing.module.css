@@ -35,42 +35,94 @@
 }
 
 .grid {
-  display: grid;
+  display: none;
   grid-template-columns: 1fr;
   gap: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .swiperWrap {
+    display: none;
   }
 }
 
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
 }
 
+.gridWeb {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .gridWeb {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.swiperWrap {
+  padding-bottom: 2.5rem;
+}
+
+.swiperWrap :global(.swiper-slide) {
+  padding-top: 20px;
+  height: auto;
+}
+
+.swiperWrap :global(.swiper-pagination-bullet) {
+  background: var(--ax-primary);
+  opacity: 0.35;
+}
+
+.swiperWrap :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+}
+
+/* Social / marketing cards — purple */
 .card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
   padding: 1.75rem 1.5rem;
-  background: var(--ax-glass-bg);
-  backdrop-filter: var(--ax-glass-blur);
-  -webkit-backdrop-filter: var(--ax-glass-blur);
-  border: 0.5px solid var(--ax-border);
-  border-radius: var(--ax-radius-lg);
+  background-color: rgb(46 87 129 / 75%);
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.07) 1px, transparent 1px);
+  background-size: 30px 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--ax-shadow-glass);
+}
+
+/* Web development cards — green */
+.cardWeb {
+  background-color: rgb(15 26 33 / 75%);
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+  background-size: 30px 30px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
 }
 
 .cardPopular {
-  border: 2px solid var(--ax-primary);
+  border: 2px solid #f97316;
+  box-shadow: 0 8px 40px rgba(249, 115, 22, 0.3);
 }
 
 .badge {
@@ -79,15 +131,15 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 0.35rem 0.85rem;
-  background: var(--ax-primary);
-  color: var(--ax-white);
+  background: #f97316;
+  color: #ffffff;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: 999px;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 10;
 }
 
 .planName {
@@ -95,7 +147,7 @@
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--ax-primary);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0 0 0.75rem;
   display: block;
 }
@@ -110,64 +162,70 @@
 .price {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--ax-black);
+  color: #ffffff;
 }
 
 .period {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--ax-text-muted);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .list {
   list-style: none;
   padding: 0;
   margin: 0 0 1.5rem;
+  flex: 1 1 auto;
 }
 
 .list li {
   display: flex;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 8px;
   font-size: 12px;
-  color: var(--ax-text-muted);
+  color: rgba(255, 255, 255, 0.78);
   line-height: 1.45;
   margin-bottom: 0.65rem;
 }
 
 .check {
-  color: var(--ax-primary);
+  color: #a78bfa;
   margin-top: 0.15rem;
   flex-shrink: 0;
 }
 
+.cardWeb .check {
+  color: #34d399;
+}
+
 .cta {
   width: 100%;
-  padding: 0.9rem 1rem;
+  box-sizing: border-box;
+  padding: 12px 24px;
   border-radius: var(--ax-radius-md);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  border: 0.5px solid var(--ax-border);
-  background: var(--ax-white);
-  color: var(--ax-black);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #ffffff;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .cta:hover {
-  background: var(--ax-stats-bg);
-  border-color: var(--ax-stats-border);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .ctaPrimary {
-  background: var(--ax-primary);
-  color: var(--ax-white);
-  border-color: transparent;
+  background: #f97316;
+  color: #ffffff;
+  border: none;
 }
 
 .ctaPrimary:hover {
-  background: var(--ax-primary-dark);
-  color: var(--ax-white);
+  background: #ea580c;
+  color: #ffffff;
 }

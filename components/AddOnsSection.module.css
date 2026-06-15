@@ -1,0 +1,111 @@
+.section {
+  padding: 48px 20px 32px;
+  background: var(--ax-white);
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: var(--ax-black);
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.grid {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .swiperWrap {
+    display: none;
+  }
+}
+
+.swiperWrap {
+  padding-bottom: 2.5rem;
+}
+
+.swiperWrap :global(.swiper-pagination-bullet) {
+  background: var(--ax-primary);
+  opacity: 0.35;
+}
+
+.swiperWrap :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  padding: 1.75rem 1.5rem;
+  background-color: rgb(2 17 26 / 85%);
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(148, 163, 184, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.iconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #94a3b8;
+  font-size: 1.25rem;
+}
+
+.name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.35rem;
+}
+
+.duration {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 0.65rem;
+}
+
+.description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 1rem;
+  flex: 1 1 auto;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}

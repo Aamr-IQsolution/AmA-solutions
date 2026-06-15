@@ -1,24 +1,35 @@
 import React from 'react';
 import PageHero from '../components/PageHero';
+import MainPricing from '../components/MainPricing';
 import Pricing from '../components/Pricing';
 import { useApp } from '../context/AppContext';
 
+const HERO_COPY = {
+  ar: {
+    eyebrow: 'الأسعار والباقات',
+    title: 'خطط مرنة لكل مشروع',
+    subtitle: 'اختر الباقة المناسبة لك — مع عقد سنوي أو بدون التزام',
+  },
+  en: {
+    eyebrow: 'Pricing',
+    title: 'Flexible Plans For Every Project',
+    subtitle: 'Choose the right plan — annual contract or no commitment',
+  },
+  nl: {
+    eyebrow: 'Prijzen',
+    title: 'Flexibele Plannen Voor Elk Project',
+    subtitle: 'Kies het juiste plan — jaarcontract of zonder verplichting',
+  },
+} as const;
+
 const MarketingPricingPage: React.FC = () => {
   const { lang } = useApp();
+  const hero = HERO_COPY[lang];
 
   return (
     <>
-      <PageHero
-        eyebrow={lang === 'ar' ? 'التسويق الرقمي' : lang === 'nl' ? 'Digitale marketing' : 'Digital Marketing'}
-        title={lang === 'ar' ? 'باقات نمو مدروسة' : lang === 'nl' ? 'Groeiplannen op maat' : 'Growth Packages With Strategy'}
-        subtitle={
-          lang === 'ar'
-            ? 'إستراتيجيات سوشيال ميديا وإعلانات مدفوعة مصممة لتحقيق نتائج قابلة للقياس.'
-            : lang === 'nl'
-            ? 'Social media- en advertentieplannen die meetbare bedrijfsresultaten leveren.'
-            : 'Social media and paid campaign plans designed to deliver measurable business outcomes.'
-        }
-      />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
+      <MainPricing />
       <Pricing />
     </>
   );

@@ -18,10 +18,7 @@ const Footer: React.FC = () => {
     { to: '/team', label: t.team },
     { to: '/portfolio', label: t.portfolio },
   ];
-  const pricingLinks = [
-    { to: '/web-pricing', label: t.webPrices },
-    { to: '/pricing', label: t.prices },
-  ];
+  const pricingLinks = [{ to: '/pricing', label: t.prices }];
   const contactLinks = [{ to: '/contact', label: t.contact }];
 
   return (

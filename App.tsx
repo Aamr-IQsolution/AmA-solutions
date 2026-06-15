@@ -10,7 +10,6 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import TeamPage from './pages/TeamPage';
 import PortfolioPage from './pages/PortfolioPage';
-import WebPricingPage from './pages/WebPricingPage';
 import MarketingPricingPage from './pages/MarketingPricingPage';
 import ContactPage from './pages/ContactPage';
 import './styles/theme.css';
@@ -32,7 +31,7 @@ const AppLayout: React.FC = () => {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/web-pricing" element={<WebPricingPage />} />
+            <Route path="/web-pricing" element={<Navigate to="/pricing" replace />} />
             <Route path="/pricing" element={<MarketingPricingPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />

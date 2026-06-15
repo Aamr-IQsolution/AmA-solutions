@@ -57,7 +57,6 @@ const Navbar: React.FC = () => {
     { to: '/services', text: texts.services },
     { to: '/team', text: texts.team },
     { to: '/portfolio', text: texts.portfolio },
-    { to: '/web-pricing', text: texts.webPrices },
     { to: '/pricing', text: texts.prices },
     { to: '/contact', text: texts.contact },
   ];
