@@ -3,6 +3,7 @@ import HomeHero from '../components/HomeHero';
 import StatisticsCounter from '../components/StatisticsCounter';
 import Services from '../components/Services';
 import PricingSection from '../components/PricingSection';
+import SocialMediaPricing from '../components/SocialMediaPricing';
 import Portfolio from '../components/Portfolio';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
@@ -17,6 +18,7 @@ const HomePage: React.FC = () => {
       <StatisticsCounter />
       <Services />
       <PricingSection />
+      <SocialMediaPricing />
       <Portfolio />
       <Testimonials />
       <FAQ />

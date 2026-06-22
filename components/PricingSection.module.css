@@ -108,6 +108,21 @@
   z-index: 10;
 }
 
+.badgeFree {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3b7cb8;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
 .planName {
   font-size: var(--ax-font-h3);
   font-weight: 600;

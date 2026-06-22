@@ -1,6 +1,3 @@
-/**
- * قسم خطط الأسعار (Social / Marketing + Web + Add-ons).
- */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,13 +7,13 @@ import 'swiper/css/pagination';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { Plan } from '../types';
-import AddOnsSection from './AddOnsSection';
-import SocialMediaPricing from './SocialMediaPricing';
-import styles from './Pricing.module.css';
+import styles from './SocialMediaPricing.module.css';
 
-type PackageKind = 'web';
+type SocialMediaPricingProps = {
+  showId?: boolean;
+};
 
-const Pricing: React.FC = () => {
+const SocialMediaPricing: React.FC<SocialMediaPricingProps> = ({ showId = false }) => {
   const { lang, config, setContactMessage, isRTL } = useApp();
   const t = UI_TEXTS[lang];
   const navigate = useNavigate();
@@ -24,8 +21,8 @@ const Pricing: React.FC = () => {
   const popularLabel =
     lang === 'ar' ? 'الأكثر طلباً' : lang === 'nl' ? 'Meest populair' : 'Most popular';
 
-  const renderWebTitle = () => {
-    const header = config.webPricingHeader[lang];
+  const renderTitle = () => {
+    const header = config.pricingHeader[lang];
     const fullTitle = header.title;
     const highlight = header.highlight;
 
@@ -42,26 +39,24 @@ const Pricing: React.FC = () => {
     return fullTitle;
   };
 
-  const handleOrder = (plan: Plan, kind: PackageKind) => {
+  const handleOrder = (plan: Plan) => {
     const planName = plan.translations[lang].name;
     const price = `${t.currency}${plan.price}`;
     const brand = config.siteName;
 
     const message =
       lang === 'ar'
-        ? `مرحباً فريق ${brand}،\nأنا مهتم بباقة تطوير المواقع: "${planName}" بسعر ${price}.\nيرجى التواصل معي لمناقشة التفاصيل.`
+        ? `مرحباً فريق ${brand}،\nأنا مهتم بطلب باقة التسويق: "${planName}" بسعر ${price}.\nيرجى التواصل معي لمناقشة التفاصيل.`
         : lang === 'nl'
-          ? `Hallo ${brand}-team,\nIk ben geïnteresseerd in het webpakket: "${planName}" voor ${price}.\nNeem contact met mij op om de details te bespreken.`
-          : `Hello ${brand} Team,\nI am interested in the web package: "${planName}" for ${price}.\nPlease contact me to discuss the details.`;
+          ? `Hallo ${brand}-team,\nIk ben geïnteresseerd in het marketingpakket: "${planName}" voor ${price}.\nNeem contact met mij op om de details te bespreken.`
+          : `Hello ${brand} Team,\nI am interested in the marketing package: "${planName}" for ${price}.\nPlease contact me to discuss the details.`;
 
     setContactMessage(message);
     navigate('/contact');
   };
 
-  const renderPlanCard = (plan: Plan, kind: PackageKind, showPeriod = true) => (
-    <div
-      className={`${styles.card} ${kind === 'web' ? styles.cardWeb : ''} ${plan.isPopular ? styles.cardPopular : ''}`}
-    >
+  const renderPlanCard = (plan: Plan) => (
+    <div className={`${styles.card} ${plan.isPopular ? styles.cardPopular : ''}`}>
       {plan.isPopular ? <span className={styles.badge}>{popularLabel}</span> : null}
       <div>
         <span className={styles.planName}>{plan.translations[lang].name}</span>
@@ -70,7 +65,7 @@ const Pricing: React.FC = () => {
             {t.currency}
             {plan.price}
           </span>
-          {showPeriod ? <span className={styles.period}>/ p.m.</span> : null}
+          <span className={styles.period}>/ p.m.</span>
         </div>
       </div>
       <ul className={styles.list}>
@@ -83,7 +78,7 @@ const Pricing: React.FC = () => {
       </ul>
       <button
         type="button"
-        onClick={() => handleOrder(plan, kind)}
+        onClick={() => handleOrder(plan)}
         className={`${styles.cta} ${plan.isPopular ? styles.ctaPrimary : ''}`}
       >
         {plan.translations[lang].buttonText}
@@ -91,10 +86,10 @@ const Pricing: React.FC = () => {
     </div>
   );
 
-  const renderPlanSlider = (plans: Plan[], kind: PackageKind, showPeriod = true) => (
+  const renderPlanSlider = () => (
     <div className={styles.swiperWrap}>
       <Swiper
-        key={`${kind}-${lang}`}
+        key={`marketing-${lang}`}
         dir={isRTL ? 'rtl' : 'ltr'}
         modules={[Pagination, A11y]}
         slidesPerView={1.15}
@@ -102,36 +97,36 @@ const Pricing: React.FC = () => {
         centeredSlides
         pagination={{ clickable: true }}
       >
-        {plans.map((plan) => (
-          <SwiperSlide key={plan.id}>{renderPlanCard(plan, kind, showPeriod)}</SwiperSlide>
+        {config.plans.map((plan) => (
+          <SwiperSlide key={plan.id}>{renderPlanCard(plan)}</SwiperSlide>
         ))}
       </Swiper>
     </div>
   );
 
   return (
-    <>
-      <SocialMediaPricing showId />
-
-      <section id="web-pricing" className={styles.section}>
-        <div className={styles.inner}>
-          <div className={styles.header}>
-            <h2 className={styles.title}>{renderWebTitle()}</h2>
-            <p className={styles.desc}>{config.webPricingHeader[lang].description}</p>
-          </div>
-
-          <div className={`${styles.grid} ${styles.gridWeb}`}>
-            {config.webPlans.map((plan) => (
-              <div key={plan.id}>{renderPlanCard(plan, 'web', false)}</div>
-            ))}
-          </div>
-          {renderPlanSlider(config.webPlans, 'web', false)}
+    <section
+      {...(showId ? { id: 'pricing' } : {})}
+      className={styles.section}
+      aria-labelledby="social-media-pricing-heading"
+    >
+      <div className={styles.inner}>
+        <div className={styles.header}>
+          <h2 id="social-media-pricing-heading" className={styles.title}>
+            {renderTitle()}
+          </h2>
+          <p className={styles.desc}>{config.pricingHeader[lang].description}</p>
         </div>
-      </section>
 
-      <AddOnsSection />
-    </>
+        <div className={styles.grid}>
+          {config.plans.map((plan) => (
+            <div key={plan.id}>{renderPlanCard(plan)}</div>
+          ))}
+        </div>
+        {renderPlanSlider()}
+      </div>
+    </section>
   );
 };
 
-export default Pricing;
+export default SocialMediaPricing;

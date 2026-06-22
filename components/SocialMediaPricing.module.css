@@ -1,5 +1,5 @@
 .section {
-  padding: 48px 20px 32px;
+  padding: 48px 20px 72px;
   background: var(--ax-white);
 }
 
@@ -8,20 +8,52 @@
   margin: 0 auto;
 }
 
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--ax-black);
+  margin: 0 0 1rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.highlight {
+  color: var(--ax-primary);
+}
+
+.desc {
+  font-size: var(--ax-font-body);
+  color: var(--ax-text-muted);
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
 .grid {
   display: none;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    align-items: stretch;
   }
 
   .swiperWrap {
     display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: 1.5rem;
   }
 }
 
@@ -43,25 +75,23 @@
   opacity: 1;
 }
 
-.cardWrap {
-  position: relative;
-  height: 100%;
-}
-
 .card {
   position: relative;
-  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: visible;
   padding: 1.75rem 1.5rem;
-  background: rgba(15, 20, 35, 0.85);
+  background-color: rgb(46 87 129 / 75%);
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.07) 1px, transparent 1px);
+  background-size: 30px 30px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(59, 124, 184, 0.25);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(59, 124, 184, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
@@ -81,69 +111,49 @@
   padding: 0.35rem 0.85rem;
   background: #f97316;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  border-radius: 999px;
-  white-space: nowrap;
-  z-index: 10;
-}
-
-.badgeFree {
-  position: absolute;
-  top: -0.65rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.35rem 0.85rem;
-  background: #3b7cb8;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   border-radius: 999px;
   white-space: nowrap;
   z-index: 10;
 }
 
 .planName {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #f0f4f8;
-  margin: 0.5rem 0 0.75rem;
-  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 0.75rem;
+  display: block;
 }
 
 .priceRow {
   display: flex;
   align-items: baseline;
-  justify-content: center;
   gap: 0.25rem;
-  margin-bottom: 0.35rem;
-  transition: opacity 0.25s ease;
+  margin-bottom: 1.25rem;
 }
 
 .price {
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #ffffff;
 }
 
 .period {
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.annualTotal {
-  text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0 0 1rem;
-  min-height: 1.1rem;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.5rem;
   flex: 1 1 auto;
 }
 
@@ -151,15 +161,15 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
   line-height: 1.45;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.65rem;
 }
 
 .check {
-  color: var(--ax-primary);
-  margin-top: 0.2rem;
+  color: #a78bfa;
+  margin-top: 0.15rem;
   flex-shrink: 0;
 }
 
@@ -168,17 +178,19 @@
   box-sizing: border-box;
   padding: 12px 24px;
   border-radius: var(--ax-radius-md);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   cursor: pointer;
-  border: 1px solid rgba(59, 124, 184, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   background: transparent;
   color: #ffffff;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .cta:hover {
-  background: rgba(59, 124, 184, 0.15);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .ctaPrimary {
@@ -189,12 +201,5 @@
 
 .ctaPrimary:hover {
   background: #ea580c;
-}
-
-.setupNote {
-  margin-top: 0.65rem;
-  text-align: center;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.45);
-  min-height: 1rem;
+  color: #ffffff;
 }

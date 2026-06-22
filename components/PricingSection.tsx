@@ -15,6 +15,18 @@ const PERIOD_LABELS = {
   nl: '/mnd',
 } as const;
 
+const FREE_LABELS = {
+  en: 'Free',
+  ar: 'مجاناً',
+  nl: 'Gratis',
+} as const;
+
+const FREE_BADGE_LABELS = {
+  en: 'Free forever',
+  ar: 'مجانية للأبد',
+  nl: 'Gratis voor altijd',
+} as const;
+
 const PricingSection: React.FC = () => {
   const { lang, config, setContactMessage, isRTL } = useApp();
   const t = UI_TEXTS[lang];
@@ -25,6 +37,18 @@ const PricingSection: React.FC = () => {
   const handleOrder = (plan: MainPlan) => {
     const tr = plan.translations[lang];
     const brand = config.siteName;
+
+    if (plan.isFree) {
+      const message =
+        lang === 'ar'
+          ? `مرحباً فريق ${brand}،\nأنا مهتم بالباقة المجانية "${tr.name}".\nيرجى التواصل معي لإعدادها.`
+          : lang === 'nl'
+            ? `Hallo ${brand}-team,\nIk ben geïnteresseerd in het gratis pakket "${tr.name}".\nNeem contact met mij op om het in te stellen.`
+            : `Hello ${brand} Team,\nI am interested in the "${tr.name}" free plan.\nPlease contact me to set it up.`;
+      setContactMessage(message);
+      navigate('/contact');
+      return;
+    }
 
     if (plan.isCustom) {
       const message =
@@ -55,12 +79,18 @@ const PricingSection: React.FC = () => {
 
     return (
       <div className={styles.cardWrap}>
-        {isFeatured ? <span className={styles.badge}>{copy.popularBadge}</span> : null}
+        {plan.isFree ? (
+          <span className={styles.badgeFree}>{FREE_BADGE_LABELS[lang]}</span>
+        ) : isFeatured ? (
+          <span className={styles.badge}>{copy.popularBadge}</span>
+        ) : null}
         <div className={`${styles.card} ${isFeatured ? styles.cardFeatured : ''}`}>
           <h3 className={styles.planName}>{tr.name}</h3>
           <p className={styles.price}>
             {plan.isCustom ? (
               tr.customPriceLabel
+            ) : plan.isFree ? (
+              FREE_LABELS[lang]
             ) : (
               <>
                 {t.currency}
@@ -69,7 +99,7 @@ const PricingSection: React.FC = () => {
               </>
             )}
           </p>
-          {!plan.isCustom ? (
+          {!plan.isCustom && !plan.isFree ? (
             <p className={styles.annualHint}>
               {lang === 'ar'
                 ? `${plan.annualTotal.toLocaleString()}€ سنوياً`

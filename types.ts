@@ -38,6 +38,7 @@ export interface MainPlan {
   setupFeeAnnual: number;
   isPopular: boolean;
   isCustom: boolean;
+  isFree?: boolean;
   translations: Record<Language, {
     name: string;
     features: string[];
@@ -52,6 +53,7 @@ export interface AddOn {
   price: number;
   icon: string;
   duration?: string;
+  period?: 'once' | 'year' | 'month';
   translations: Record<Language, {
     name: string;
     description: string;

@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
+import { AddOn, Language } from '../types';
 import styles from './AddOnsSection.module.css';
 
 const SECTION_TITLES = {
@@ -13,12 +14,30 @@ const SECTION_TITLES = {
   nl: 'Extra Diensten',
 } as const;
 
+const PERIOD_SUFFIXES: Record<
+  Language,
+  Record<'year' | 'month', string>
+> = {
+  en: { year: '/yr', month: '/mo' },
+  ar: { year: '/سنة', month: '/شهر' },
+  nl: { year: '/jaar', month: '/mnd' },
+};
+
+const getPeriodSuffix = (lang: Language, period?: AddOn['period']) => {
+  if (period === 'year' || period === 'month') {
+    return PERIOD_SUFFIXES[lang][period];
+  }
+  return '';
+};
+
 const AddOnsSection: React.FC = () => {
   const { lang, config, isRTL } = useApp();
   const t = UI_TEXTS[lang];
 
   const renderCard = (addon: (typeof config.addOns)[number]) => {
     const tr = addon.translations[lang];
+    const periodSuffix = getPeriodSuffix(lang, addon.period);
+
     return (
       <div className={styles.card}>
         <div className={styles.iconWrap}>
@@ -30,6 +49,7 @@ const AddOnsSection: React.FC = () => {
         <p className={styles.price}>
           {t.currency}
           {addon.price}
+          {periodSuffix}
         </p>
       </div>
     );

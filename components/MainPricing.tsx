@@ -15,6 +15,18 @@ const PERIOD_LABELS = {
   nl: '/mnd',
 } as const;
 
+const FREE_LABELS = {
+  en: 'Free',
+  ar: 'مجاناً',
+  nl: 'Gratis',
+} as const;
+
+const FREE_BADGE_LABELS = {
+  en: 'Free forever',
+  ar: 'مجانية للأبد',
+  nl: 'Gratis voor altijd',
+} as const;
+
 const ANNUAL_TOTAL_LABELS = {
   en: (total: number) => `€${total.toLocaleString()} billed annually`,
   ar: (total: number) => `${total.toLocaleString()}€ سنوياً دفعة واحدة`,
@@ -35,6 +47,18 @@ const MainPricing: React.FC = () => {
   const handleOrder = (plan: MainPlan) => {
     const tr = plan.translations[lang];
     const brand = config.siteName;
+
+    if (plan.isFree) {
+      const message =
+        lang === 'ar'
+          ? `مرحباً فريق ${brand}،\nأنا مهتم بالباقة المجانية "${tr.name}".\nيرجى التواصل معي لإعدادها.`
+          : lang === 'nl'
+            ? `Hallo ${brand}-team,\nIk ben geïnteresseerd in het gratis pakket "${tr.name}".\nNeem contact met mij op om het in te stellen.`
+            : `Hello ${brand} Team,\nI am interested in the "${tr.name}" free plan.\nPlease contact me to set it up.`;
+      setContactMessage(message);
+      navigate('/contact');
+      return;
+    }
 
     if (plan.isCustom) {
       const message =
@@ -64,12 +88,18 @@ const MainPricing: React.FC = () => {
 
     return (
       <div className={styles.cardWrap}>
-        {plan.isPopular ? <span className={styles.badge}>{POPULAR_LABELS[lang]}</span> : null}
+        {plan.isFree ? (
+          <span className={styles.badgeFree}>{FREE_BADGE_LABELS[lang]}</span>
+        ) : plan.isPopular ? (
+          <span className={styles.badge}>{POPULAR_LABELS[lang]}</span>
+        ) : null}
         <div className={`${styles.card} ${plan.isPopular ? styles.cardPopular : ''}`}>
           <h3 className={styles.planName}>{tr.name}</h3>
           <div className={styles.priceRow}>
             {plan.isCustom ? (
               <span className={styles.price}>{tr.customPriceLabel}</span>
+            ) : plan.isFree ? (
+              <span className={styles.price}>{FREE_LABELS[lang]}</span>
             ) : (
               <>
                 <span className={styles.price}>
@@ -81,7 +111,9 @@ const MainPricing: React.FC = () => {
             )}
           </div>
           <p className={styles.annualTotal}>
-            {!plan.isCustom ? ANNUAL_TOTAL_LABELS[lang](plan.annualTotal) : '\u00A0'}
+            {!plan.isCustom && !plan.isFree
+              ? ANNUAL_TOTAL_LABELS[lang](plan.annualTotal)
+              : '\u00A0'}
           </p>
           <ul className={styles.list}>
             {tr.features.map((feature, i) => (
