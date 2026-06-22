@@ -597,9 +597,9 @@ export const INITIAL_CONFIG: SiteConfig = {
             "5-Page Professional Website",
             "Contact Form + SSL Certificate",
             "CMS Dashboard",
-            "Built-in Database — no extra fees",
+            "Built-in Database — up to 1GB, no extra fees",
             "Hosting + Domain + 1 Official Email",
-            "2 Content Edits Monthly",
+            "1 Content Edit Monthly",
           ],
         },
         ar: {
@@ -610,9 +610,9 @@ export const INITIAL_CONFIG: SiteConfig = {
             "موقع احترافي 5 صفحات",
             "نموذج اتصال + شهادة SSL",
             "لوحة تحكم CMS",
-            "قاعدة بيانات مدمجة بدون رسوم إضافية",
+            "قاعدة بيانات مدمجة بدون رسوم إضافية (حتى 1GB)",
             "استضافة + نطاق + إيميل رسمي",
-            "تعديلين محتوى شهرياً",
+            "تعديل محتوى واحد شهرياً",
           ],
         },
         nl: {
@@ -623,9 +623,9 @@ export const INITIAL_CONFIG: SiteConfig = {
             "Professionele Website 5 Pagina's",
             "Contactformulier + SSL Certificaat",
             "CMS Dashboard",
-            "Ingebouwde database — geen extra kosten",
+            "Ingebouwde database — tot 1GB, geen extra kosten",
             "Hosting + Domein + 1 Officieel E-mail",
-            "2 Content Updates per Maand",
+            "1 Content Update per Maand",
           ],
         },
       },
@@ -725,9 +725,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 1299,
       isPopular: true,
       translations: {
-        en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed"] },
-        ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً"] },
-        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid"] }
+        en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed", "Database: Free (500MB) / First Year", "Database (optional): 1GB for €7.99/month after the first year"] },
+        ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً", "قاعدة بيانات: مجانية (500MB) / السنة الأولى", "قاعدة بيانات (اختياري): 1GB بسعر 7.99€/شهر بعد السنة الأولى"] },
+        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid", "Database: Gratis (500MB) / Eerste Jaar", "Database (optioneel): 1GB voor €7.99/maand na het eerste jaar"] }
       }
     },
     {

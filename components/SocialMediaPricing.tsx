@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -124,6 +124,11 @@ const SocialMediaPricing: React.FC<SocialMediaPricingProps> = ({ showId = false 
           ))}
         </div>
         {renderPlanSlider()}
+        {!showId ? (
+          <Link to="/pricing" className={styles.seeAll}>
+            {config.homeSectionCopy.pricing[lang].seeAll}
+          </Link>
+        ) : null}
       </div>
     </section>
   );

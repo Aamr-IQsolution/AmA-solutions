@@ -203,3 +203,17 @@
   background: #ea580c;
   color: #ffffff;
 }
+
+.seeAll {
+  display: block;
+  text-align: center;
+  margin-top: 28px;
+  font-size: var(--ax-font-body);
+  font-weight: 500;
+  color: var(--ax-primary);
+  text-decoration: none;
+}
+
+.seeAll:hover {
+  text-decoration: underline;
+}

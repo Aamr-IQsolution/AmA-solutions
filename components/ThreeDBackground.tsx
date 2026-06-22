@@ -36,7 +36,6 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(initW, initH);
-    renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
 
@@ -139,7 +138,10 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     let smoothScroll = 0;
 
     let animationFrameId = 0;
+    let isRunning = false;
+
     const animate = () => {
+      if (!isRunning) return;
       animationFrameId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime() * timeScale;
 
@@ -187,7 +189,31 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
 
       renderer.render(scene, camera);
     };
-    animate();
+
+    const startLoop = () => {
+      if (isRunning) return;
+      isRunning = true;
+      animate();
+    };
+
+    const stopLoop = () => {
+      isRunning = false;
+      cancelAnimationFrame(animationFrameId);
+    };
+
+    startLoop();
+
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0 },
+    );
+    visibilityObserver.observe(host);
 
     const handleResize = () => {
       const { w, h } = getSize();
@@ -201,7 +227,8 @@ const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     ro.observe(host);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopLoop();
+      visibilityObserver.disconnect();
       if (scrollReact) {
         window.removeEventListener('scroll', handleScroll);
       }
