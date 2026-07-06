@@ -2,7 +2,7 @@
  * قسم خطط الأسعار (Social / Marketing + Web + Add-ons).
  */
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -10,11 +10,14 @@ import 'swiper/css/pagination';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { Plan } from '../types';
+import { sortPlansPopularFirst } from '../utils/sortPlansPopularFirst';
 import AddOnsSection from './AddOnsSection';
 import SocialMediaPricing from './SocialMediaPricing';
 import styles from './Pricing.module.css';
 
 type PackageKind = 'web';
+
+const HOSTING_BUNDLE_ADDON_ID = 'addon-6';
 
 const Pricing: React.FC = () => {
   const { lang, config, setContactMessage, isRTL } = useApp();
@@ -58,6 +61,37 @@ const Pricing: React.FC = () => {
     navigate('/contact');
   };
 
+  const scrollToHostingBundleAddon = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const target = document.getElementById(HOSTING_BUNDLE_ADDON_ID);
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `/pricing#${HOSTING_BUNDLE_ADDON_ID}`);
+  };
+
+  const renderFeature = (feature: string) => {
+    const separator = ' — ';
+    const sepIndex = feature.indexOf(separator);
+    if (sepIndex === -1) {
+      return <span>{feature}</span>;
+    }
+    const before = feature.slice(0, sepIndex + separator.length);
+    const linkText = feature.slice(sepIndex + separator.length);
+    return (
+      <span>
+        {before}
+        <Link
+          to={`/pricing#${HOSTING_BUNDLE_ADDON_ID}`}
+          className={styles.featureLink}
+          onClick={scrollToHostingBundleAddon}
+        >
+          {linkText}
+        </Link>
+      </span>
+    );
+  };
+
   const renderPlanCard = (plan: Plan, kind: PackageKind, showPeriod = true) => (
     <div
       className={`${styles.card} ${kind === 'web' ? styles.cardWeb : ''} ${plan.isPopular ? styles.cardPopular : ''}`}
@@ -77,7 +111,7 @@ const Pricing: React.FC = () => {
         {plan.translations[lang].features.map((feature, fIdx) => (
           <li key={fIdx}>
             <i className={`fa-solid fa-check ${styles.check}`} aria-hidden />
-            <span>{feature}</span>
+            {renderFeature(feature)}
           </li>
         ))}
       </ul>
@@ -102,7 +136,7 @@ const Pricing: React.FC = () => {
         centeredSlides
         pagination={{ clickable: true }}
       >
-        {plans.map((plan) => (
+        {sortPlansPopularFirst(plans).map((plan) => (
           <SwiperSlide key={plan.id}>{renderPlanCard(plan, kind, showPeriod)}</SwiperSlide>
         ))}
       </Swiper>

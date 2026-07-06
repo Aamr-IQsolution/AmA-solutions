@@ -39,24 +39,26 @@ const AddOnsSection: React.FC = () => {
     const periodSuffix = getPeriodSuffix(lang, addon.period);
 
     return (
-      <div className={styles.card}>
-        <div className={styles.iconWrap}>
-          <i className={`fa-solid ${addon.icon}`} aria-hidden />
+      <div id={addon.id} className={styles.addonAnchor}>
+        <div className={styles.card}>
+          <div className={styles.iconWrap}>
+            <i className={`fa-solid ${addon.icon}`} aria-hidden />
+          </div>
+          <h3 className={styles.name}>{tr.name}</h3>
+          {addon.duration ? <p className={styles.duration}>{addon.duration}</p> : null}
+          <p className={styles.description}>{tr.description}</p>
+          <p className={styles.price}>
+            {t.currency}
+            {addon.price}
+            {periodSuffix}
+          </p>
         </div>
-        <h3 className={styles.name}>{tr.name}</h3>
-        {addon.duration ? <p className={styles.duration}>{addon.duration}</p> : null}
-        <p className={styles.description}>{tr.description}</p>
-        <p className={styles.price}>
-          {t.currency}
-          {addon.price}
-          {periodSuffix}
-        </p>
       </div>
     );
   };
 
   return (
-    <section className={styles.section} aria-labelledby="addons-heading">
+    <section id="addons" className={styles.section} aria-labelledby="addons-heading">
       <div className={styles.inner}>
         <h2 id="addons-heading" className={styles.title}>
           {SECTION_TITLES[lang]}

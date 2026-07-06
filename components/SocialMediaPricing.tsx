@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { Plan } from '../types';
+import { sortPlansPopularFirst } from '../utils/sortPlansPopularFirst';
 import styles from './SocialMediaPricing.module.css';
 
 type SocialMediaPricingProps = {
@@ -97,7 +98,7 @@ const SocialMediaPricing: React.FC<SocialMediaPricingProps> = ({ showId = false 
         centeredSlides
         pagination={{ clickable: true }}
       >
-        {config.plans.map((plan) => (
+        {sortPlansPopularFirst(config.plans).map((plan) => (
           <SwiperSlide key={plan.id}>{renderPlanCard(plan)}</SwiperSlide>
         ))}
       </Swiper>

@@ -63,8 +63,39 @@
 
 @media (min-width: 768px) {
   .gridWeb {
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
   }
+
+  .gridWeb > div {
+    flex: 0 1 calc((100% - 2.5rem) / 3);
+    max-width: calc((1280px - 2.5rem) / 3);
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gridWeb {
+    gap: 1.5rem;
+  }
+
+  .gridWeb > div {
+    flex: 0 1 calc((100% - 3rem) / 3);
+    max-width: calc((1280px - 3rem) / 3);
+  }
+}
+
+.featureLink {
+  color: var(--ax-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.featureLink:hover {
+  opacity: 0.85;
 }
 
 .swiperWrap {

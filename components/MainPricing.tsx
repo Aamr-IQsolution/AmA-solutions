@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { MainPlan } from '../types';
+import { sortPlansPopularFirst } from '../utils/sortPlansPopularFirst';
 import styles from './MainPricing.module.css';
 
 const PERIOD_LABELS = {
@@ -155,7 +156,7 @@ const MainPricing: React.FC = () => {
             centeredSlides
             pagination={{ clickable: true }}
           >
-            {config.mainPlans.map((plan) => (
+            {sortPlansPopularFirst(config.mainPlans).map((plan) => (
               <SwiperSlide key={plan.id}>{renderCard(plan)}</SwiperSlide>
             ))}
           </Swiper>

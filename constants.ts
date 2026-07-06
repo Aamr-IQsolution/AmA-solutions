@@ -171,15 +171,15 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: {
           question: "What does a basic website cost?",
-          answer: "A basic website starts from €899. We offer packages for every budget and need.",
+          answer: "A basic website starts from €499. We offer packages for every budget and need.",
         },
         ar: {
           question: "كم تكلفة موقع أساسي؟",
-          answer: "يبدأ الموقع الأساسي من 899 يورو. لدينا باقات لكل ميزانية.",
+          answer: "يبدأ الموقع الأساسي من 499 يورو. لدينا باقات لكل ميزانية.",
         },
         nl: {
           question: "Wat zijn de kosten voor een basis website?",
-          answer: "Een basis website begint vanaf €899. We bieden verschillende pakketten aan voor elk budget en behoefte.",
+          answer: "Een basis website begint vanaf €499. We bieden verschillende pakketten aan voor elk budget en behoefte.",
         },
       },
     },
@@ -187,15 +187,15 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: {
           question: "Do I get access to the source code?",
-          answer: "Yes—all code is yours. We deliver full ownership and documentation at handover.",
+          answer: "No—the source code is the company's intellectual property and is not delivered with the website.",
         },
         ar: {
           question: "هل أحصل على الشيفرة المصدرية؟",
-          answer: "نعم، الشيفرة لك بالكامل مع التسليم والتوثيق.",
+          answer: "لا، الشيفرة ملك فكري للشركة ولا يتم تسليمها مع الموقع.",
         },
         nl: {
           question: "Krijg ik toegang tot de broncode?",
-          answer: "Ja, alle code is van u. We leveren volledige eigendom en documentatie bij oplevering.",
+          answer: "Nee, de broncode is intellectueel eigendom van het bedrijf en wordt niet meegeleverd met de website.",
         },
       },
     },
@@ -597,7 +597,7 @@ export const INITIAL_CONFIG: SiteConfig = {
             "5-Page Professional Website",
             "Contact Form + SSL Certificate",
             "CMS Dashboard",
-            "Built-in Database — up to 1GB, no extra fees",
+            "Built-in Database — up to 500MB, no extra fees",
             "Hosting + Domain + 1 Official Email",
             "1 Content Edit Monthly",
           ],
@@ -610,7 +610,7 @@ export const INITIAL_CONFIG: SiteConfig = {
             "موقع احترافي 5 صفحات",
             "نموذج اتصال + شهادة SSL",
             "لوحة تحكم CMS",
-            "قاعدة بيانات مدمجة بدون رسوم إضافية (حتى 1GB)",
+            "قاعدة بيانات مدمجة بدون رسوم إضافية (حتى 500MB)",
             "استضافة + نطاق + إيميل رسمي",
             "تعديل محتوى واحد شهرياً",
           ],
@@ -623,7 +623,7 @@ export const INITIAL_CONFIG: SiteConfig = {
             "Professionele Website 5 Pagina's",
             "Contactformulier + SSL Certificaat",
             "CMS Dashboard",
-            "Ingebouwde database — tot 1GB, geen extra kosten",
+            "Ingebouwde database — tot 500MB, geen extra kosten",
             "Hosting + Domein + 1 Officieel E-mail",
             "1 Content Update per Maand",
           ],
@@ -715,9 +715,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 499,
       isPopular: false,
       translations: {
-        en: { name: "Landing Page", buttonText: "Start Project", features: ["Professional Design", "Mobile Friendly", "Contact Form", "SEO Ready"] },
-        ar: { name: "صفحة أساسية", buttonText: "ابدأ مشروعك", features: ["تصميم احترافي", "متوافق مع الجوال", "نموذج تواصل", "تحسين محركات البحث"] },
-        nl: { name: "Landingspagina", buttonText: "Project Starten", features: ["Professioneel Design", "Mobielvriendelijk", "Contactformulier", "SEO Klaar"] }
+        en: { name: "Landing Page", buttonText: "Start Project", features: ["Professional Design", "Mobile Friendly", "Multi-page Capability", "Contact Form", "SEO Ready"] },
+        ar: { name: "صفحة أساسية", buttonText: "ابدأ مشروعك", features: ["تصميم احترافي", "متوافق مع الجوال", "إمكانية تعدد الصفحات", "نموذج تواصل", "تحسين محركات البحث"] },
+        nl: { name: "Landingspagina", buttonText: "Project Starten", features: ["Professioneel Design", "Mobielvriendelijk", "Meerdere pagina's mogelijk", "Contactformulier", "SEO Klaar"] }
       }
     },
     {
@@ -725,19 +725,9 @@ export const INITIAL_CONFIG: SiteConfig = {
       price: 1299,
       isPopular: true,
       translations: {
-        en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed", "Database: Free (500MB) / First Year", "Database (optional): 1GB for €7.99/month after the first year"] },
-        ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً", "قاعدة بيانات: مجانية (500MB) / السنة الأولى", "قاعدة بيانات (اختياري): 1GB بسعر 7.99€/شهر بعد السنة الأولى"] },
-        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid", "Database: Gratis (500MB) / Eerste Jaar", "Database (optioneel): 1GB voor €7.99/maand na het eerste jaar"] }
-      }
-    },
-    {
-      id: "web-3",
-      price: 3499,
-      isPopular: false,
-      translations: {
-        en: { name: "E-Commerce", buttonText: "Start Project", features: ["Full Online Store", "Payment Gateway", "Inventory System", "Automated Emails"] },
-        ar: { name: "متجر إلكتروني", buttonText: "ابدأ مشروعك", features: ["متجر أونلاين كامل", "بوابة دفع إلكتروني", "نظام إدارة مخزون", "رسائل تلقائية"] },
-        nl: { name: "E-Commerce", buttonText: "Project Starten", features: ["Volledige Webshop", "Betalingssysteem", "Voorraadbeheer", "Geautomatiseerde Emails"] }
+        en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed", "Database: Free (500MB) then €7.99/month per 1GB", "Price excludes domain, email & hosting — Choose a plan"] },
+        ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً", "قاعدة بيانات: مجانية (500MB) ثم 7.99€/شهر لـكل 1GB", "السعر لا يشمل الدومين والإيميل والاستضافة — اختر باقة"] },
+        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid", "Database: Gratis (500MB) daarna €7,99/maand per 1GB", "Prijs is exclusief domein, e-mail & hosting — Kies een pakket"] }
       }
     }
   ],
@@ -802,26 +792,6 @@ export const INITIAL_CONFIG: SiteConfig = {
       },
     },
     {
-      id: "addon-4",
-      price: 130,
-      period: "year",
-      icon: "fa-globe",
-      translations: {
-        en: {
-          name: "Domain + Email Hosting",
-          description: "Annual domain registration + professional email hosting — for one-time purchase clients or free-plan upgrades",
-        },
-        ar: {
-          name: "استضافة الدومين + الإيميل",
-          description: "تسجيل دومين سنوي + استضافة إيميل مهني — لعملاء الشراء المباشر أو ترقية الباقة المجانية",
-        },
-        nl: {
-          name: "Domein + E-mail Hosting",
-          description: "Jaarlijkse domeinregistratie + professionele e-mailhosting — voor eenmalige klanten of upgrades van het gratis plan",
-        },
-      },
-    },
-    {
       id: "addon-5",
       price: 25,
       period: "month",
@@ -843,21 +813,21 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "addon-6",
-      price: 30,
+      price: 50,
       period: "month",
       icon: "fa-shield-halved",
       translations: {
         en: {
           name: "Hosting + Maintenance Bundle",
-          description: "Domain, email hosting, and monthly maintenance combined",
+          description: "Domain name, website hosting, company email, and monthly maintenance combined",
         },
         ar: {
           name: "باقة الاستضافة + الصيانة الشاملة",
-          description: "دومين، استضافة إيميل، وصيانة شهرية مجمّعة",
+          description: "اسم النطاق ، استضافة الموقع , إيميل بإسم الشركة، وصيانة شهرية مجمّعة",
         },
         nl: {
           name: "Hosting + Onderhoud Bundel",
-          description: "Domein, e-mailhosting en maandelijks onderhoud gecombineerd",
+          description: "Domeinnaam, websitehosting, zakelijk e-mailadres en maandelijks onderhoud gecombineerd",
         },
       },
     },

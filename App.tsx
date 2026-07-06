@@ -18,8 +18,22 @@ const AppLayout: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      const scrollToTarget = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return true;
+        }
+        return false;
+      };
+      if (scrollToTarget()) return;
+      const timer = window.setTimeout(scrollToTarget, 150);
+      return () => window.clearTimeout(timer);
+    }
     window.scrollTo(0, 0);
-  }, [location.pathname, location.search]);
+  }, [location.pathname, location.search, location.hash]);
 
   return (
     <div className="new-design-wrapper min-h-screen flex flex-col">
