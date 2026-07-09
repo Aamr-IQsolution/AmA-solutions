@@ -21,6 +21,17 @@ const AppLayout: React.FC = () => {
     if (location.hash) {
       const id = location.hash.slice(1);
       const scrollToTarget = () => {
+        const scrollTargets = document.querySelectorAll<HTMLElement>(
+          `[data-scroll-target="${CSS.escape(id)}"]`,
+        );
+        for (const target of scrollTargets) {
+          const rect = target.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return true;
+          }
+        }
+
         const el = document.getElementById(id);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });

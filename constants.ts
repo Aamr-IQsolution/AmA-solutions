@@ -171,15 +171,15 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: {
           question: "What does a basic website cost?",
-          answer: "A basic website starts from €499. We offer packages for every budget and need.",
+          answer: "A professional website starts from €1,299. We offer packages for every budget and need.",
         },
         ar: {
           question: "كم تكلفة موقع أساسي؟",
-          answer: "يبدأ الموقع الأساسي من 499 يورو. لدينا باقات لكل ميزانية.",
+          answer: "يبدأ الموقع الاحترافي من 1299 يورو. لدينا باقات لكل ميزانية.",
         },
         nl: {
           question: "Wat zijn de kosten voor een basis website?",
-          answer: "Een basis website begint vanaf €499. We bieden verschillende pakketten aan voor elk budget en behoefte.",
+          answer: "Een professionele website begint vanaf €1.299. We bieden verschillende pakketten aan voor elk budget en behoefte.",
         },
       },
     },
@@ -308,16 +308,6 @@ export const INITIAL_CONFIG: SiteConfig = {
     ar: { title: "روائع أعمالنا المختارة", highlight: "المختارة", description: "استكشف بعضًا من أحدث التحولات الرقمية وقصص النجاح لدينا." },
     nl: { title: "Onze Uitgelichte Meesterwerken", highlight: "Uitgelichte", description: "Ontdek enkele van onze nieuwste digital transformaties en success verhalen." }
   },
-  pricingHeader: {
-    en: { title: "Social Media Packages", highlight: "Packages", description: "Strategic marketing plans tailored for the Dutch market growth." },
-    ar: { title: "باقات السوشيال ميديا", highlight: "باقات", description: "خطط تسويقية استراتيجية مصممة لنمو أعمالك في السوق الهولندي." },
-    nl: { title: "Social Media Pakketten", highlight: "Pakketten", description: "Strategische marketingplannen op maat voor de Nederlandse markt." }
-  },
-  webPricingHeader: {
-    en: { title: "Web Design Pricing", highlight: "Web Design", description: "Professional high-end development for modern businesses." },
-    ar: { title: "أسعار تصميم المواقع", highlight: "تصميم المواقع", description: "تطوير احترافي وحلول ذكية للشركات العصرية بأسعار تنافسية." },
-    nl: { title: "Webdesign Prijzen", highlight: "Webdesign", description: "Professionele hoogwaardige ontwikkeling voor moderne bedrijven." }
-  },
   teamHeader: {
     en: { title: "Meet Our Experts", highlight: "Experts" },
     ar: { title: "تعرف على خبرائنا", highlight: "خبرائنا" },
@@ -351,48 +341,6 @@ export const INITIAL_CONFIG: SiteConfig = {
       }
     },
     {
-      id: "2",
-      icon: "fa-bullseye",
-      translations: {
-        en: { 
-          name: "Strategic Social Media", 
-          description: "Data-driven marketing strategies to elevate your brand presence.",
-          expertDetails: "Our marketing approach involves deep audience analysis and algorithmic optimization. We manage paid campaigns across Meta, LinkedIn, and TikTok with a focus on ROI, brand authority, and high engagement rates."
-        },
-        ar: { 
-          name: "استراتيجيات السوشيال ميديا", 
-          description: "استراتيجيات تسويقية قائمة على البيانات لتعزيز حضور علامتك التجارية.",
-          expertDetails: "يتضمن نهجنا التسويقي تحليلاً عميقاً للجمهور وتحسيناً خوارزمياً مستمراً. ندير حملات مدفوعة على Meta و LinkedIn و TikTok مع التركيز التام على العائد على الاستثمار وقوة العلامة التجارية."
-        },
-        nl: { 
-          name: "Strategische Social Media", 
-          description: "Data-gedreven marketingstrategieën om uw merkaanwezigheid te vergroten.",
-          expertDetails: "Onze marketingaanpak omvat diepgaande doelgroepanalyse en algoritmische optimalisatie. Wij beheren betaalde campagnes op Meta, LinkedIn en TikTok met een focus op ROI."
-        }
-      }
-    },
-    {
-      id: "3",
-      icon: "fa-film",
-      translations: {
-        en: { 
-          name: "Professional Ad Videos + Photos", 
-          description: "Professional video creation and editing, and photo design and editing.",
-          expertDetails: "We create and edit videos professionally for content creators and design professional, SEO-friendly images with the best quality standards suitable for each platform."
-        },
-        ar: { 
-          name: "فيدوهات إعلانية إحترافية+ صور", 
-          description: "إنشاء وتعديل مقاطع الفيديو بشكل إحترافي وتصميم وتعديل الصور",
-          expertDetails: "نقوم بإنشاء وتعديل الفيدوهات بشكل إحترافي لصناع المحتوى وتصميم صور إحترافية صديقة لمحركات البحث بأفضل معايير الجودة المناسبة لكل منصة."
-        },
-        nl: { 
-          name: "Professionele Advertentievideo's + Foto's", 
-          description: "Professionele video creatie en bewerking, en foto ontwerp en bewerking.",
-          expertDetails: "We creëren en bewerken professioneel video's voor content creators en ontwerpen professionele, SEO-vriendelijke afbeeldingen met de beste kwaliteitsnormen die geschikt zijn voor elk platform."
-        }
-      }
-    },
-    {
       id: "4",
       icon: "fa-cart-shopping",
       translations: {
@@ -412,48 +360,6 @@ export const INITIAL_CONFIG: SiteConfig = {
           expertDetails: "Wij bouwen conversiegerichte e-commerce platforms. Van aangepaste Shopify-thema's tot headless commerce oplossingen met naadloze betalingsgateways."
         }
       }
-    },
-    {
-      id: "5",
-      icon: "fa-pen-nib",
-      translations: {
-        en: { 
-          name: "Brand Visual Identity", 
-          description: "Crafting iconic visual languages that tell your unique brand story.",
-          expertDetails: "Visual identity is more than a logo; it's a system. We define typography, color theory, and UI component libraries that ensure brand consistency across all digital and physical touchpoints."
-        },
-        ar: { 
-          name: "الهوية البصرية للعلامة", 
-          description: "صياغة لغات بصرية أيقونية تروي قصة علامتك التجارية الفريدة.",
-          expertDetails: "الهوية البصرية هي أكثر من مجرد شعار؛ إنها نظام متكامل. نحدد الخطوط، نظرية الألوان، ومكتبات مكونات واجهة المستخدم التي تضمن تناسق العلامة التجارية عبر كافة المنصات الرقمية والواقعية."
-        },
-        nl: { 
-          name: "Visuele Merkidentiteit", 
-          description: "Iconische visuele talen creëren die uw unieke merkverhaal vertellen.",
-          expertDetails: "Visuele identiteit is meer than een logo. We definiëren typografie, kleurtheorie en UI-componentbibliotheken die merkconsistentie garanderen."
-        }
-      }
-    },
-    {
-      id: "6",
-      icon: "fa-rocket",
-      translations: {
-        en: { 
-          name: "Growth & Scaling", 
-          description: "Turbocharge your business growth with our automation and scaling tools.",
-          expertDetails: "We implement automation pipelines and AI-driven tools to scale your operations. Our growth hacking strategies are backed by A/B testing and behavioral analytics to ensure every marketing euro is maximized."
-        },
-        ar: { 
-          name: "النمو والتوسع الرقمي", 
-          description: "عزز نمو عملك من خلال أدوات الأتمتة والتوسع التي نوفرها.",
-          expertDetails: "نطبق خطوط إنتاج مؤتمتة وأدوات مدعومة بالذكاء الاصطناعي لتوسيع عملياتك. استراتيجياتنا للنمو مدعومة باختبارات A/B وتحليلات سلوكية لضمان تحقيق أقصى استفادة من كل ميزانية تسويقية."
-        },
-        nl: { 
-          name: "Groei & Schaling", 
-          description: "Geef uw bedrijfsgroei een boost met onze automatiseringstools.",
-          expertDetails: "Wij implementeren automatiseringspipelines en AI-gestuurde tools. Onze groei-strategieën worden ondersteund door A/B-testen en gedragsanalyses."
-        }
-      }
     }
   ],
   team: [
@@ -463,18 +369,18 @@ export const INITIAL_CONFIG: SiteConfig = {
       translations: {
         en: {
           name: "Aamr Al-Awwad",
-          title: "Software Engineer & Digital Marketer",
-          bio: "A software engineer specializing in building integrated digital solutions. I combine code precision with digital marketing professionalism. I turn ideas into smart applications and manage your social media presence to ensure your brand's growth."
+          title: "Professional Software Engineer",
+          bio: "A software engineer specializing in building integrated digital solutions and information security. I combine coding precision with the discipline of closing vulnerabilities to deliver secure, high-performance code. I turn ideas into smart applications and manage data flow to ensure the best performance with maximum protection and reliability."
         },
         ar: {
           name: "عامر العواد",
-          title: "مهندس برمجيات ومسوق رقمي",
-          bio: "مهندس برمجيات متخصص في بناء الحلول الرقمية المتكاملة، أجمع بين دقة الكود واحترافية التسويق الرقمي. أحول الأفكار إلى تطبيقات ذكية وادير حضورك على السوشيال ميديا لضمان نمو علامتك التجارية."
+          title: "مهندس برمجيات محترف",
+          bio: "مهندس برمجيات متخصص في بناء الحلول الرقمية المتكاملة، وأمن المعلومات، أجمع بين دقة الكود واحترافية سد الثغرات لعمل أكواد آمنة وسريعة. أحول الأفكار إلى تطبيقات ذكية وأدير تدفق البيانات لأضمن أفضل أداء بأقصى مستوى حماية ومنطقية."
         },
         nl: {
           name: "Aamr Al-Awwad",
-          title: "Software Engineer & Digitale Marketeer",
-          bio: "Een software engineer gespecialiseerd in het bouwen van geïntegreerde digitale oplossingen. Ik combineer code-precisie met professionaliteit in digitale marketing. Ik zet ideeën om in slimme applicaties en beheer uw aanwezigheid op sociale media om de groei van uw merk te garanderen."
+          title: "Professionele Software Engineer",
+          bio: "Een software engineer gespecialiseerd in het bouwen van geïntegreerde digitale oplossingen en informatiebeveiliging. Ik combineer code-precisie met de discipline om kwetsbaarheden te dichten voor veilige, snelle code. Ik zet ideeën om in slimme applicaties en beheer de gegevensstroom voor optimale prestaties met maximale bescherming en betrouwbaarheid."
         }
       }
     }
@@ -549,83 +455,104 @@ export const INITIAL_CONFIG: SiteConfig = {
         en: {
           name: "Free Page",
           buttonText: "Start Free",
-          setupFeeNote: "No domain or email included — subdomain only",
+          setupFeeNote: "No domain or email included — subdomain only. 💡 Perfect for experiencing our quality and starting your digital presence instantly with zero financial risk.",
           features: [
-            "Single Informational Page",
+            "One dedicated informational page",
+            "Professional design with a single Hero Background image",
             "Basic Logo Placement",
-            "Contact Form",
-            "Subdomain Hosting (e.g. yourname.axonxcode.com)",
+            "Interactive contact form with message reception",
+            "100% mobile-friendly design",
+            "Fast loading speed and free basic protection",
+            "Basic SEO-ready structure",
+            "Free subdomain hosting (yourname.axonxcode.com)",
           ],
         },
         ar: {
           name: "الباقة المجانية",
           buttonText: "ابدأ مجاناً",
-          setupFeeNote: "بدون دومين أو إيميل مخصص — رابط فرعي فقط",
+          setupFeeNote: "بدون دومين أو إيميل مخصص — رابط فرعي فقط. 💡 مثالية لتجربة جودة عملنا وبدء حضورك الرقمي فوراً دون أي مخاطرة مادية.",
           features: [
-            "صفحة معلوماتية واحدة",
-            "وضع لوغو أساسي",
-            "نموذج تواصل",
-            "استضافة على رابط فرعي (مثل yourname.axonxcode.com)",
+            "صفحة معلوماتية واحدة مخصصة",
+            "تصميم احترافي مع صورة خلفية رئيسية واحدة (Hero Background)",
+            "وضع الشعار الأساسي (Logo Placement)",
+            "نموذج تواصل تفاعلي واستقبال الرسائل",
+            "تصميم متوافق 100% مع شاشات الهواتف الذكية",
+            "سرعة تحميل عالية وحماية أساسية مجانية",
+            "بنية أولية مهيأة لمحركات البحث (Basic SEO)",
+            "استضافة مجانية على رابط فرعي (yourname.axonxcode.com)",
           ],
         },
         nl: {
           name: "Gratis Pagina",
           buttonText: "Start Gratis",
-          setupFeeNote: "Geen domein of e-mail inbegrepen — alleen subdomein",
+          setupFeeNote: "Geen domein of e-mail inbegrepen — alleen subdomein. 💡 Ideaal om onze kwaliteit te ervaren en direct te starten met uw digitale aanwezigheid, zonder enig financieel risico.",
           features: [
-            "Eén Informatiepagina",
+            "Eén op maat gemaakte informatiepagina",
+            "Professioneel design met één Hero-achtergrondafbeelding",
             "Basis Logo Plaatsing",
-            "Contactformulier",
-            "Subdomein Hosting (bijv. yourname.axonxcode.com)",
+            "Interactief contactformulier met berichtontvangst",
+            "100% mobielvriendelijk ontwerp",
+            "Snelle laadtijd en gratis basisbeveiliging",
+            "SEO-klare basisstructuur",
+            "Gratis subdomein hosting (yourname.axonxcode.com)",
           ],
         },
       },
     },
     {
       id: "main-2",
-      annualPrice: 150,
-      annualTotal: 1650,
-      setupFeeAnnual: 120,
+      annualPrice: 1299,
+      annualTotal: 0,
+      setupFeeAnnual: 0,
       isPopular: true,
       isCustom: false,
       translations: {
         en: {
-          name: "Business Growth",
-          buttonText: "Get Started",
-          setupFeeNote: "One-time setup fee €120",
+          name: "Business Pro",
+          buttonText: "Start Project",
+          setupFeeNote: "🎁 Launch gift: your first month completely free (hosting + email + VIP content management), so you start your project with zero extra running costs!",
           features: [
-            "5-Page Professional Website",
-            "Contact Form + SSL Certificate",
-            "CMS Dashboard",
-            "Built-in Database — up to 500MB, no extra fees",
-            "Hosting + Domain + 1 Official Email",
-            "1 Content Edit Monthly",
+            "5 to 8 fully custom pages (no templates)",
+            "Multi-language support (Dutch/English, with option to add another language)",
+            "Ultra-fast performance",
+            "High-level security with continuous updates",
+            "Mobile-friendly design + SEO ready",
+            "Direct, interactive contact form for your clients",
+            "VIP Managed content service: included in the monthly maintenance plan, we handle any text or image update for you monthly without dashboard complexity",
+            "Optional add-ons on request: dynamic CMS dashboard, external API integrations, or custom software features",
+            "Price excludes domain & hosting — requires the monthly maintenance & hosting subscription",
           ],
         },
         ar: {
-          name: "باقة النمو",
-          buttonText: "ابدأ الآن",
-          setupFeeNote: "رسوم التأسيس 120€ تُدفع مرة واحدة",
+          name: "باقة الأعمال",
+          buttonText: "ابدأ مشروعك",
+          setupFeeNote: "🎁 هدية الباقة: أول شهر مجاناً بالكامل من باقة (الاستضافة + الإيميل + إدارة المحتوى VIP)، لتبدأ مشروعك بدون أي مصاريف تشغيلية إضافية!",
           features: [
-            "موقع احترافي 5 صفحات",
-            "نموذج اتصال + شهادة SSL",
-            "لوحة تحكم CMS",
-            "قاعدة بيانات مدمجة بدون رسوم إضافية (حتى 500MB)",
-            "استضافة + نطاق + إيميل رسمي",
-            "تعديل محتوى واحد شهرياً",
+            "5 إلى 8 صفحات مخصصة بالكامل (بدون قوالب جاهزة)",
+            "دعم لغات متعددة (هولندي / إنجليزي / مع إمكانية إضافة لغات أخرى)",
+            "سرعة فائقة",
+            "أمان عالي المستوى وتحديث مستمر",
+            "تصميم متوافق مع الموبايل + مهيأ لمحركات البحث (SEO)",
+            "نموذج تواصل مباشر وتفاعلي مع عملائك",
+            "خدمة إدارة المحتوى (VIP Managed): ضمن باقة الصيانة الشهرية ننجز لك أي تعديل على النصوص أو الصور شهرياً دون الحاجة لتعقيدات لوحات التحكم",
+            "إضافات اختيارية حسب الطلب: لوحة تحكم CMS ديناميكية، ربط أنظمة خارجية (API)، أو تطوير ميزات برمجية خاصة",
+            "السعر لا يشمل الدومين والاستضافة — يتطلب الاشتراك في باقة الصيانة والاستضافة الشهرية",
           ],
         },
         nl: {
-          name: "Business Groei",
-          buttonText: "Begin Nu",
-          setupFeeNote: "Eenmalige installatiekosten €120",
+          name: "Business Pro",
+          buttonText: "Project Starten",
+          setupFeeNote: "🎁 Startcadeau: uw eerste maand volledig gratis (hosting + e-mail + VIP contentbeheer), zodat u zonder extra operationele kosten start!",
           features: [
-            "Professionele Website 5 Pagina's",
-            "Contactformulier + SSL Certificaat",
-            "CMS Dashboard",
-            "Ingebouwde database — tot 500MB, geen extra kosten",
-            "Hosting + Domein + 1 Officieel E-mail",
-            "1 Content Update per Maand",
+            "5 tot 8 volledig maatwerk pagina's (geen templates)",
+            "Meertalige ondersteuning (Nederlands/Engels, met optie voor een extra taal)",
+            "Supersnelle prestaties",
+            "Hoog beveiligingsniveau met continue updates",
+            "Mobielvriendelijk design + SEO klaar",
+            "Direct, interactief contactformulier voor uw klanten",
+            "VIP Managed contentservice: inbegrepen in het maandelijkse onderhoudsplan, wij verwerken elke tekst- of afbeeldingswijziging maandelijks voor u zonder dashboard-complexiteit",
+            "Optionele add-ons op aanvraag: dynamisch CMS-dashboard, koppelingen met externe API's, of maatwerk software functies",
+            "Prijs is exclusief domein & hosting — vereist het maandelijkse onderhouds- en hostingabonnement",
           ],
         },
       },
@@ -644,10 +571,15 @@ export const INITIAL_CONFIG: SiteConfig = {
           setupFeeNote: "",
           customPriceLabel: "Custom Price",
           features: [
-            "E-Commerce Development",
-            "Custom Web Applications",
-            "Business Automation",
-            "Technical Problem Solving",
+            "Advanced e-commerce store development (Custom E-commerce)",
+            "Fully custom web applications and systems (Web & SaaS Apps)",
+            "Administrative and operational workflow automation",
+            "Scalable software architecture built for future growth",
+            "Advanced integration with external systems, payment gateways, and accounting software (API Integration)",
+            "Enterprise-grade custom dashboards and data management",
+            "Solving complex software problems and optimizing existing systems",
+            "Custom, high-security databases tailored to project scale and needs",
+            "High-priority technical and security support, defined per project",
           ],
         },
         ar: {
@@ -656,10 +588,15 @@ export const INITIAL_CONFIG: SiteConfig = {
           setupFeeNote: "",
           customPriceLabel: "سعر مخصص",
           features: [
-            "تطوير المتاجر الإلكترونية",
-            "تطبيقات ويب مخصصة",
-            "أتمتة الأعمال",
-            "حل المشاكل البرمجية",
+            "تطوير المتاجر الإلكترونية المتقدمة (Custom E-commerce)",
+            "تطبيقات ويب وأنظمة مخصصة بالكامل (Web & SaaS Apps)",
+            "أتمتة العمليات الإدارية والتشغيلية للشركات (Workflow Automation)",
+            "هندسة معمارية برمجية قابلة للتوسع المستقبلي (Scalable Architecture)",
+            "ربط متقدم مع الأنظمة الخارجية، بوابات الدفع، وبرمجيات المحاسبة (API Integration)",
+            "لوحات تحكم وإدارة بيانات مخصصة بمستوى الشركات (Enterprise Dashboards)",
+            "حل المشاكل البرمجية المعقدة وتحسين أداء الأنظمة الحالية",
+            "قواعد بيانات مخصصة وعالية الأمان حسب حجم واحتياجات المشروع",
+            "دعم فني وأمني ذو أولوية قصوى، يُحدَّد حسب طبيعة كل مشروع",
           ],
         },
         nl: {
@@ -668,131 +605,23 @@ export const INITIAL_CONFIG: SiteConfig = {
           setupFeeNote: "",
           customPriceLabel: "Prijs op Maat",
           features: [
-            "E-Commerce Ontwikkeling",
-            "Maatwerk Webapplicaties",
-            "Bedrijfsautomatisering",
-            "Technische Probleemoplossing",
+            "Ontwikkeling van geavanceerde webshops (Custom E-commerce)",
+            "Volledig maatwerk webapplicaties en systemen (Web & SaaS Apps)",
+            "Automatisering van administratieve en operationele workflows",
+            "Schaalbare software-architectuur voor toekomstige groei",
+            "Geavanceerde koppelingen met externe systemen, betalingsgateways en boekhoudsoftware (API-integratie)",
+            "Maatwerk dashboards en databeheer op ondernemingsniveau",
+            "Oplossen van complexe softwareproblemen en optimaliseren van bestaande systemen",
+            "Maatwerk, hoogbeveiligde databases afgestemd op schaal en behoeften van het project",
+            "Technische en beveiligingsondersteuning met hoge prioriteit, per project bepaald",
           ],
         },
       },
     },
   ],
-  plans: [
-    {
-      id: "sm-1",
-      price: 150,
-      isPopular: false,
-      translations: {
-        en: { name: "Starter Ads", buttonText: "Order Now", features: ["1 Social Channel", "Content Management", "4 Posts Monthly", "Ad Account Setup Creation", "Visual Identity/Logo/Colors Creation +€50"] },
-        ar: { name: "الباقة الأساسية", buttonText: "اطلب الآن", features: ["منصة تواصل واحدة", "إدارة المحتوى", "4 منشورات شهرياً", "إنشاء إعدادات الحساب الإعلاني", "إنشاء هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Starter Pakket", buttonText: "Nu Bestellen", features: ["1 Social Media Kanaal", "Contentbeheer", "4 Berichten p/m", "Advertentieaccount Aanmaken", "Visuele Identiteit/Logo/Kleuren Creatie +€50"] }
-      }
-    },
-    {
-      id: "sm-2",
-      price: 199,
-      isPopular: true,
-      translations: {
-        en: { name: "Grow Plan", buttonText: "Order Now", features: ["1 to 2 Social Channels", "4 Posts Monthly", "Create 1 Ad Campaign Monthly", "Ad Campaign Management", "Create 1 Video Monthly", "Create 4 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة النمو", buttonText: "اطلب الآن", features: ["من 1 إلى 2 منصات تواصل", "4 منشورات شهرياً", "إنشاء حملة إعلانية شهرياً", "إدارة الحملات الإعلانية", "إنشاء 1 فيديو شهرياً", "إنشاء 4 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Groei Pakket", buttonText: "Nu Bestellen", features: ["1 tot 2 Sociale Kanalen", "4 Berichten p/m", "Maak 1 advertentiecampagne per maand", "Advertentiecampagnebeheer", "Maak 1 video per maand", "Maak 4 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
-      }
-    },
-    {
-      id: "sm-3",
-      price: 300,
-      isPopular: false,
-      translations: {
-        en: { name: "Pro Plan", buttonText: "Order Now", features: ["1 to 3 Social Channels", "6 Posts Monthly", "Full Advertising Strategy", "Audience Analysis Management", "Create 2 Videos Monthly", "Create 6 Stories Monthly", "Visual Identity/Logo/Colors +€50"] },
-        ar: { name: "باقة الاحتراف", buttonText: "اطلب الآن", features: ["من 1 إلى 3 منصات تواصل", "6 منشورات شهرياً", "إستراتيجية إعلانية كاملة", "إنشاء وإدارة تحليل للجمهور", "إنشاء 2 فيديو شهرياً", "إنشاء 6 ستوري شهرياً", "هوية بصرية/شعار/ألوان +€50"] },
-        nl: { name: "Pro Pakket", buttonText: "Nu Bestellen", features: ["1 tot 3 Sociale Kanalen", "6 Berichten p/m", "Volledige advertentiestrategie", "Beheer van doelgroepanalyse", "Maak 2 video's per maand", "Maak 6 stories per maand", "Visuele identiteit/logo/kleuren +€50"] }
-      }
-    }
-  ],
-  webPlans: [
-    {
-      id: "web-1",
-      price: 499,
-      isPopular: false,
-      translations: {
-        en: { name: "Landing Page", buttonText: "Start Project", features: ["Professional Design", "Mobile Friendly", "Multi-page Capability", "Contact Form", "SEO Ready"] },
-        ar: { name: "صفحة أساسية", buttonText: "ابدأ مشروعك", features: ["تصميم احترافي", "متوافق مع الجوال", "إمكانية تعدد الصفحات", "نموذج تواصل", "تحسين محركات البحث"] },
-        nl: { name: "Landingspagina", buttonText: "Project Starten", features: ["Professioneel Design", "Mobielvriendelijk", "Meerdere pagina's mogelijk", "Contactformulier", "SEO Klaar"] }
-      }
-    },
-    {
-      id: "web-2",
-      price: 1299,
-      isPopular: true,
-      translations: {
-        en: { name: "Business Pro", buttonText: "Start Project", features: ["5-8 Pages", "Admin Dashboard", "Multilingual Support", "High Speed", "Database: Free (500MB) then €7.99/month per 1GB", "Price excludes domain, email & hosting — Choose a plan"] },
-        ar: { name: "باقة الأعمال", buttonText: "ابدأ مشروعك", features: ["5-8 صفحات", "لوحة تحكم كاملة", "دعم لغات متعددة", "سرعة عالية جداً", "قاعدة بيانات: مجانية (500MB) ثم 7.99€/شهر لـكل 1GB", "السعر لا يشمل الدومين والإيميل والاستضافة — اختر باقة"] },
-        nl: { name: "Business Pro", buttonText: "Project Starten", features: ["5-8 Pagina's", "Admin Dashboard", "Meertalige Ondersteuning", "Hoge Snelheid", "Database: Gratis (500MB) daarna €7,99/maand per 1GB", "Prijs is exclusief domein, e-mail & hosting — Kies een pakket"] }
-      }
-    }
-  ],
   addOns: [
     {
-      id: "addon-1",
-      price: 45,
-      icon: "fa-film",
-      duration: "20s",
-      translations: {
-        en: {
-          name: "Promotional Video",
-          description: "20-second promotional video — editing and motion graphics only, no on-site filming",
-        },
-        ar: {
-          name: "فيديو إعلاني",
-          description: "فيديو إعلاني 20 ثانية — مونتاج وموشن جرافيك فقط، بدون تصوير ميداني",
-        },
-        nl: {
-          name: "Promotievideo",
-          description: "20 seconden promotievideo — montage en motion graphics, geen locatieopnames",
-        },
-      },
-    },
-    {
-      id: "addon-2",
-      price: 120,
-      icon: "fa-video",
-      duration: "60s",
-      translations: {
-        en: {
-          name: "Professional Video",
-          description: "60-second professional video — editing and motion graphics only, no on-site filming",
-        },
-        ar: {
-          name: "فيديو احترافي",
-          description: "فيديو احترافي 60 ثانية — مونتاج وموشن جرافيك فقط، بدون تصوير ميداني",
-        },
-        nl: {
-          name: "Professionele Video",
-          description: "60 seconden professionele video — montage en motion graphics, geen locatieopnames",
-        },
-      },
-    },
-    {
-      id: "addon-3",
-      price: 50,
-      icon: "fa-camera",
-      translations: {
-        en: {
-          name: "On-Site Photography",
-          description: "Professional on-site photography session — extra service added to any plan",
-        },
-        ar: {
-          name: "تصوير ميداني",
-          description: "جلسة تصوير ميدانية احترافية — خدمة إضافية تُضاف على أي باقة",
-        },
-        nl: {
-          name: "Locatiefotografie",
-          description: "Professionele locatiefotografiesessie — extra service bij elk pakket",
-        },
-      },
-    },
-    {
-      id: "addon-5",
+      id: "monthly-maintenance",
       price: 25,
       period: "month",
       icon: "fa-screwdriver-wrench",
@@ -812,7 +641,7 @@ export const INITIAL_CONFIG: SiteConfig = {
       },
     },
     {
-      id: "addon-6",
+      id: "hosting-bundle",
       price: 50,
       period: "month",
       icon: "fa-shield-halved",

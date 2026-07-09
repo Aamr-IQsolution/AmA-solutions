@@ -170,6 +170,17 @@
   flex-shrink: 0;
 }
 
+.featureLink {
+  color: var(--ax-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.featureLink:hover {
+  opacity: 0.85;
+}
+
 .cta {
   width: 100%;
   box-sizing: border-box;

@@ -140,15 +140,11 @@ export interface SiteConfig {
   homeSectionCopy: HomeSectionCopy;
   servicesHeader: Record<Language, SectionContent>;
   portfolioHeader: Record<Language, SectionContent>;
-  pricingHeader: Record<Language, SectionContent>;
-  webPricingHeader: Record<Language, SectionContent>;
   teamHeader: Record<Language, SectionContent>;
   footer: Record<Language, { copyright: string; credits: string }>;
   services: Service[];
   team: TeamMember[];
   portfolio: Project[];
-  plans: Plan[];
-  webPlans: Plan[];
   mainPlans: MainPlan[];
   addOns: AddOn[];
 }
