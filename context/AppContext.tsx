@@ -43,6 +43,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         homeSectionCopy: parsed.homeSectionCopy ?? INITIAL_CONFIG.homeSectionCopy,
         mainPlans: INITIAL_CONFIG.mainPlans,
         addOns: INITIAL_CONFIG.addOns,
+        services: INITIAL_CONFIG.services,
       };
     } catch {
       return INITIAL_CONFIG;

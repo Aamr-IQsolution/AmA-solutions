@@ -1,6 +1,6 @@
 import React from 'react';
 import PageHero from '../components/PageHero';
-import Services from '../components/Services';
+import ServicesDetailed from '../components/ServicesDetailed';
 import { useApp } from '../context/AppContext';
 
 const ServicesPage: React.FC = () => {
@@ -19,7 +19,7 @@ const ServicesPage: React.FC = () => {
             : 'We build advanced digital products with a focus on performance, brand impact, and business scalability.'
         }
       />
-      <Services />
+      <ServicesDetailed />
     </>
   );
 };

@@ -32,6 +32,9 @@ section {
 
 .page-stack {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .page-route-fade {

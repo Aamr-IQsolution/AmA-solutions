@@ -1,16 +1,20 @@
 /**
- * قسم الخدمات (Services Section).
+ * قسم الخدمات في الصفحة الرئيسية — سلايدر full-bleed.
  */
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, A11y } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
+import { Service } from '../types';
 import styles from './Services.module.css';
 
 const Services: React.FC = () => {
-  const { lang, config } = useApp();
-  const [openServiceId, setOpenServiceId] = useState<string | null>(null);
-
-  const expertLabel =
-    lang === 'ar' ? 'حلول الخبراء' : lang === 'nl' ? 'Expertoplossingen' : 'Expert Solutions';
+  const { lang, config, isRTL } = useApp();
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
 
   const renderTitle = () => {
     const header = config.servicesHeader[lang];
@@ -30,8 +34,17 @@ const Services: React.FC = () => {
     return fullTitle;
   };
 
-  const toggleDetails = (id: string) => {
-    setOpenServiceId(openServiceId === id ? null : id);
+  const renderSlide = (service: Service) => {
+    const tr = service.translations[lang];
+    return (
+      <div className={styles.card}>
+        <div className={styles.iconWrap}>
+          <i className={`fa-solid ${service.icon}`} aria-hidden />
+        </div>
+        <h3 className={styles.name}>{tr.name}</h3>
+        <p className={styles.desc}>{tr.description}</p>
+      </div>
+    );
   };
 
   return (
@@ -41,52 +54,61 @@ const Services: React.FC = () => {
           <h2 className={styles.titleHome}>{renderTitle()}</h2>
           <div className={styles.ruleHome} />
         </div>
+      </div>
 
-        <div className={styles.gridHome}>
-          {config.services.map((service) => {
-            const open = openServiceId === service.id;
-            return (
-              <div
-                key={service.id}
-                className={`${styles.cardHome} ${open ? styles.cardHomeOpen : ''}`}
-              >
-                <div className={styles.iconHome}>
-                  <i className={`fa-solid ${service.icon}`} aria-hidden />
-                </div>
-                <h3 className={styles.nameHome}>{service.translations[lang].name}</h3>
-                <p className={styles.descHome}>{service.translations[lang].description}</p>
+      <div className={styles.swiperOuter}>
+        <button
+          ref={prevRef}
+          type="button"
+          className={`${styles.navBtn} ${styles.navPrev}`}
+          aria-label={lang === 'ar' ? 'السابق' : lang === 'nl' ? 'Vorige' : 'Previous'}
+        >
+          <i className={`fa-solid ${isRTL ? 'fa-chevron-right' : 'fa-chevron-left'}`} aria-hidden />
+        </button>
 
-                <div className={styles.expertToggle}>
-                  <button
-                    type="button"
-                    onClick={() => toggleDetails(service.id)}
-                    className={styles.toggleBtn}
-                  >
-                    <span className={styles.toggleLabel}>{expertLabel}</span>
-                    <i
-                      className={`fa-solid fa-chevron-down ${styles.chevron} ${
-                        open ? styles.chevronOpen : ''
-                      }`}
-                      aria-hidden
-                    />
-                  </button>
-                    <div
-                      className={`${styles.detailsShell} ${
-                        open ? styles.detailsShellOpen : styles.detailsShellClosed
-                      }`}
-                    >
-                      <div className={styles.detailsInner}>
-                        <div className={styles.panelHome}>
-                          <div className={styles.panelRule} />
-                          {service.translations[lang].expertDetails}
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className={styles.swiperWrap}>
+          <Swiper
+            key={lang}
+            dir={isRTL ? 'rtl' : 'ltr'}
+            modules={[Navigation, A11y]}
+            grabCursor
+            spaceBetween={18}
+            slidesPerView={1.15}
+            centeredSlides
+            breakpoints={{
+              640: { slidesPerView: 1.6, spaceBetween: 18 },
+              900: { slidesPerView: 2.4, spaceBetween: 20 },
+              1200: { slidesPerView: 3.2, spaceBetween: 22 },
+            }}
+            onBeforeInit={(swiper: SwiperType) => {
+              if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+              }
+            }}
+            onInit={(swiper: SwiperType) => {
+              if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+                swiper.navigation.init();
+                swiper.navigation.update();
+              }
+            }}
+          >
+            {config.services.map((service) => (
+              <SwiperSlide key={service.id}>{renderSlide(service)}</SwiperSlide>
+            ))}
+          </Swiper>
         </div>
+
+        <button
+          ref={nextRef}
+          type="button"
+          className={`${styles.navBtn} ${styles.navNext}`}
+          aria-label={lang === 'ar' ? 'التالي' : lang === 'nl' ? 'Volgende' : 'Next'}
+        >
+          <i className={`fa-solid ${isRTL ? 'fa-chevron-left' : 'fa-chevron-right'}`} aria-hidden />
+        </button>
       </div>
     </section>
   );

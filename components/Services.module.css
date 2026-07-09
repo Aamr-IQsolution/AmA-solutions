@@ -1,12 +1,20 @@
+/* Dark service card tokens — scoped to home services slider */
 .sectionHome {
-  padding: 40px 20px;
+  --svc-gradient: linear-gradient(135deg, #0b1220 0%, #142a42 100%);
+  --svc-border: rgba(59, 124, 184, 0.25);
+  --svc-icon: #3b7cb8;
+  --svc-glow: rgba(59, 124, 184, 0.45);
+
+  padding: 40px 0 48px;
   background: var(--ax-bg-muted);
   position: relative;
+  overflow: hidden;
 }
 
 .innerHome {
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 20px;
   position: relative;
   z-index: 1;
 }
@@ -38,151 +46,116 @@
   opacity: 0.5;
 }
 
-.gridHome {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+.swiperOuter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
 }
 
 @media (min-width: 768px) {
-  .gridHome {
-    grid-template-columns: repeat(2, 1fr);
+  .swiperOuter {
+    padding: 0 20px;
+    gap: 12px;
   }
 }
 
-@media (min-width: 1024px) {
-  .gridHome {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+.swiperWrap {
+  flex: 1;
+  min-width: 0;
+  cursor: grab;
+  padding: 8px 0 12px;
 }
 
-.cardHome {
-  background: var(--ax-glass-bg);
-  backdrop-filter: var(--ax-glass-blur);
-  -webkit-backdrop-filter: var(--ax-glass-blur);
-  border: 0.5px solid var(--ax-border);
+.swiperWrap:active {
+  cursor: grabbing;
+}
+
+.swiperWrap :global(.swiper-slide) {
+  height: auto;
+}
+
+.card {
+  background: var(--svc-gradient);
+  border: 1px solid var(--svc-border);
   border-radius: var(--ax-radius-lg);
-  padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 28px 22px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.cardHome:hover {
+.card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--ax-shadow-glass);
+  box-shadow: 0 12px 36px rgba(59, 124, 184, 0.22);
 }
 
-.cardHomeOpen {
-  box-shadow: var(--ax-shadow-glass);
-}
-
-.iconHome {
-  width: 48px;
-  height: 48px;
-  background: rgba(59, 124, 184, 0.1);
-  border-radius: var(--ax-radius-md);
+.iconWrap {
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
-  color: var(--ax-primary);
+  margin-bottom: 18px;
+  color: var(--svc-icon);
+  transition: filter 0.3s ease, color 0.3s ease;
 }
 
-.iconHome i {
-  font-size: 22px;
+.iconWrap i {
+  font-size: 44px;
 }
 
-.nameHome {
+.card:hover .iconWrap {
+  color: #ffffff;
+  filter: drop-shadow(0 0 10px var(--svc-glow));
+}
+
+.name {
   font-size: var(--ax-font-h3);
   font-weight: 500;
-  color: var(--ax-black);
-  margin: 0 0 10px;
+  color: #ffffff;
+  margin: 0 0 12px;
+  line-height: 1.35;
 }
 
-.descHome {
-  font-size: 13px;
-  color: var(--ax-text-muted);
-  line-height: 1.5;
-  margin: 0 0 16px;
-  flex: 1 1 auto;
+.desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
 }
 
-.expertToggle {
-  border-top: 0.5px solid var(--ax-border);
-  padding-top: 14px;
-  margin-top: auto;
-}
-
-.toggleBtn {
-  display: flex;
+.navBtn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--svc-border);
+  background: rgba(11, 18, 32, 0.75);
+  color: #ffffff;
+  display: none;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 0;
+  justify-content: center;
   cursor: pointer;
-  text-align: start;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  z-index: 2;
 }
 
-.toggleLabel {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ax-primary);
+@media (min-width: 768px) {
+  .navBtn {
+    display: flex;
+  }
 }
 
-.chevron {
-  font-size: 10px;
-  color: var(--ax-primary);
-  transition: transform 0.3s ease;
+.navBtn:hover {
+  transform: scale(1.08);
+  background: rgba(20, 42, 66, 0.95);
+  border-color: var(--svc-icon);
 }
 
-.chevronOpen {
-  transform: rotate(180deg);
-}
-
-.detailsShell {
-  display: grid;
-  transition: grid-template-rows 0.45s ease-out, opacity 0.35s ease, margin-top 0.35s ease;
-}
-
-.detailsShellOpen {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  margin-top: 14px;
-}
-
-.detailsShellClosed {
-  grid-template-rows: 0fr;
-  opacity: 0;
-  margin-top: 0;
-}
-
-.detailsInner {
-  min-height: 0;
-  overflow: hidden;
-}
-
-.panelHome {
-  padding: 14px;
-  background: rgba(59, 124, 184, 0.06);
-  border-radius: var(--ax-radius-md);
-  border: 0.5px solid var(--ax-stats-border);
-  font-size: 13px;
-  color: var(--ax-text-body);
-  line-height: 1.5;
-}
-
-.panelRule {
-  width: 32px;
-  height: 2px;
-  background: var(--ax-primary);
-  border-radius: 999px;
-  margin-bottom: 10px;
-  opacity: 0.6;
+.navBtn i {
+  font-size: 14px;
 }

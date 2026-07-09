@@ -16,7 +16,8 @@ export interface Service {
   translations: Record<Language, { 
     name: string; 
     description: string;
-    expertDetails: string; // الحقل الجديد للشرح المعمق
+    expertDetails: string;
+    highlights: { icon: string; text: string }[];
   }>;
 }
 
