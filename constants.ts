@@ -4,8 +4,9 @@
 import { SiteConfig, Language } from './types';
 
 export const INITIAL_CONFIG: SiteConfig = {
-  siteName: "axonXcode",
-  logo: "/assets/semple-logo-last-rounded-no-wight-color.png",
+  siteName: "AxonXcode",
+  logo: "/assets/simple-logo-X-decoreted-no-background.png",
+  brandXImage: "/assets/axon-x-letter.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
   socials: [
@@ -703,7 +704,7 @@ export const INITIAL_CONFIG: SiteConfig = {
     },
     {
       id: "p4",
-      image: "/assets/semple-logo-last-rounded-no-wight-color.png",
+      image: "/assets/simple-logo-X-decoreted-no-background.png",
       category: "Web Design",
       link: "/",
       translations: {
@@ -802,6 +803,7 @@ export const INITIAL_CONFIG: SiteConfig = {
             "Direct, interactive contact form for your clients",
             "VIP Managed content service: included in the monthly maintenance plan, we handle any text or image update for you monthly without dashboard complexity",
             "Optional add-ons on request: dynamic CMS dashboard, external API integrations, or custom software features",
+            "Built-in visitor analytics (Google Analytics), fully compliant with EU cookie privacy requirements",
             "Price excludes domain & hosting — requires the monthly maintenance & hosting subscription",
           ],
         },
@@ -818,6 +820,7 @@ export const INITIAL_CONFIG: SiteConfig = {
             "نموذج تواصل مباشر وتفاعلي مع عملائك",
             "خدمة إدارة المحتوى (VIP Managed): ضمن باقة الصيانة الشهرية ننجز لك أي تعديل على النصوص أو الصور شهرياً دون الحاجة لتعقيدات لوحات التحكم",
             "إضافات اختيارية حسب الطلب: لوحة تحكم CMS ديناميكية، ربط أنظمة خارجية (API)، أو تطوير ميزات برمجية خاصة",
+            "تحليلات زوار مدمجة (Google Analytics) مع الالتزام بمتطلبات خصوصية الكوكيز الأوروبية",
             "السعر لا يشمل الدومين والاستضافة — يتطلب الاشتراك في باقة الصيانة والاستضافة الشهرية",
           ],
         },
@@ -834,6 +837,7 @@ export const INITIAL_CONFIG: SiteConfig = {
             "Direct, interactief contactformulier voor uw klanten",
             "VIP Managed contentservice: inbegrepen in het maandelijkse onderhoudsplan, wij verwerken elke tekst- of afbeeldingswijziging maandelijks voor u zonder dashboard-complexiteit",
             "Optionele add-ons op aanvraag: dynamisch CMS-dashboard, koppelingen met externe API's, of maatwerk software functies",
+            "Ingebouwde bezoekersanalyse (Google Analytics), volledig conform de Europese cookie-privacyregels",
             "Prijs is exclusief domein & hosting — vereist het maandelijkse onderhouds- en hostingabonnement",
           ],
         },
@@ -1026,6 +1030,10 @@ export const UI_TEXTS = {
     footerColExplore: "Explore",
     footerColPricing: "Pricing",
     footerColContact: "Contact",
+    cookieConsentMessage:
+      "We use essential cookies to run this website, and analytics cookies (Google Analytics) to understand and improve site performance. You can choose which cookies to allow.",
+    cookieConsentAccept: "Accept All",
+    cookieConsentEssential: "Essential Only",
   },
   ar: {
     home: "الرئيسية",
@@ -1107,6 +1115,10 @@ export const UI_TEXTS = {
     footerColExplore: "تصفح",
     footerColPricing: "الأسعار والباقات",
     footerColContact: "تواصل",
+    cookieConsentMessage:
+      "نستخدم كوكيز أساسية لتشغيل الموقع، وكوكيز تحليلية (Google Analytics) لفهم أداء الموقع وتحسينه. يمكنك اختيار نوع الكوكيز التي توافق عليها.",
+    cookieConsentAccept: "قبول الكل",
+    cookieConsentEssential: "قبول الأساسية فقط",
   },
   nl: {
     home: "Home",
@@ -1189,5 +1201,9 @@ export const UI_TEXTS = {
     footerColExplore: "Ontdekken",
     footerColPricing: "Tarieven",
     footerColContact: "Contact",
+    cookieConsentMessage:
+      "Wij gebruiken essentiële cookies om deze website te laten werken, en analytische cookies (Google Analytics) om de prestaties van de site te begrijpen en te verbeteren. U kunt kiezen welke cookies u toestaat.",
+    cookieConsentAccept: "Alles Accepteren",
+    cookieConsentEssential: "Alleen Essentieel",
   }
 };

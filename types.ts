@@ -131,6 +131,7 @@ export interface TeamMember {
 export interface SiteConfig {
   siteName: string;
   logo: string;
+  brandXImage: string;
   contactEmail: string;
   phone: string;
   socials: SocialChannel[];

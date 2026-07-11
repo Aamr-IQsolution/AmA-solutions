@@ -63,8 +63,7 @@
 .logoHome {
   width: 56px;
   height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   background: #ffffff;
 }
 
@@ -73,6 +72,12 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 .socialsHome {

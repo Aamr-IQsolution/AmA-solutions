@@ -115,7 +115,16 @@ const Navbar: React.FC = () => {
               className={navStyles.logoHome}
               loading="lazy"
             />
-            <span className={navStyles.brandHome}>{config.siteName}</span>
+            <span className={navStyles.brandHome}>
+              {config.siteName.slice(0, 4)}
+              <img
+                src={config.brandXImage}
+                alt="X"
+                className={navStyles.brandXImg}
+                loading="lazy"
+              />
+              {config.siteName.slice(5)}
+            </span>
           </Link>
 
           <nav className={navStyles.desktopNavHome} aria-label="Main">

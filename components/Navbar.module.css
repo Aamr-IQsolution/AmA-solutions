@@ -26,8 +26,7 @@
 .logoHome {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .brandHome {
@@ -35,6 +34,21 @@
   font-weight: 800;
   color: #000000;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.brandXImg {
+  height: 1.38em;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  margin: 0 0.03em;
+  background: #ffffff;
 }
 
 .desktopNavHome {

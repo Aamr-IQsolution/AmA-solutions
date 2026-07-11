@@ -69,6 +69,7 @@ const getFeatureIconClass = (planId: string, index: number): string => {
         'fa-solid fa-comments',
         'fa-solid fa-crown',
         'fa-solid fa-puzzle-piece',
+        'fa-solid fa-chart-line',
         'fa-solid fa-circle-info',
       ];
       return icons[index] ?? 'fa-solid fa-check';

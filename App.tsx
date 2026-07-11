@@ -6,6 +6,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import CookieConsent from './components/CookieConsent';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import TeamPage from './pages/TeamPage';
@@ -64,6 +65,7 @@ const AppLayout: React.FC = () => {
         </div>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 };
