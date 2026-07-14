@@ -47,6 +47,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         mainPlans: INITIAL_CONFIG.mainPlans,
         addOns: INITIAL_CONFIG.addOns,
         services: INITIAL_CONFIG.services,
+        portfolio: INITIAL_CONFIG.portfolio,
       };
     } catch {
       return INITIAL_CONFIG;

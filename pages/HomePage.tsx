@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
       <StatisticsCounter />
       <Services />
       <PricingSection />
-      <Portfolio />
+      <Portfolio layout="slider" />
       <Testimonials />
       <FAQ />
       <CTASection />

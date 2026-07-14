@@ -1,12 +1,27 @@
 /**
  * قسم معرض الأعمال (Portfolio Section).
  */
-import React from 'react';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, A11y } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
+import { Project } from '../types';
 import styles from './Portfolio.module.css';
 
-const Portfolio: React.FC = () => {
-  const { lang, config } = useApp();
+type PortfolioLayout = 'slider' | 'grid';
+
+interface PortfolioProps {
+  layout?: PortfolioLayout;
+}
+
+const Portfolio: React.FC<PortfolioProps> = ({ layout = 'grid' }) => {
+  const { lang, config, isRTL } = useApp();
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
 
   const renderTitle = () => {
     const header = config.portfolioHeader[lang];
@@ -29,64 +44,115 @@ const Portfolio: React.FC = () => {
   const explore =
     lang === 'ar' ? 'اكتشف المشروع' : lang === 'nl' ? 'Ontdek het project' : 'Discover the project';
 
+  const renderProjectCard = (project: Project) => {
+    const title = project.translations[lang].title;
+    const linkAria = `${explore}: ${title}`;
+
+    return (
+      <article className={styles.card}>
+        <Link to={`/portfolio/${project.id}`} className={styles.media} aria-label={linkAria}>
+          <img
+            src={project.coverImage}
+            alt=""
+            className={styles.img}
+            loading="lazy"
+            decoding="async"
+          />
+          <div className={styles.overlay} aria-hidden />
+          <div className={styles.body}>
+            <span className={styles.badge}>{project.translations[lang].category}</span>
+            <h3 className={styles.cardTitle}>{title}</h3>
+            <p className={styles.cardDesc}>{project.translations[lang].shortDescription}</p>
+            <span className={styles.cta}>
+              {explore}{' '}
+              <i
+                className={`fa-solid fa-chevron-${lang === 'ar' ? 'left' : 'right'} ${styles.ctaIcon}`}
+                aria-hidden
+              />
+            </span>
+          </div>
+        </Link>
+      </article>
+    );
+  };
+
+  const headerBlock = (
+    <div className={styles.header}>
+      <h2 className={styles.title}>{renderTitle()}</h2>
+      <p className={styles.desc}>{config.portfolioHeader[lang].description}</p>
+    </div>
+  );
+
+  if (layout === 'slider') {
+    return (
+      <section id="portfolio" className={styles.section}>
+        <div className={styles.inner}>{headerBlock}</div>
+
+        <div className={styles.swiperOuter}>
+          <button
+            ref={prevRef}
+            type="button"
+            className={`${styles.navBtn} ${styles.navPrev}`}
+            aria-label={lang === 'ar' ? 'السابق' : lang === 'nl' ? 'Vorige' : 'Previous'}
+          >
+            <i className={`fa-solid ${isRTL ? 'fa-chevron-right' : 'fa-chevron-left'}`} aria-hidden />
+          </button>
+
+          <div className={styles.swiperWrap}>
+            <Swiper
+              key={lang}
+              dir={isRTL ? 'rtl' : 'ltr'}
+              modules={[Navigation, A11y]}
+              grabCursor
+              spaceBetween={18}
+              slidesPerView={1.15}
+              breakpoints={{
+                640: { slidesPerView: 1.6, spaceBetween: 18 },
+                900: { slidesPerView: 2.4, spaceBetween: 20 },
+                1200: { slidesPerView: 3.2, spaceBetween: 22 },
+              }}
+              onBeforeInit={(swiper: SwiperType) => {
+                if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
+                  swiper.params.navigation.prevEl = prevRef.current;
+                  swiper.params.navigation.nextEl = nextRef.current;
+                }
+              }}
+              onInit={(swiper: SwiperType) => {
+                if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
+                  swiper.params.navigation.prevEl = prevRef.current;
+                  swiper.params.navigation.nextEl = nextRef.current;
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                }
+              }}
+            >
+              {config.portfolio.map((project) => (
+                <SwiperSlide key={project.id}>{renderProjectCard(project)}</SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          <button
+            ref={nextRef}
+            type="button"
+            className={`${styles.navBtn} ${styles.navNext}`}
+            aria-label={lang === 'ar' ? 'التالي' : lang === 'nl' ? 'Volgende' : 'Next'}
+          >
+            <i className={`fa-solid ${isRTL ? 'fa-chevron-left' : 'fa-chevron-right'}`} aria-hidden />
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="portfolio" className={styles.section}>
       <div className={styles.inner}>
-        <div className={styles.header}>
-          <h2 className={styles.title}>{renderTitle()}</h2>
-          <p className={styles.desc}>{config.portfolioHeader[lang].description}</p>
-        </div>
-
+        {headerBlock}
         <div className={styles.grid}>
-          {config.portfolio.map((project) => {
-            const title = project.translations[lang].title;
-            const linkAria = project.link ? `${explore}: ${title}` : undefined;
-
-            const inner = (
-              <>
-                <img
-                  src={project.image}
-                  alt=""
-                  className={styles.img}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className={styles.overlay} aria-hidden />
-                <div className={styles.body}>
-                  <span className={styles.badge}>{project.category}</span>
-                  <h3 className={styles.cardTitle}>{title}</h3>
-                  <p className={styles.cardDesc}>{project.translations[lang].description}</p>
-                  {project.link ? (
-                    <span className={styles.cta}>
-                      {explore}{' '}
-                      <i
-                        className={`fa-solid fa-chevron-${lang === 'ar' ? 'left' : 'right'} ${styles.ctaIcon}`}
-                        aria-hidden
-                      />
-                    </span>
-                  ) : null}
-                </div>
-              </>
-            );
-
-            return (
-              <article key={project.id} className={styles.card}>
-                {project.link ? (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.media}
-                    aria-label={linkAria}
-                  >
-                    {inner}
-                  </a>
-                ) : (
-                  <div className={styles.media}>{inner}</div>
-                )}
-              </article>
-            );
-          })}
+          {config.portfolio.map((project) => (
+            <React.Fragment key={project.id}>{renderProjectCard(project)}</React.Fragment>
+          ))}
         </div>
       </div>
     </section>

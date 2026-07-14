@@ -74,7 +74,6 @@ const Services: React.FC = () => {
             grabCursor
             spaceBetween={18}
             slidesPerView={1.15}
-            centeredSlides
             breakpoints={{
               640: { slidesPerView: 1.6, spaceBetween: 18 },
               900: { slidesPerView: 2.4, spaceBetween: 20 },

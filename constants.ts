@@ -30,7 +30,7 @@ export const INITIAL_CONFIG: SiteConfig = {
     }
   },
   stats: {
-    projects: 4,
+    projects: 5,
     clients: 15,
     translations: {
       en: { projectsLabel: "Projects delivered", clientsLabel: "Happy clients" },
@@ -670,60 +670,92 @@ export const INITIAL_CONFIG: SiteConfig = {
   ],
   portfolio: [
     {
-      id: "p1",
-      image: "/assets/AmA facelofo after editting with codes background-1.jpg",
-      category: "Content Creation",
-      link: "https://www.facebook.com/admeral.ama2",
+      id: "souqeastren",
+      coverImage: "/assets/souq-estren/souq-panar.png",
+      heroImage: "/assets/souq-estren/souq-hero.png",
+      logoImage: "/assets/souq-estren/sq-simple-no-backwightcolor.png",
+      galleryImages: [
+        "/assets/souq-estren/souq-1-previw.png",
+        "/assets/souq-estren/souq-2-previw.png",
+        "/assets/souq-estren/souq-3-previw.png",
+      ],
+      technologies: [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Supabase",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "next-intl",
+        "Zustand",
+        "Mollie",
+        "React PDF",
+        "jsPDF",
+        "Recharts",
+        "Zod",
+        "Vercel",
+      ],
       translations: {
-        en: { title: "Content Creation", description: "Content creator / ad management / video creation / photos / full content management" },
-        ar: { title: "صناعة محتوى", description: "صانع محتوى / إدارة إعلانات / إنشاء فيديوهات / صور / إدارة محتوى شامل" },
-        nl: { title: "Contentcreatie", description: "Content creator / advertentiebeheer / video’s maken / foto’s / volledig contentbeheer" }
-      }
-    },
-    {
-      id: "p2",
-      image: "/assets/Logo-Tasneem-Min-round-no-background.png",
-      category: "Social Media",
-      link: "https://www.facebook.com/profile.php?id=61583301257685",
-      translations: {
-        en: { title: "Tasneem", description: "Content management / design / advertising campaigns" },
-        ar: { title: "بقالة تسنيم", description: "إدارة محتوى / تصميم / حملات إعلانية" },
-        nl: { title: "Tasneem", description: "Contentbeheer / ontwerp / advertentiecampagnes" }
-      }
-    },
-    {
-      id: "p3",
-      image: "/assets/sq-simple-backwightcolor.png",
-      category: "WEB SHOP DESIGN",
-      link: "https://souqeastren.vercel.app/",
-      translations: {
-        en: { title: "Web Shop Design", description: "SouqEastren — e‑commerce shop design / data protection / delivery / sales / content management" },
-        ar: { title: "متجر إلكتروني", description: "SouqEastren — تصميم متجر إلكتروني / حماية البيانات / توصيل / بيع / إدارة محتوى" },
-        nl: { title: "Webwinkelontwerp", description: "SouqEastren — webwinkelontwerp / gegevensbescherming / levering / verkoop / contentbeheer" }
-      }
-    },
-    {
-      id: "p4",
-      image: "/assets/simple-logo-X-decoreted-no-background.png",
-      category: "Web Design",
-      link: "/",
-      translations: {
-        en: { title: "Website Design", description: "axonXcode - Basic/Informational/Contact/Service Website" },
-        ar: { title: "تصميم موقع", description: "axonXcode - تصميم موقع أساسي / تعريفي / تواصل / تقديم خدمات" },
-        nl: { title: "Website Ontwerp", description: "axonXcode - Basis/Informatieve/Contact/Diensten Website" }
-      }
+        ar: {
+          title: "SouqEastren — Eastern Souq",
+          category: "منصة سوق إلكتروني (Marketplace)",
+          shortDescription:
+            "منصة وساطة لبقالة أونلاين في هولندا — تربط البقالات بالعملاء مع طلبات، توصيل ديناميكي، دفع، وفواتير قانونية.",
+          challenge:
+            "الحاجة لمنصة تجمع عدة بقالات في سوق واحد، مع حساب توصيل حسب المسافة، ضرائب BTW الهولندية (9%/21%)، عمولات المنصة، ومدفوعات iDEAL — كل ذلك في نظام واحد متكامل.",
+          solution:
+            "تطوير منصة Next.js كاملة: سلة وcheckout، Mollie، لوحات تحكم (عميل / صاحب بقالة / مدير / أدمن)، حساب مسافة عبر Nominatim، فواتير PDF، ومدفوعات نصف شهرية للبقالات.",
+          statusLabel: "قيد التطوير",
+        },
+        en: {
+          title: "SouqEastren — Eastern Souq",
+          category: "Online Marketplace Platform",
+          shortDescription:
+            "An online grocery marketplace platform in the Netherlands — connecting grocery stores with customers through orders, dynamic delivery, payments, and legal invoicing.",
+          challenge:
+            "The need for a platform bringing multiple grocery stores together in one marketplace, with distance-based delivery costs, Dutch BTW tax (9%/21%), platform commissions, and iDEAL payments — all within one integrated system.",
+          solution:
+            "Built a complete Next.js platform: cart and checkout, Mollie integration, multiple dashboards (customer / store owner / manager / admin), Nominatim-based distance calculation, PDF invoicing, and bi-weekly store payouts.",
+          statusLabel: "In Development",
+        },
+        nl: {
+          title: "SouqEastren — Eastern Souq",
+          category: "Online Marktplaatsplatform",
+          shortDescription:
+            "Een online marktplaatsplatform voor supermarkten in Nederland — verbindt winkels met klanten via bestellingen, dynamische bezorging, betalingen en wettelijke facturatie.",
+          challenge:
+            "De behoefte aan een platform dat meerdere supermarkten samenbrengt in één marktplaats, met afstandsgebaseerde bezorgkosten, Nederlandse BTW (9%/21%), platformcommissies en iDEAL-betalingen — allemaal in één geïntegreerd systeem.",
+          solution:
+            "Ontwikkeling van een volledig Next.js-platform: winkelwagen en checkout, Mollie-integratie, meerdere dashboards (klant / winkeleigenaar / manager / beheerder), afstandsberekening via Nominatim, PDF-facturatie en tweewekelijkse uitbetalingen aan winkels.",
+          statusLabel: "In Ontwikkeling",
+        },
+      },
     },
     {
       id: "p5",
-      image: "/assets/alasaylef-nobackground.png",
-      category: "WEB DESIGN",
+      coverImage: "/assets/alasaylef-nobackground.png",
       link: "https://www.alasaylf.com/",
       translations: {
-        en: { title: "Website Design", description: "Alasaylf — corporate website / interactive / service-focused / administrative" },
-        ar: { title: "تصميم موقع", description: "Alasaylf — تصميم موقع شركة / تفاعلي / خدمي / إداري" },
-        nl: { title: "Websiteontwerp", description: "Alasaylf — bedrijfswebsite / interactief / diensten / administratief" }
-      }
-    }
+        ar: {
+          title: "Website Design",
+          category: "تصميم مواقع",
+          shortDescription: "Alasaylf — تصميم موقع شركة / تفاعلي / خدمي / إداري",
+          statusLabel: "منشور",
+        },
+        en: {
+          title: "Website Design",
+          category: "Web Design",
+          shortDescription: "Alasaylf — corporate website / interactive / service-focused / administrative",
+          statusLabel: "Live",
+        },
+        nl: {
+          title: "Websiteontwerp",
+          category: "Websiteontwerp",
+          shortDescription: "Alasaylf — bedrijfswebsite / interactief / diensten / administratief",
+          statusLabel: "Live",
+        },
+      },
+    },
   ],
   mainPlans: [
     {

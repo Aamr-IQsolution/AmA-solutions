@@ -63,10 +63,23 @@ export interface AddOn {
 
 export interface Project {
   id: string;
-  image: string;
-  category: string;
+  coverImage: string;
+  heroImage?: string;
+  logoImage?: string;
+  galleryImages?: string[];
+  technologies?: string[];
   link?: string;
-  translations: Record<Language, { title: string; description: string }>;
+  translations: Record<
+    Language,
+    {
+      title: string;
+      category: string;
+      shortDescription: string;
+      challenge?: string;
+      solution?: string;
+      statusLabel: string;
+    }
+  >;
 }
 
 export interface SectionContent {

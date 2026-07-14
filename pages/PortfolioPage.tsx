@@ -19,7 +19,7 @@ const PortfolioPage: React.FC = () => {
             : 'Real projects that demonstrate how we turn concepts into high-performing digital products.'
         }
       />
-      <Portfolio />
+      <Portfolio layout="grid" />
     </>
   );
 };
