@@ -157,6 +157,7 @@ export interface SiteConfig {
   brandXImage: string;
   contactEmail: string;
   phone: string;
+  location: Record<Language, string>;
   socials: SocialChannel[];
   hero: Record<Language, { title: string; subtitle: string }>;
   stats: HomeStats;

@@ -201,6 +201,15 @@ const Contact: React.FC = () => {
                   <p className={styles.value}>{config.phone}</p>
                 </div>
               </a>
+              <div className={styles.row}>
+                <div className={styles.iconBox}>
+                  <i className="fa-solid fa-location-dot text-xl" aria-hidden />
+                </div>
+                <div>
+                  <p className={styles.label}>{t.locationLabel}</p>
+                  <p className={styles.value}>{config.location[lang]}</p>
+                </div>
+              </div>
             </div>
 
             <div className={styles.socials}>

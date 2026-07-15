@@ -9,6 +9,11 @@ export const INITIAL_CONFIG: SiteConfig = {
   brandXImage: "/assets/axon-x-letter.png",
   contactEmail: "Aamr.alawad@gmail.com",
   phone: "+31685582647",
+  location: {
+    en: "Heerlen, The Netherlands",
+    nl: "Heerlen, Nederland",
+    ar: "هيرلن, هولندا",
+  },
   socials: [
     { id: '1', platform: 'Instagram', icon: 'fa-instagram', link: 'https://instagram.com' },
     { id: '2', platform: 'Facebook', icon: 'fa-facebook', link: 'https://www.facebook.com/profile.php?id=61587772950053' },
@@ -1137,6 +1142,119 @@ export const INITIAL_CONFIG: SiteConfig = {
   ],
 };
 
+/** Absolute site origin — no trailing slash. Used for canonical, hreflang, and Open Graph URLs. */
+export const SITE_URL = 'https://www.axonxcode.com';
+
+export type PageMetaKey = 'home' | 'services' | 'team' | 'portfolio' | 'pricing' | 'contact';
+
+export const PAGE_META: Record<
+  PageMetaKey,
+  Record<Language, { title: string; description: string }>
+> = {
+  home: {
+    nl: {
+      title: 'AxonXcode – Webontwikkeling & Maatwerk Software | Heerlen',
+      description:
+        'Professionele website of maatwerk software nodig? AxonXcode bouwt snelle, SEO-vriendelijke oplossingen voor het MKB in Heerlen, Maastricht en heel Nederland.',
+    },
+    en: {
+      title: 'AxonXcode – Custom Web Development & Software | Netherlands',
+      description:
+        'AxonXcode builds fast, SEO-friendly websites and custom software for small businesses across the Netherlands, based in Heerlen.',
+    },
+    ar: {
+      title: 'axonXcode – شركة برمجة ذات خبرة عالية وحلول رقمية مخصصة في هولندا',
+      description:
+        'axonXcode شركة برمجة عربية-هولندية في هولندا، متخصصة في تصميم مواقع احترافية وحلول برمجية مخصصة للشركات الصغيرة والمتوسطة في هيرلن وسائر أنحاء هولندا.',
+    },
+  },
+  services: {
+    nl: {
+      title: 'Diensten – Webontwikkeling, Maatwerk Software & Beveiliging | AxonXcode',
+      description:
+        'Ontdek onze diensten: professionele websites, maatwerk webapplicaties, API-koppelingen en digitale beveiliging voor bedrijven in Nederland.',
+    },
+    en: {
+      title: 'Services – Web Development, Custom Software & Security | AxonXcode',
+      description:
+        "From business websites to custom web applications and API integrations — explore AxonXcode's full range of software development services.",
+    },
+    ar: {
+      title: 'خدماتنا – برمجة مواقع وتطبيقات مخصصة وأمن رقمي | axonXcode',
+      description:
+        'تصفح خدمات axonXcode: تصميم مواقع احترافية، تطبيقات ويب مخصصة، ربط الأنظمة الخارجية، وحماية رقمية مستمرة لعملك.',
+    },
+  },
+  team: {
+    nl: {
+      title: 'Ons Team – Ervaren Ontwikkelaars & Security Experts | AxonXcode',
+      description:
+        'Maak kennis met het team achter AxonXcode: specialisten in softwareontwikkeling, digitale beveiliging en kwaliteitsvolle code.',
+    },
+    en: {
+      title: 'Our Team – Developers & Security Specialists | AxonXcode',
+      description:
+        'Meet the AxonXcode team: experienced developers and security specialists dedicated to building secure, high-quality digital products.',
+    },
+    ar: {
+      title: 'فريقنا – مطورون وخبراء أمن معلومات | axonXcode',
+      description:
+        'تعرّف على فريق axonXcode: مطورون محترفون وخبراء أمن معلومات يحرصون على جودة الكود وحماية بياناتك.',
+    },
+  },
+  portfolio: {
+    nl: {
+      title: 'Portfolio – Websites & Software Projecten | AxonXcode',
+      description:
+        'Bekijk voorbeelden van websites en maatwerk softwareprojecten die AxonXcode heeft ontwikkeld voor klanten in Nederland.',
+    },
+    en: {
+      title: "Portfolio – Websites & Software We've Built | AxonXcode",
+      description:
+        'Explore real websites and custom software projects delivered by AxonXcode for clients across the Netherlands.',
+    },
+    ar: {
+      title: 'أعمالنا – مواقع وتطبيقات نفّذناها | axonXcode',
+      description:
+        'استعرض نماذج حقيقية من المواقع والتطبيقات البرمجية التي طوّرتها axonXcode لعملائها في هولندا.',
+    },
+  },
+  pricing: {
+    nl: {
+      title: 'Prijzen – Website Laten Maken vanaf €1.299 | AxonXcode',
+      description:
+        'Transparante prijzen voor een professionele website of maatwerk software. Bekijk onze pakketten voor het MKB in Nederland.',
+    },
+    en: {
+      title: 'Pricing – Professional Website from €1,299 | AxonXcode',
+      description:
+        "Clear, one-time pricing for a professional business website or custom software. See AxonXcode's packages for small businesses.",
+    },
+    ar: {
+      title: 'الأسعار – موقع احترافي بسعر ثابت من 1299€ | axonXcode',
+      description:
+        'أسعار واضحة وشفافة لموقع احترافي أو حل برمجي مخصص. اطّلع على باقات axonXcode المصممة للشركات الصغيرة والمتوسطة.',
+    },
+  },
+  contact: {
+    nl: {
+      title: 'Contact – Start Jouw Project met AxonXcode | Heerlen',
+      description:
+        'Klaar om te starten? Neem contact op met AxonXcode in Heerlen voor een vrijblijvend gesprek over jouw website of softwareproject.',
+    },
+    en: {
+      title: 'Contact AxonXcode – Start Your Project | Heerlen, NL',
+      description:
+        'Ready to build your website or software? Get in touch with AxonXcode in Heerlen, Netherlands for a free consultation.',
+    },
+    ar: {
+      title: 'تواصل معنا – ابدأ مشروعك مع axonXcode | هيرلن',
+      description:
+        'جاهز تبدأ مشروعك؟ تواصل مع axonXcode في هيرلن، هولندا، واحصل على استشارة مجانية لموقعك أو حلك البرمجي.',
+    },
+  },
+};
+
 export const UI_TEXTS = {
   en: {
     home: "Home",
@@ -1169,6 +1287,7 @@ export const UI_TEXTS = {
     logoUrl: "Logo URL",
     email: "Email",
     whatsapp: "WhatsApp",
+    locationLabel: "Location",
     category: "Category",
     imageUrl: "Image URL",
     projectLink: "Project Link (Optional)",
@@ -1265,6 +1384,7 @@ export const UI_TEXTS = {
     logoUrl: "رابط الشعار",
     email: "البريد الإلكتروني",
     whatsapp: "واتساب",
+    locationLabel: "الموقع",
     category: "الفئة",
     imageUrl: "رابط الصورة",
     projectLink: "رابط المشروع (اختياري)",
@@ -1362,6 +1482,7 @@ export const UI_TEXTS = {
     logoUrl: "Logo URL",
     email: "E-mail",
     whatsapp: "WhatsApp",
+    locationLabel: "Locatie",
     category: "Categorie",
     imageUrl: "Afbeeldings-URL",
     projectLink: "Projectlink (Optioneel)",

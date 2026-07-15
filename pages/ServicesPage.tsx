@@ -1,13 +1,17 @@
 import React from 'react';
 import PageHero from '../components/PageHero';
 import ServicesDetailed from '../components/ServicesDetailed';
+import SEO from '../components/SEO';
 import { useApp } from '../context/AppContext';
+import { PAGE_META } from '../constants';
 
 const ServicesPage: React.FC = () => {
   const { lang } = useApp();
+  const meta = PAGE_META.services[lang];
 
   return (
     <>
+      <SEO title={meta.title} description={meta.description} path="/services" />
       <PageHero
         eyebrow={lang === 'ar' ? 'قسم الخدمات' : lang === 'nl' ? 'Diensten' : 'Services Division'}
         title={lang === 'ar' ? 'خدمات برمجية تسلّم نتائج' : lang === 'nl' ? 'Engineering die resultaten levert' : 'Engineering Services That Deliver'}

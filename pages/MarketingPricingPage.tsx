@@ -2,7 +2,9 @@ import React from 'react';
 import PageHero from '../components/PageHero';
 import MainPricing from '../components/MainPricing';
 import AddOnsSection from '../components/AddOnsSection';
+import SEO from '../components/SEO';
 import { useApp } from '../context/AppContext';
+import { PAGE_META } from '../constants';
 
 const HERO_COPY = {
   ar: {
@@ -25,9 +27,11 @@ const HERO_COPY = {
 const MarketingPricingPage: React.FC = () => {
   const { lang } = useApp();
   const hero = HERO_COPY[lang];
+  const meta = PAGE_META.pricing[lang];
 
   return (
     <>
+      <SEO title={meta.title} description={meta.description} path="/pricing" />
       <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
       <MainPricing />
       <AddOnsSection />

@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
 import FictionalDataOverlay from '../components/FictionalDataOverlay';
+import SEO from '../components/SEO';
 import { getTechIcon } from '../utils/techIconMap';
 import styles from './ProjectDetailPage.module.css';
 
@@ -68,6 +69,12 @@ const ProjectDetailPage: React.FC = () => {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title={`${t.title} – ${t.category} | AxonXcode`}
+        description={t.shortDescription}
+        path={`/portfolio/${project.id}`}
+        image={project.coverImage}
+      />
       <div className={styles.inner}>
         <div className={styles.hero}>
           <div className={styles.heroMedia}>

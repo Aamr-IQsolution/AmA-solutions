@@ -89,6 +89,9 @@ const Footer: React.FC = () => {
                       </LocalizedLink>
                     </li>
                   ))}
+                  <li>
+                    <span className={footStyles.sitemapStatic}>{config.location[lang]}</span>
+                  </li>
                 </ul>
               </div>
             </div>

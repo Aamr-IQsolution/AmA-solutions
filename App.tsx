@@ -2,6 +2,7 @@
  * المكون الرئيسي للتطبيق (Root Component).
  */
 import React, { useEffect } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
@@ -79,11 +80,13 @@ const AppLayout: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <AppProvider>
-        <AppLayout />
-      </AppProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AppProvider>
+          <AppLayout />
+        </AppProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 

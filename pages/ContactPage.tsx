@@ -1,13 +1,17 @@
 import React from 'react';
 import PageHero from '../components/PageHero';
 import Contact from '../components/Contact';
+import SEO from '../components/SEO';
 import { useApp } from '../context/AppContext';
+import { PAGE_META } from '../constants';
 
 const ContactPage: React.FC = () => {
   const { lang } = useApp();
+  const meta = PAGE_META.contact[lang];
 
   return (
     <>
+      <SEO title={meta.title} description={meta.description} path="/contact" />
       <PageHero
         eyebrow={lang === 'ar' ? 'تواصل معنا' : lang === 'nl' ? 'Contact' : 'Contact'}
         title={lang === 'ar' ? 'لنبدأ مشروعك القادم' : lang === 'nl' ? 'Laten we jouw project starten' : "Let's Build Your Next Project"}
