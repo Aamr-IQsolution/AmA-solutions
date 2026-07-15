@@ -11,7 +11,12 @@ const ContactPage: React.FC = () => {
 
   return (
     <>
-      <SEO title={meta.title} description={meta.description} path="/contact" />
+      <SEO
+        title={meta.title}
+        description={meta.description}
+        path="/contact"
+        includeOrganizationSchema
+      />
       <PageHero
         eyebrow={lang === 'ar' ? 'تواصل معنا' : lang === 'nl' ? 'Contact' : 'Contact'}
         title={lang === 'ar' ? 'لنبدأ مشروعك القادم' : lang === 'nl' ? 'Laten we jouw project starten' : "Let's Build Your Next Project"}

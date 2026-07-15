@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useApp } from '../context/AppContext';
-import { SITE_URL } from '../constants';
+import { PAGE_META, SITE_URL } from '../constants';
 import { Language } from '../types';
 import { SUPPORTED_LANGS } from '../utils/localizePath';
 
@@ -42,12 +42,40 @@ interface SEOProps {
   path: string;
   /** Absolute or site-relative image URL for Open Graph / Twitter */
   image?: string;
+  /** When true, injects ProfessionalService JSON-LD (Home + Contact only). */
+  includeOrganizationSchema?: boolean;
 }
 
-const SEO: React.FC<SEOProps> = ({ title, description, path, image }) => {
+const SEO: React.FC<SEOProps> = ({
+  title,
+  description,
+  path,
+  image,
+  includeOrganizationSchema = false,
+}) => {
   const { lang, config } = useApp();
   const canonical = buildPageUrl(lang, path);
   const ogImage = toAbsoluteUrl(image ?? config.logo);
+
+  const organizationSchema = includeOrganizationSchema
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        name: 'AxonXcode',
+        image: toAbsoluteUrl(config.logo),
+        url: SITE_URL,
+        telephone: config.phone,
+        email: config.contactEmail,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Heerlen',
+          addressCountry: 'NL',
+        },
+        areaServed: ['Heerlen', 'Maastricht', 'Zuid-Limburg', 'Netherlands'],
+        description: PAGE_META.home[lang].description,
+        sameAs: config.socials.map((social) => social.link),
+      }
+    : null;
 
   useEffect(() => {
     pruneStaticHeadFallbacks(title, description);
@@ -82,6 +110,10 @@ const SEO: React.FC<SEOProps> = ({ title, description, path, image }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+
+      {organizationSchema ? (
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+      ) : null}
     </Helmet>
   );
 };

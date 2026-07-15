@@ -19,7 +19,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <SEO title={meta.title} description={meta.description} path="/" />
+      <SEO
+        title={meta.title}
+        description={meta.description}
+        path="/"
+        includeOrganizationSchema
+      />
       <HomeHero />
       <StatisticsCounter />
       <Services />
