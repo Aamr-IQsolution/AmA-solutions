@@ -2,8 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { Resend } from 'resend';
-import { contactFormSchema } from '../utils/contactSchema';
-import { escapeHtml, getAutoReplyEmail } from '../utils/emailTemplates';
+import { contactFormSchema } from '../utils/contactSchema.js';
+import { escapeHtml, getAutoReplyEmail } from '../utils/emailTemplates.js';
 
 const JSON_CONTENT_TYPE = 'application/json';
 
