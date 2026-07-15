@@ -10,6 +10,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
 import { Project } from '../types';
+import FictionalDataOverlay from './FictionalDataOverlay';
 import styles from './Portfolio.module.css';
 
 type PortfolioLayout = 'slider' | 'grid';
@@ -59,7 +60,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ layout = 'grid' }) => {
             decoding="async"
           />
           <div className={styles.overlay} aria-hidden />
-          <div className={styles.body}>
+          {project.hasFictionalData ? <FictionalDataOverlay size="small" /> : null}
+          <div className={`${styles.body} ${project.hasFictionalData ? styles.bodyWithFictional : ''}`}>
             <span className={styles.badge}>{project.translations[lang].category}</span>
             <h3 className={styles.cardTitle}>{title}</h3>
             <p className={styles.cardDesc}>{project.translations[lang].shortDescription}</p>

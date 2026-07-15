@@ -10,8 +10,8 @@ import {
 
 /** Exact-match mapping from constants.ts technology names to Simple Icons. */
 export const TECH_ICON_MAP: Record<string, IconType> = {
-  'Next.js 16': SiNextdotjs,
-  'React 19': SiReact,
+  'Next.js': SiNextdotjs,
+  React: SiReact,
   TypeScript: SiTypescript,
   Supabase: SiSupabase,
   'Tailwind CSS': SiTailwindcss,

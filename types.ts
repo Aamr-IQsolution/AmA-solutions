@@ -69,6 +69,7 @@ export interface Project {
   galleryImages?: string[];
   technologies?: string[];
   link?: string;
+  hasFictionalData?: boolean;
   translations: Record<
     Language,
     {

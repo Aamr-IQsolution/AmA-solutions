@@ -6,6 +6,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
+import FictionalDataOverlay from '../components/FictionalDataOverlay';
 import { getTechIcon } from '../utils/techIconMap';
 import styles from './ProjectDetailPage.module.css';
 
@@ -71,10 +72,16 @@ const ProjectDetailPage: React.FC = () => {
           <div className={styles.heroMedia}>
             <img src={heroSrc} alt="" loading="eager" decoding="async" />
             <div className={styles.heroOverlay} aria-hidden />
+            {project.hasFictionalData ? <FictionalDataOverlay size="large" /> : null}
           </div>
 
           <div className={styles.heroContent}>
-            {project.logoImage ? <img src={project.logoImage} alt="" className={styles.logo} loading="lazy" /> : null}
+            {project.logoImage ? (
+              <div className={styles.logoWrap}>
+                <img src={project.logoImage} alt="" className={styles.logo} loading="lazy" />
+                {project.hasFictionalData ? <FictionalDataOverlay size="small" /> : null}
+              </div>
+            ) : null}
             <div className={styles.titleRow}>
               <h1 className={styles.title}>{t.title}</h1>
               <span className={styles.categoryBadge}>{t.category}</span>
@@ -179,6 +186,7 @@ const ProjectDetailPage: React.FC = () => {
                         aria-label={galleryTitle}
                       >
                         <img src={src} alt="" loading="lazy" decoding="async" />
+                        {project.hasFictionalData ? <FictionalDataOverlay size="small" /> : null}
                       </button>
                     </SwiperSlide>
                   ))}
@@ -231,12 +239,13 @@ const ProjectDetailPage: React.FC = () => {
           >
             <i className="fa-solid fa-xmark" aria-hidden />
           </button>
-          <img
-            src={selectedImage}
-            alt=""
-            className={styles.lightboxImage}
+          <div
+            className={styles.lightboxImageWrap}
             onClick={(event) => event.stopPropagation()}
-          />
+          >
+            <img src={selectedImage} alt="" className={styles.lightboxImage} />
+            {project.hasFictionalData ? <FictionalDataOverlay size="large" /> : null}
+          </div>
         </div>
       ) : null}
     </div>
