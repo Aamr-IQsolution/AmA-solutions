@@ -95,12 +95,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const resend = new Resend(resendKey);
 
   try {
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: 'noreply@axonxcode.com',
       to: email,
       subject,
       html,
     });
+
+    if (error) {
+      console.error('Resend send failed:', error);
+      return res.status(500).json({ message: 'حدث خطأ أثناء الإرسال، حاول لاحقاً' });
+    }
   } catch (error) {
     console.error('Resend send failed:', error);
     return res.status(500).json({ message: 'حدث خطأ أثناء الإرسال، حاول لاحقاً' });
