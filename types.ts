@@ -3,6 +3,15 @@
  */
 export type Language = 'en' | 'ar' | 'nl';
 
+export interface ContactFormData {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  lang: Language;
+  honeypot?: string;
+}
+
 export interface Translation {
   title: string;
   subtitle: string;
