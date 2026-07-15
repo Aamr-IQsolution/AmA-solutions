@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { LocalizedLink } from './LocalizedLink';
+import { useLocalizedNavigate } from '../hooks/useLocalizedNavigate';
+import { localizePath } from '../utils/localizePath';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -96,7 +98,7 @@ const getFeatureIconClass = (planId: string, index: number): string => {
 const MainPricing: React.FC = () => {
   const { lang, config, setContactMessage, isRTL } = useApp();
   const t = UI_TEXTS[lang];
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const scrollToHostingBundleAddon = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const target = document.getElementById(HOSTING_BUNDLE_ADDON_ID);
@@ -104,7 +106,7 @@ const MainPricing: React.FC = () => {
 
     e.preventDefault();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.history.replaceState(null, '', `/pricing#${HOSTING_BUNDLE_ADDON_ID}`);
+    window.history.replaceState(null, '', localizePath(`/pricing#${HOSTING_BUNDLE_ADDON_ID}`, lang));
   };
 
   const renderFeature = (feature: string) => {
@@ -118,13 +120,13 @@ const MainPricing: React.FC = () => {
     return (
       <span>
         {before}
-        <Link
+        <LocalizedLink
           to={`/pricing#${HOSTING_BUNDLE_ADDON_ID}`}
           className={styles.featureLink}
           onClick={scrollToHostingBundleAddon}
         >
           {linkText}
-        </Link>
+        </LocalizedLink>
       </span>
     );
   };

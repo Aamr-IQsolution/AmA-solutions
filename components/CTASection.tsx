@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { LocalizedLink } from './LocalizedLink';
 import { useApp } from '../context/AppContext';
 import styles from './CTASection.module.css';
 
@@ -14,9 +14,9 @@ const CTASection: React.FC = () => {
           {copy.title}
         </h2>
         <p className={styles.subtitle}>{copy.subtitle}</p>
-        <Link to="/contact" className={styles.btn}>
+        <LocalizedLink to="/contact" className={styles.btn}>
           {copy.button}
-        </Link>
+        </LocalizedLink>
       </div>
     </section>
   );

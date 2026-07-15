@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { LocalizedLink, LocalizedNavigate } from '../components/LocalizedLink';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -18,7 +19,7 @@ const ProjectDetailPage: React.FC = () => {
   const galleryNextRef = useRef<HTMLButtonElement>(null);
 
   const project = config.portfolio.find((p) => p.id === id);
-  if (!project) return <Navigate to="/portfolio" replace />;
+  if (!project) return <LocalizedNavigate to="/portfolio" replace />;
 
   const t = project.translations[lang];
 
@@ -91,10 +92,10 @@ const ProjectDetailPage: React.FC = () => {
         </div>
 
         <div className={styles.topNav}>
-          <Link to="/portfolio" className={styles.backLink}>
+          <LocalizedLink to="/portfolio" className={styles.backLink}>
             <i className={`fa-solid fa-chevron-${lang === 'ar' ? 'right' : 'left'}`} aria-hidden />
             {backText}
-          </Link>
+          </LocalizedLink>
           <span className={styles.statusBadge}>{t.statusLabel}</span>
         </div>
 
@@ -217,9 +218,9 @@ const ProjectDetailPage: React.FC = () => {
 
         <div className={styles.ctaBox}>
           <p className={styles.ctaText}>{ctaText}</p>
-          <Link to="/contact" className={styles.ghostBtn}>
+          <LocalizedLink to="/contact" className={styles.ghostBtn}>
             {contactBtn}
-          </Link>
+          </LocalizedLink>
         </div>
       </div>
 

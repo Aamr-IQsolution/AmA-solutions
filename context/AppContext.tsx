@@ -4,8 +4,10 @@
  * مثل اللغة الحالية، إعدادات الموقع، بيانات تسجيل دخول المستخدم، وإدارة فريق العمل.
  */
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Language, SiteConfig } from '../types';
 import { INITIAL_CONFIG } from '../constants';
+import { isSupportedLang, langFromPathname, replaceLangInPathname } from '../utils/localizePath';
 
 interface AppContextType {
   lang: Language;
@@ -19,16 +21,11 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const SUPPORTED_LANGS: Language[] = ['nl', 'en', 'ar'];
-
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  /** Default locale: Dutch (NL). Translations live in `constants` / Context — no i18next in this Vite app. */
-  const [lang, setLangState] = useState<Language>(() => {
-    const saved = localStorage.getItem('lang') as Language | null;
-    if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
-    return 'nl';
-  });
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+  const lang = langFromPathname(location.pathname);
+
   const [config, setConfigState] = useState<SiteConfig>(() => {
     try {
       const saved = localStorage.getItem('siteConfig');
@@ -57,11 +54,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [contactMessage, setContactMessage] = useState('');
 
   const setLang = (l: Language) => {
-    if (!SUPPORTED_LANGS.includes(l)) return;
-    setLangState(l);
+    if (!isSupportedLang(l) || l === lang) return;
+
+    const nextPath = replaceLangInPathname(location.pathname, l);
+    navigate(`${nextPath}${location.search}${location.hash}`);
     localStorage.setItem('lang', l);
-    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = l;
   };
 
   const setConfig = (c: SiteConfig | ((prev: SiteConfig) => SiteConfig)) => {
@@ -80,7 +77,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const isRTL = lang === 'ar';
 
   return (
-    <AppContext.Provider value={{ 
+    <AppContext.Provider value={{
       lang, setLang, config, setConfig, isRTL,
       contactMessage, setContactMessage
     }}>

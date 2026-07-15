@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { LocalizedLink } from './LocalizedLink';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import ThreeDBackground from './ThreeDBackground';
@@ -44,12 +44,12 @@ const HomeHero: React.FC = () => {
             <h1 className={styles.title}>{hero.title}</h1>
             <p className={styles.subtitle}>{hero.subtitle}</p>
             <div className={styles.actions}>
-              <Link to="/contact" className={styles.btnPrimary}>
+              <LocalizedLink to="/contact" className={styles.btnPrimary}>
                 {t.homeHeroPrimary}
-              </Link>
-              <Link to="/contact" className={styles.btnSecondary}>
+              </LocalizedLink>
+              <LocalizedLink to="/contact" className={styles.btnSecondary}>
                 {t.homeHeroSecondary}
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         </div>

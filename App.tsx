@@ -7,6 +7,7 @@ import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieConsent from './components/CookieConsent';
+import LangGuard from './components/LangGuard';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import TeamPage from './pages/TeamPage';
@@ -54,15 +55,19 @@ const AppLayout: React.FC = () => {
       <main className="page-stack flex-1">
         <div key={location.pathname} className="page-route-fade">
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/team" element={<TeamPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/portfolio/:id" element={<ProjectDetailPage />} />
-            <Route path="/web-pricing" element={<Navigate to="/pricing" replace />} />
-            <Route path="/pricing" element={<MarketingPricingPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/" element={<Navigate to="/nl" replace />} />
+            <Route path="/:lang" element={<LangGuard />}>
+              <Route index element={<HomePage />} />
+              <Route path="services" element={<ServicesPage />} />
+              <Route path="team" element={<TeamPage />} />
+              <Route path="portfolio" element={<PortfolioPage />} />
+              <Route path="portfolio/:id" element={<ProjectDetailPage />} />
+              <Route path="web-pricing" element={<Navigate to="../pricing" replace />} />
+              <Route path="pricing" element={<MarketingPricingPage />} />
+              <Route path="contact" element={<ContactPage />} />
+              <Route path="*" element={<Navigate to="." replace />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/nl" replace />} />
           </Routes>
         </div>
       </main>
@@ -74,11 +79,11 @@ const AppLayout: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <AppProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AppProvider>
         <AppLayout />
-      </BrowserRouter>
-    </AppProvider>
+      </AppProvider>
+    </BrowserRouter>
   );
 };
 

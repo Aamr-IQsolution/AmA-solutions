@@ -2,7 +2,7 @@
  * قسم معرض الأعمال (Portfolio Section).
  */
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { LocalizedLink } from './LocalizedLink';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -51,7 +51,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ layout = 'grid' }) => {
 
     return (
       <article className={styles.card}>
-        <Link to={`/portfolio/${project.id}`} className={styles.media} aria-label={linkAria}>
+        <LocalizedLink to={`/portfolio/${project.id}`} className={styles.media} aria-label={linkAria}>
           <img
             src={project.coverImage}
             alt=""
@@ -73,7 +73,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ layout = 'grid' }) => {
               />
             </span>
           </div>
-        </Link>
+        </LocalizedLink>
       </article>
     );
   };

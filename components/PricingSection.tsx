@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { LocalizedLink } from './LocalizedLink';
+import { useLocalizedNavigate } from '../hooks/useLocalizedNavigate';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -88,7 +89,7 @@ const PricingSection: React.FC = () => {
   const { lang, config, setContactMessage, isRTL } = useApp();
   const t = UI_TEXTS[lang];
   const copy = config.homeSectionCopy.pricing[lang];
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const mainPlans = config.mainPlans;
 
   const handleOrder = (plan: MainPlan) => {
@@ -189,9 +190,9 @@ const PricingSection: React.FC = () => {
             ))}
           </ul>
           {oneTime ? (
-            <Link to="/pricing#business-pro" className={styles.orderBtn}>
+            <LocalizedLink to="/pricing#business-pro" className={styles.orderBtn}>
               {SEE_ALL_FEATURES_LABELS[lang]}
-            </Link>
+            </LocalizedLink>
           ) : (
             <button type="button" onClick={() => handleOrder(plan)} className={styles.orderBtn}>
               {tr.buttonText}
@@ -231,9 +232,9 @@ const PricingSection: React.FC = () => {
           </Swiper>
         </div>
 
-        <Link to="/pricing" className={styles.seeAll}>
+        <LocalizedLink to="/pricing" className={styles.seeAll}>
           {copy.seeAll}
-        </Link>
+        </LocalizedLink>
       </div>
     </section>
   );

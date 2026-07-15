@@ -2,7 +2,7 @@
  * تذييل الصفحة (Footer) — موحّد Phase 2 + خريطة موقع
  */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { LocalizedLink } from './LocalizedLink';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import footStyles from './Footer.module.css';
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
       <div className={footStyles.innerHome}>
         <div className={footStyles.mainGrid}>
           <div className={footStyles.brandColumn}>
-            <Link to="/" className={footStyles.brandLink} aria-label={t.home}>
+            <LocalizedLink to="/" className={footStyles.brandLink} aria-label={t.home}>
               <img
                 src={config.logo}
                 alt=""
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
                 loading="lazy"
               />
               <span className={footStyles.brandName}>{config.siteName}</span>
-            </Link>
+            </LocalizedLink>
             <ul className={footStyles.socialsHome}>
               {config.socials.map((s) => (
                 <li key={s.id}>
@@ -60,9 +60,9 @@ const Footer: React.FC = () => {
                 <ul className={footStyles.sitemapList}>
                   {exploreLinks.map(({ to, label }) => (
                     <li key={to}>
-                      <Link to={to} className={footStyles.sitemapLink}>
+                      <LocalizedLink to={to} className={footStyles.sitemapLink}>
                         {label}
-                      </Link>
+                      </LocalizedLink>
                     </li>
                   ))}
                 </ul>
@@ -72,9 +72,9 @@ const Footer: React.FC = () => {
                 <ul className={footStyles.sitemapList}>
                   {pricingLinks.map(({ to, label }) => (
                     <li key={to}>
-                      <Link to={to} className={footStyles.sitemapLink}>
+                      <LocalizedLink to={to} className={footStyles.sitemapLink}>
                         {label}
-                      </Link>
+                      </LocalizedLink>
                     </li>
                   ))}
                 </ul>
@@ -84,9 +84,9 @@ const Footer: React.FC = () => {
                 <ul className={footStyles.sitemapList}>
                   {contactLinks.map(({ to, label }) => (
                     <li key={to}>
-                      <Link to={to} className={footStyles.sitemapLink}>
+                      <LocalizedLink to={to} className={footStyles.sitemapLink}>
                         {label}
-                      </Link>
+                      </LocalizedLink>
                     </li>
                   ))}
                 </ul>

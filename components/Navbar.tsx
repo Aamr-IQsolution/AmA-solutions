@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { LocalizedLink, LocalizedNavLink } from './LocalizedLink';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import { Language } from '../types';
@@ -104,7 +105,7 @@ const Navbar: React.FC = () => {
         className={`${navStyles.headerHome} ${navHidden ? navStyles.headerHomeHidden : ''}`}
       >
         <div className={navStyles.barHome}>
-          <Link
+          <LocalizedLink
             to="/"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 rtl:flex-row-reverse"
@@ -125,19 +126,20 @@ const Navbar: React.FC = () => {
               />
               {config.siteName.slice(5)}
             </span>
-          </Link>
+          </LocalizedLink>
 
           <nav className={navStyles.desktopNavHome} aria-label="Main">
             {navLinks.map((link) => (
-              <NavLink
+              <LocalizedNavLink
                 key={link.to}
                 to={link.to}
+                end={link.to === '/'}
                 className={({ isActive }) =>
                   `${navStyles.navLinkHome} ${isActive ? navStyles.navLinkHomeActive : ''}`
                 }
               >
                 {link.text}
-              </NavLink>
+              </LocalizedNavLink>
             ))}
             <LanguageSwitcher />
           </nav>
@@ -172,15 +174,16 @@ const Navbar: React.FC = () => {
           <ul className={navStyles.overlayLinks}>
             {navLinks.map((link) => (
               <li key={link.to}>
-                <NavLink
+                <LocalizedNavLink
                   to={link.to}
+                  end={link.to === '/'}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
                     `${navStyles.overlayLink} ${isActive ? navStyles.overlayLinkActive : ''}`
                   }
                 >
                   {link.text}
-                </NavLink>
+                </LocalizedNavLink>
               </li>
             ))}
           </ul>

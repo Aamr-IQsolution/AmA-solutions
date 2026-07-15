@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
 import { Language, Service } from '../types';
+import { localizePath } from '../utils/localizePath';
 import styles from './ServicesDetailed.module.css';
 
 const MOBILE_NAV_QUERY = '(max-width: 1023px)';
@@ -34,13 +35,13 @@ const useIsMobileNav = () => {
   return isMobile;
 };
 
-const scrollToService = (e: React.MouseEvent<HTMLAnchorElement>, serviceId: string) => {
+const scrollToService = (e: React.MouseEvent<HTMLAnchorElement>, serviceId: string, lang: Language) => {
   const target = document.getElementById(`service-${serviceId}`);
   if (!target) return;
 
   e.preventDefault();
   target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  window.history.replaceState(null, '', `/services#service-${serviceId}`);
+  window.history.replaceState(null, '', localizePath(`/services#service-${serviceId}`, lang));
 };
 
 const useRevealOnScroll = (threshold = 0.12) => {
@@ -78,7 +79,7 @@ const NavIconLink: React.FC<NavIconLinkProps> = ({ service, lang }) => (
     href={`#service-${service.id}`}
     className={styles.navIcon}
     title={service.translations[lang].name}
-    onClick={(e) => scrollToService(e, service.id)}
+    onClick={(e) => scrollToService(e, service.id, lang)}
   >
     <i className={`fa-solid ${service.icon}`} aria-hidden />
     <span className={styles.srOnly}>{service.translations[lang].name}</span>

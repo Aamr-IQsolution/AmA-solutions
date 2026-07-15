@@ -1,5 +1,47 @@
 
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/nl",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/nl/services",
+      "permanent": true
+    },
+    {
+      "source": "/team",
+      "destination": "/nl/team",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/nl/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/:id",
+      "destination": "/nl/portfolio/:id",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "/nl/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/web-pricing",
+      "destination": "/nl/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/nl/contact",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
