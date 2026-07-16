@@ -1,6 +1,6 @@
 # توثيق شامل للمشروع - axonXcode
 
-> آخر تحديث: يوليو 2026 — يعكس إعادة الهيكلة الشاملة الثالثة + **القسم 15 (تحديثات المحادثة الحالية: تسعير، خدمات، هوية بصرية، GA، كوكيز)** + **إصلاح سلايدر الخدمات في الرئيسية (حذف `centeredSlides`)** + **القسم 16 (إعادة تصميم Portfolio: صفحات مشاريع مستقلة، أيقونات تقنيات، Lightbox، سلايدر/شبكة، تنبيه بيانات وهمية)**.
+> آخر تحديث: يوليو 2026 — يعكس إعادة الهيكلة الشاملة الثالثة + **القسم 15 (تسعير، خدمات، هوية بصرية، GA، كوكيز)** + **القسم 16 (Portfolio: صفحات مشاريع مستقلة، Lightbox، سلايدر/شبكة)** + **القسم 17 (نموذج التواصل: Resend + Upstash + Zod)** + **القسم 18 (SEO الشامل: لغات فرعية، Meta/hreflang/OG، Sitemap/robots/JSON-LD + موقع Heerlen)**.
 
 ## 1) نظرة عامة
 - **النوع:** واجهة React أحادية الصفحة (SPA) مبنية بـ Vite وTypeScript.
@@ -541,3 +541,162 @@ axonXcode/
 - القيمة الحالية في `constants.ts`: **5**
 - عدد مشاريع Portfolio المعروضة فعلياً: **4** (`souqeastren`, `alasaylf`, `my-work`, `ms-phone-store`)
 - **يحتاج مراجعة وتحديث صريح لاحقاً** ليطابق العدد الفعلي المتفق عليه — **لا يُعدَّل تلقائياً دون تعليمات صريحة.**
+
+## 17) نموذج التواصل (Contact Form + Resend + Upstash)
+
+### 17.1 التحول من `mailto:` إلى API حقيقي
+
+- **قبل:** أزرار/نموذج تعتمد على `mailto:` أو روابط مباشرة — تسليم غير موثوق (يعتمد على عميل البريد عند الزائر).
+- **بعد:** مسار `POST /api/contact` عبر Serverless Function في `api/contact.ts` باستخدام **Resend**.
+- **السبب:** موثوقية أعلى لتسليم الإيميل من طرف السيرفر، مع تحقق وخنق طلبات وحماية من البوتات.
+
+### 17.2 ترتيب المعالجة داخل `api/contact.ts` (كما هو منفّذ)
+
+| # | الخطوة | السلوك عند الفشل |
+|---|--------|------------------|
+| 1 | Method = `POST` فقط | `405` |
+| 2 | `Content-Type` يتضمن `application/json` | `400` |
+| 3 | Parse جسم الطلب | `400` |
+| 4 | **Honeypot** | إن وُجدت قيمة غير فارغة → `200 Success` وهمي (بدون إرسال) |
+| 5 | **Rate Limit** (Upstash) | `429` |
+| 6 | تحقق **Zod** (`contactFormSchema`) | `400` |
+| 7 | Sanitize عبر `escapeHtml` للحقول النصية المستخدمة في الرد التلقائي | — |
+| 8 | وجود `RESEND_API_KEY` | `502` + رسالة فشل متعددة اللغات |
+| 9 | إشعار الفريق → `axonxcode@gmail.com` (مع **إعادة محاولة واحدة** عبر `sendEmailWithRetry`) | `502` إن فشل — **شرط نجاح الطلب** |
+| 10 | الرد التلقائي للعميل (best-effort) | يُسجَّل الخطأ في اللوج فقط؛ الطلب يبقى `200 Success` |
+| 11 | نجاح | `200` + `{ message: 'Success' }` |
+
+**قاعدة النجاح:** إشعار الفريق هو الشرط الأساسي. فشل الرد التلقائي **لا** يُفشل الطلب.
+
+### 17.3 Rate Limiting
+
+- المكتبة: `@upstash/ratelimit` + `@upstash/redis`.
+- القاعدة الفعلية: `Ratelimit.slidingWindow(3, '10 m')` — **3 طلبات لكل IP خلال 10 دقائق**، مع بادئة المفتاح `axon-contact`.
+- **قبل Zod عمداً:** حتى الطلبات ذات البيانات غير الصالحة تُحسب ضمن الحد — يمنع استنزاف التحقق/المعالجة بهجوم حجم كبير.
+- إن غابت متغيرات Upstash → الـ limiter يُرجع `null` ويُتخطّى التحقق (لا crash).
+
+### 17.4 Honeypot
+
+- حقل اختياري `honeypot` في الـ schema والجسم.
+- إن امتلأ (بوتات غالباً) → رد نجاح صامت **قبل** Rate Limit، لذا **لا يستهلك** حصة الـ Rate Limit.
+
+### 17.5 التحقق — `utils/contactSchema.ts`
+
+| الحقل | القيود |
+|-------|--------|
+| `name` | مطلوب، trim، 1–100 |
+| `email` | مطلوب، email، بحد أقصى 254 |
+| `phone` | اختياري؛ سلسلة فارغة → `undefined`؛ وإلا تطابق `/^\+?[\d\s]{7,20}$/` |
+| `message` | مطلوب، 1–2000 |
+| `lang` | `ar` \| `en` \| `nl` |
+| `honeypot` | اختياري؛ يُحوَّل إلى سلسلة |
+
+### 17.6 تنظيف المدخلات وقوالب الإيميل
+
+- `escapeHtml` في `utils/emailTemplates.ts` قبل إدراج النصوص في HTML.
+- **ملاحظة دقيقة:** إشعار الفريق يستقبل بيانات خام من الـ handler ثم يُعيد تطبيق `escapeHtml` داخل `getTeamNotificationEmail`. الرد التلقائي يستقبل `name` منظّفاً مسبقاً من الـ handler.
+
+### 17.7 قالب الرد التلقائي (`getAutoReplyEmail`)
+
+- توقيع رسمي: شعار برابط مطلق (`https://www.axonxcode.com/assets/...`)، اسم الشركة، الهاتف، الموقع، وبريد `axonxcode@gmail.com`.
+- روابط السوشيال **نصية** (LinkedIn / Instagram / Facebook / GitHub) بدون أيقونات Font Awesome — لعدم توافق الأيقونات مع أغلب عملاء البريد.
+- رسائل فشل متعددة اللغات عبر `getContactFailureMessage(lang)` مع ذكر `axonxcode@gmail.com` كبديل تواصل.
+
+### 17.8 دروس تقنية مسجّلة (أعطاب حقيقية أُصلحت)
+
+1. **Resend لا يرمي دائماً عند رفض الإرسال:** `resend.emails.send` يعيد `{ data, error }`. يجب فحص `error` صراحةً (انظر `sendEmail`) — وإلا يظهر «نجاح وهمي» للمستخدم بدون إرسال فعلي.
+2. **`"type": "module"` في `package.json`:** على Vercel وقت التشغيل، الاستيرادات النسبية من ملفات API تحتاج امتداداً صريحاً `.js` حتى لو المصدر TypeScript (`../utils/contactSchema.js`) — وإلا `ERR_MODULE_NOT_FOUND`.
+
+### 17.9 المكتبات ومتغيرات البيئة
+
+**مكتبات:** `resend`, `zod`, `@upstash/ratelimit`, `@upstash/redis`, `@vercel/node`.
+
+| المتغير | الاستخدام |
+|---------|-----------|
+| `RESEND_API_KEY` | إرسال البريد |
+| `UPSTASH_REDIS_REST_URL` | Rate limit |
+| `UPSTASH_REDIS_REST_TOKEN` | Rate limit |
+
+- محلياً: `.env` (مستثنى من Git).
+- على Vercel: Environment Variables منفصلة تماماً — **يلزم إعادة نشر** بعد إضافتها حتى تُفعَّل في الـ Functions.
+- ملاحظة: `/api/contact` لا يعمل محلياً بنفس سلوك Vercel؛ الاختبار النهائي بعد النشر.
+
+---
+
+## 18) مشروع تحسين محركات البحث (SEO) الشامل
+
+### 18.1 البنية التحتية للغات (Subdirectories)
+
+**التحول:** من مسارات بدون لغة (`/services`) إلى بادئات `/nl/`, `/en/`, `/ar/`.
+
+- **اللغة الافتراضية و`x-default`:** `nl` — السوق الرئيسي هولندا، مع دعم عملاء يبحثون بالعربي والإنجليزي أيضاً.
+- **ترتيب الجذر:** `HelmetProvider` → `BrowserRouter` → `AppProvider` → `AppLayout`.
+- **مصدر اللغة الحالي:** يُشتق من `location.pathname` عبر `langFromPathname` داخل `AppContext` (مشتق أثناء الـ render). `localStorage` للغة أصبح **تذكّراً فقط** عند التبديل — ليس مصدر الحقيقة. (ملاحظة: نظرة القسم 1 ما زالت تذكر `localStorage` تاريخياً؛ المرجع الحديث هو هذا القسم.)
+- **Routes متداخلة:** `/:lang` → `LangGuard` → `Outlet` للصفحات الفرعية (`index`, `services`, `team`, `portfolio`, `portfolio/:id`, `pricing`, `contact`, …).
+- **روابط مُوطَّنة:**
+  - `components/LocalizedLink.tsx` — `LocalizedLink` / `LocalizedNavLink` / `LocalizedNavigate`
+  - `utils/localizePath.ts` — `localizePath`, `replaceLangInPathname`, …
+  - `hooks/useLocalizedNavigate.ts` — لتغطية `navigate()` البرمجي
+  - تغطية `window.history.replaceState` في أماكن مثل `MainPricing` و`ServicesDetailed` عبر `localizePath`
+- **`setLang`:** يستبدل أول مقطع لغة في المسار ويُبقي باقي المسار/الـ hash (مثال: `/nl/portfolio/alasaylf` → `/en/portfolio/alasaylf`).
+- **Redirects دائمة في `vercel.json` (308):**
+
+| المصدر | الوجهة |
+|--------|--------|
+| `/` | `/nl` |
+| `/services` | `/nl/services` |
+| `/team` | `/nl/team` |
+| `/portfolio` | `/nl/portfolio` |
+| `/portfolio/:id` | `/nl/portfolio/:id` |
+| `/pricing` | `/nl/pricing` |
+| `/web-pricing` | `/nl/pricing` |
+| `/contact` | `/nl/contact` |
+
+حماية الروابط القديمة المفهرسة من الضياع إلى الرئيسية العامة.
+
+### 18.2 Meta Tags، Hreflang، Open Graph
+
+- المكتبة: `react-helmet-async` + مكوّن موحّد `components/SEO.tsx`.
+- البيانات: `SITE_URL = https://www.axonxcode.com` و`PAGE_META` في `constants.ts` — **عنوان ووصف فريدان** لكل صفحة ثابتة (`home`, `services`, `team`, `portfolio`, `pricing`, `contact`) × 3 لغات = **18 نصاً**.
+- صفحات المشاريع: توليد من `project.translations[lang]` بصيغة `{title} – {category} | AxonXcode` + `shortDescription` + صورة `coverImage` مطلقة.
+- لكل صفحة داخل `<Helmet>`:
+  - `<title>` + `<meta name="description">`
+  - `canonical` ذاتي لـ `/${lang}${path}`
+  - **4** وسوم `hreflang`: `nl` / `en` / `ar` + `x-default` → نسخة `nl`
+  - Open Graph + Twitter Card (`summary_large_image`) + `og:site_name = AxonXcode`
+- **Fallback في `index.html`:** عنوان ووصف هولنديان ثابتان قبل تشغيل JS.
+- **درس React 19 + Helmet:** الإصدار 3 يمرّر الوسوم لـ React 19 لرفعها إلى `<head>` **دون حذف** fallback الثابت في `index.html` — يسبب تكراراً. الحل المنفّذ: `pruneStaticHeadFallbacks` في `SEO.tsx` يزيل النسخ غير المطابقة بعد الهيدرنة.
+- **قيد معماري (مقصود ومؤجَّل):** بوتات السوشيال (Facebook / LinkedIn / WhatsApp / X) لا تنفّذ JS؛ OG الديناميكي غير مرئي لها من الـ HTML الخام. التأجيل لحل عبر Edge Middleware/prerender لاحقاً — لا يؤثر على فهرسة جوجل التي تنفّذ JS عموماً.
+
+### 18.3 Sitemap، Robots.txt، البيانات الهيكلية، وموقع Heerlen
+
+#### Sitemap
+
+- السكربت: `scripts/generate-sitemap.ts` عبر `"prebuild": "tsx scripts/generate-sitemap.ts"` (حزمة `tsx` في `devDependencies`).
+- يكتب `public/sitemap.xml` بـ `writeFileSync` (استبدال كامل).
+- **30 رابطاً:** (6 صفحات ثابتة × 3 لغات) + (4 مشاريع × 3 لغات).
+- لكل `<url>`: `<xhtml:link rel="alternate" hreflang="...">` للغات الثلاث + `x-default`، و`<lastmod>` بتاريخ يوم البناء (ISO `YYYY-MM-DD`).
+- Vite ينسخ الملف إلى `dist/`؛ Vercel يقدّمه كملف ثابت قبل SPA rewrite.
+
+#### `public/robots.txt`
+
+```text
+User-agent: *
+Allow: /
+
+Sitemap: https://www.axonxcode.com/sitemap.xml
+```
+
+#### JSON-LD — `ProfessionalService`
+
+- Prop اختياري `includeOrganizationSchema` في `SEO.tsx` (افتراضي `false`).
+- مفعّل فقط على: `HomePage` و`ContactPage`.
+- الحقول: `name`, `image` (مطلق), `url` (`SITE_URL`), `telephone`, `email` (= `config.contactEmail` الظاهر للزائر), `address` (`Heerlen` + `NL` فقط), `areaServed`, `description` من `PAGE_META.home[lang]`, `sameAs` من `config.socials`.
+- **مرفوض عمداً:** `priceRange`، رقم KVK، إحداثيات GPS، عنوان شارع/رمز بريدي.
+- **ملاحظة مؤقتة:** رابط Instagram في `sameAs` ما زال `https://instagram.com` العام — يُحدَّث لاحقاً عند توفر بروفايل حقيقي.
+
+#### حقل `location` (Heerlen)
+
+- في `SiteConfig` / `INITIAL_CONFIG`: `Record<Language, string>` — مثال nl: `Heerlen, Nederland`.
+- مفروض من `INITIAL_CONFIG` عند دمج `localStorage` في `AppContext`.
+- العرض: نص ثابت في عمود Contact بالـ Footer (`sitemapStatic`) وصف ثالث غير قابل للنقر في `Contact.tsx` (أيقونة `fa-location-dot`) — **بدون** خرائط أو عنوان سكني كامل (خصوصية).
