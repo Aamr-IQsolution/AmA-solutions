@@ -1,14 +1,14 @@
 /**
  * قسم معرض الأعمال (Portfolio Section).
  */
-import React, { useRef } from 'react';
+import React from 'react';
 import { LocalizedLink } from './LocalizedLink';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
+import { useSwiperNavigation } from '../hooks/useSwiperNavigation';
 import { Project } from '../types';
 import FictionalDataOverlay from './FictionalDataOverlay';
 import styles from './Portfolio.module.css';
@@ -21,8 +21,7 @@ interface PortfolioProps {
 
 const Portfolio: React.FC<PortfolioProps> = ({ layout = 'grid' }) => {
   const { lang, config, isRTL } = useApp();
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+  const { prevRef, nextRef, onSwiper } = useSwiperNavigation();
 
   const renderTitle = () => {
     const header = config.portfolioHeader[lang];
@@ -108,25 +107,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ layout = 'grid' }) => {
               grabCursor
               spaceBetween={18}
               slidesPerView={1.15}
+              roundLengths={true}
               breakpoints={{
                 640: { slidesPerView: 1.6, spaceBetween: 18 },
                 900: { slidesPerView: 2.4, spaceBetween: 20 },
                 1200: { slidesPerView: 3.2, spaceBetween: 22 },
               }}
-              onBeforeInit={(swiper: SwiperType) => {
-                if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
-                  swiper.params.navigation.prevEl = prevRef.current;
-                  swiper.params.navigation.nextEl = nextRef.current;
-                }
-              }}
-              onInit={(swiper: SwiperType) => {
-                if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
-                  swiper.params.navigation.prevEl = prevRef.current;
-                  swiper.params.navigation.nextEl = nextRef.current;
-                  swiper.navigation.init();
-                  swiper.navigation.update();
-                }
-              }}
+              onSwiper={onSwiper}
             >
               {config.portfolio.map((project) => (
                 <SwiperSlide key={project.id}>{renderProjectCard(project)}</SwiperSlide>

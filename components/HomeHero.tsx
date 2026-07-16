@@ -2,7 +2,6 @@ import React from 'react';
 import { LocalizedLink } from './LocalizedLink';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
-import ThreeDBackground from './ThreeDBackground';
 import styles from './HomeHero.module.css';
 
 const HomeHero: React.FC = () => {
@@ -33,7 +32,6 @@ const HomeHero: React.FC = () => {
           height={1728}
         />
       </div>
-      <ThreeDBackground speed={0.015} scrollReact={false} style={{ opacity: 0.35, zIndex: 1 }} />
       <div
         className={`${styles.overlay} ${isRTL ? styles.overlayRtl : ''}`}
         aria-hidden="true"

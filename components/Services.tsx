@@ -1,20 +1,19 @@
 /**
  * قسم الخدمات في الصفحة الرئيسية — سلايدر full-bleed.
  */
-import React, { useRef } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
+import { useSwiperNavigation } from '../hooks/useSwiperNavigation';
 import { Service } from '../types';
 import styles from './Services.module.css';
 
 const Services: React.FC = () => {
   const { lang, config, isRTL } = useApp();
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+  const { prevRef, nextRef, onSwiper } = useSwiperNavigation();
 
   const renderTitle = () => {
     const header = config.servicesHeader[lang];
@@ -74,25 +73,13 @@ const Services: React.FC = () => {
             grabCursor
             spaceBetween={18}
             slidesPerView={1.15}
+            roundLengths={true}
             breakpoints={{
               640: { slidesPerView: 1.6, spaceBetween: 18 },
               900: { slidesPerView: 2.4, spaceBetween: 20 },
               1200: { slidesPerView: 3.2, spaceBetween: 22 },
             }}
-            onBeforeInit={(swiper: SwiperType) => {
-              if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-              }
-            }}
-            onInit={(swiper: SwiperType) => {
-              if (typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-                swiper.navigation.init();
-                swiper.navigation.update();
-              }
-            }}
+            onSwiper={onSwiper}
           >
             {config.services.map((service) => (
               <SwiperSlide key={service.id}>{renderSlide(service)}</SwiperSlide>
