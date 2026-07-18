@@ -315,9 +315,14 @@ export const INITIAL_CONFIG: SiteConfig = {
     nl: { title: "Onze Uitgelichte Meesterwerken", highlight: "Uitgelichte", description: "Ontdek enkele van onze nieuwste digital transformaties en success verhalen." }
   },
   teamHeader: {
-    en: { title: "Meet Our Experts", highlight: "Experts" },
-    ar: { title: "تعرف على خبرائنا", highlight: "خبرائنا" },
-    nl: { title: "Ontmoet Onze Experts", highlight: "Experts" }
+    en: { title: "Our Team", highlight: "Team" },
+    ar: { title: "فريقنا", highlight: "فريقنا" },
+    nl: { title: "Ons Team", highlight: "Team" }
+  },
+  teamIntro: {
+    ar: "axonXcode يقودها مهندس البرمجيات عامر العواد بشكل مباشر — خبرة عملية متخصصة في هندسة البرمجيات وأمن المعلومات، مع تواصل مباشر بدون وسطاء بينك وبين من ينفّذ مشروعك فعلياً. هذا التواصل المباشر يعني قرارات أسرع، فهماً أدق لاحتياجك، ومسؤولية واضحة لا تضيع بين طبقات إدارية. ومقر العمل الرئيسي في هيرلن، هولندا.",
+    en: "axonXcode is led directly by software engineer Aamr Al-Awwad — hands-on expertise in software engineering and information security, with direct communication straight to the person actually building your project, no middlemen. That direct line means faster decisions, a sharper understanding of your needs, and clear accountability that never gets lost across management layers. Our main base is Heerlen, the Netherlands.",
+    nl: "axonXcode wordt rechtstreeks geleid door software-engineer Aamr Al-Awwad — praktijkgerichte expertise in software-engineering en informatiebeveiliging, met directe communicatie met degene die uw project daadwerkelijk bouwt, zonder tussenpersonen. Deze directe lijn betekent snellere beslissingen, een scherper begrip van uw behoeften, en duidelijke verantwoordelijkheid die nooit verloren gaat in managementlagen. Onze hoofdbasis is Heerlen, Nederland.",
   },
   footer: {
     en: { copyright: "All rights reserved", credits: "Designed & Developed by axonXcode" },
@@ -650,28 +655,70 @@ export const INITIAL_CONFIG: SiteConfig = {
       },
     },
   ],
-  team: [
+  workPrinciples: [
     {
-      id: "t1",
-      image: "/assets/profile-aamr.png",
+      id: "wp1",
+      icon: "fa-ban",
       translations: {
-        en: {
-          name: "Aamr Al-Awwad",
-          title: "Professional Software Engineer",
-          bio: "A software engineer specializing in building integrated digital solutions and information security. I combine coding precision with the discipline of closing vulnerabilities to deliver secure, high-performance code. I turn ideas into smart applications and manage data flow to ensure the best performance with maximum protection and reliability."
-        },
         ar: {
-          name: "عامر العواد",
-          title: "مهندس برمجيات محترف",
-          bio: "مهندس برمجيات متخصص في بناء الحلول الرقمية المتكاملة، وأمن المعلومات، أجمع بين دقة الكود واحترافية سد الثغرات لعمل أكواد آمنة وسريعة. أحول الأفكار إلى تطبيقات ذكية وأدير تدفق البيانات لأضمن أفضل أداء بأقصى مستوى حماية ومنطقية."
+          title: "بدون قوالب جاهزة",
+          description:
+            "كل مشروع نبنيه من الصفر ليعكس احتياجك الفعلي فقط، بدون الاعتماد على قوالب WordPress أو Elementor الجاهزة.",
+        },
+        en: {
+          title: "No templates, ever",
+          description:
+            "Every project is built from scratch to reflect exactly what you need, never off-the-shelf WordPress or Elementor templates.",
         },
         nl: {
-          name: "Aamr Al-Awwad",
-          title: "Professionele Software Engineer",
-          bio: "Een software engineer gespecialiseerd in het bouwen van geïntegreerde digitale oplossingen en informatiebeveiliging. Ik combineer code-precisie met de discipline om kwetsbaarheden te dichten voor veilige, snelle code. Ik zet ideeën om in slimme applicaties en beheer de gegevensstroom voor optimale prestaties met maximale bescherming en betrouwbaarheid."
-        }
-      }
-    }
+          title: "Nooit templates",
+          description:
+            "Elk project wordt vanaf nul gebouwd om precies te weerspiegelen wat u nodig heeft, nooit kant-en-klare WordPress- of Elementor-templates.",
+        },
+      },
+    },
+    {
+      id: "wp2",
+      icon: "fa-shield-halved",
+      translations: {
+        ar: {
+          title: "الأمان من اليوم الأول",
+          description:
+            "الحماية ليست إضافة لاحقة عندنا، بل جزء أساسي من بنية أي مشروع منذ أول سطر كود.",
+        },
+        en: {
+          title: "Security from day one",
+          description:
+            "Protection isn't an afterthought here; it's built into every project's architecture from the very first line of code.",
+        },
+        nl: {
+          title: "Beveiliging vanaf dag één",
+          description:
+            "Bescherming is bij ons geen bijzaak; het maakt vanaf de eerste regel code deel uit van de architectuur van elk project.",
+        },
+      },
+    },
+    {
+      id: "wp3",
+      icon: "fa-comments",
+      translations: {
+        ar: {
+          title: "تواصل مباشر، بدون وسطاء",
+          description:
+            "تتحدث مباشرة مع من ينفّذ مشروعك فعلياً، بدون طبقات إدارية أو تأخير في اتخاذ القرار.",
+        },
+        en: {
+          title: "Direct communication, no middlemen",
+          description:
+            "You speak directly with the person actually building your project, with no management layers slowing decisions down.",
+        },
+        nl: {
+          title: "Directe communicatie, geen tussenpersonen",
+          description:
+            "U spreekt rechtstreeks met degene die uw project daadwerkelijk bouwt, zonder managementlagen die beslissingen vertragen.",
+        },
+      },
+    },
   ],
   portfolio: [
     {
@@ -1145,7 +1192,16 @@ export const INITIAL_CONFIG: SiteConfig = {
 /** Absolute site origin — no trailing slash. Used for canonical, hreflang, and Open Graph URLs. */
 export const SITE_URL = 'https://www.axonxcode.com';
 
-export type PageMetaKey = 'home' | 'services' | 'team' | 'portfolio' | 'pricing' | 'contact';
+export type PageMetaKey =
+  | 'home'
+  | 'services'
+  | 'team'
+  | 'portfolio'
+  | 'pricing'
+  | 'contact'
+  | 'cookieSettings'
+  | 'privacy'
+  | 'terms';
 
 export const PAGE_META: Record<
   PageMetaKey,
@@ -1187,19 +1243,19 @@ export const PAGE_META: Record<
   },
   team: {
     nl: {
-      title: 'Ons Team – Ervaren Ontwikkelaars & Security Experts | AxonXcode',
+      title: 'Ons Team – axonXcode',
       description:
-        'Maak kennis met het team achter AxonXcode: specialisten in softwareontwikkeling, digitale beveiliging en kwaliteitsvolle code.',
+        'Maak kennis met axonXcode, geleid door software-engineer Aamr Al-Awwad, met directe communicatie zonder tussenpersonen voor uw softwareproject.',
     },
     en: {
-      title: 'Our Team – Developers & Security Specialists | AxonXcode',
+      title: 'Our Team – axonXcode',
       description:
-        'Meet the AxonXcode team: experienced developers and security specialists dedicated to building secure, high-quality digital products.',
+        'Meet axonXcode, led by software engineer Aamr Al-Awwad, with direct no-middleman communication to build your software project.',
     },
     ar: {
-      title: 'فريقنا – مطورون وخبراء أمن معلومات | axonXcode',
+      title: 'فريقنا – axonXcode',
       description:
-        'تعرّف على فريق axonXcode: مطورون محترفون وخبراء أمن معلومات يحرصون على جودة الكود وحماية بياناتك.',
+        'تعرّف على axonXcode، بقيادة مهندس البرمجيات عامر العواد، وتواصل مباشر بدون وسطاء لتنفيذ مشروعك البرمجي.',
     },
   },
   portfolio: {
@@ -1253,6 +1309,57 @@ export const PAGE_META: Record<
         'جاهز تبدأ مشروعك؟ تواصل مع axonXcode في هيرلن، هولندا، واحصل على استشارة مجانية لموقعك أو حلك البرمجي.',
     },
   },
+  cookieSettings: {
+    nl: {
+      title: 'Cookie-instellingen | AxonXcode',
+      description:
+        'Beheer uw cookievoorkeuren op de AxonXcode-website: essentiële cookies en optionele Google Analytics.',
+    },
+    en: {
+      title: 'Cookie Settings | AxonXcode',
+      description:
+        'Manage your cookie preferences on the AxonXcode website: essential cookies and optional Google Analytics.',
+    },
+    ar: {
+      title: 'إعدادات الكوكيز | axonXcode',
+      description:
+        'أدِر تفضيلات الكوكيز على موقع axonXcode: الكوكيز الأساسية وكوكيز Google Analytics الاختيارية.',
+    },
+  },
+  privacy: {
+    nl: {
+      title: 'Privacyverklaring | AxonXcode',
+      description:
+        'Lees hoe AxonXcode persoonsgegevens verwerkt en beschermt wanneer u onze website en diensten gebruikt.',
+    },
+    en: {
+      title: 'Privacy Policy | AxonXcode',
+      description:
+        'Learn how AxonXcode processes and protects personal data when you use our website and services.',
+    },
+    ar: {
+      title: 'سياسة الخصوصية | axonXcode',
+      description:
+        'تعرّف على كيفية معالجة axonXcode لبياناتك الشخصية وحمايتها عند استخدام موقعنا وخدماتنا.',
+    },
+  },
+  terms: {
+    nl: {
+      title: 'Algemene Voorwaarden | AxonXcode',
+      description:
+        'De algemene voorwaarden voor het gebruik van de AxonXcode-website en onze digitale diensten.',
+    },
+    en: {
+      title: 'Terms & Conditions | AxonXcode',
+      description:
+        'The terms and conditions that apply when you use the AxonXcode website and our digital services.',
+    },
+    ar: {
+      title: 'الشروط والأحكام | axonXcode',
+      description:
+        'الشروط والأحكام التي تنطبق عند استخدام موقع axonXcode وخدماتنا الرقمية.',
+    },
+  },
 };
 
 export const UI_TEXTS = {
@@ -1261,7 +1368,9 @@ export const UI_TEXTS = {
     services: "Services",
     portfolio: "Projects",
     prices: "Pricing",
-    team: "Our Team",
+    team: "Team",
+    workPrinciplesTitle: "Our Working Principles",
+    teamTechTitle: "Technologies We Master",
     contact: "Contact Us",
     admin: "Dashboard",
     login: "Login",
@@ -1352,6 +1461,9 @@ export const UI_TEXTS = {
       "We use essential cookies to run this website, and analytics cookies (Google Analytics) to understand and improve site performance. You can choose which cookies to allow.",
     cookieConsentAccept: "Accept All",
     cookieConsentEssential: "Essential Only",
+    cookieSettingsLinkLabel: "Cookie Settings",
+    privacyLinkLabel: "Privacy Policy",
+    termsLinkLabel: "Terms & Conditions",
   },
   ar: {
     home: "الرئيسية",
@@ -1359,6 +1471,8 @@ export const UI_TEXTS = {
     portfolio: "أعمالنا",
     prices: "أسعار التسويق",
     team: "فريقنا",
+    workPrinciplesTitle: "منهجية عملنا",
+    teamTechTitle: "التقنيات التي نتقنها",
     contact: "تواصل معنا",
     admin: "لوحة التحكم",
     login: "تسجيل الدخول",
@@ -1449,13 +1563,18 @@ export const UI_TEXTS = {
       "نستخدم كوكيز أساسية لتشغيل الموقع، وكوكيز تحليلية (Google Analytics) لفهم أداء الموقع وتحسينه. يمكنك اختيار نوع الكوكيز التي توافق عليها.",
     cookieConsentAccept: "قبول الكل",
     cookieConsentEssential: "قبول الأساسية فقط",
+    cookieSettingsLinkLabel: "إعدادات الكوكيز",
+    privacyLinkLabel: "سياسة الخصوصية",
+    termsLinkLabel: "الشروط والأحكام",
   },
   nl: {
     home: "Home",
     services: "Diensten",
     portfolio: "Projecten",
     prices: "Marketing Prijzen",
-    team: "Ons Team",
+    team: "Team",
+    workPrinciplesTitle: "Onze Werkprincipes",
+    teamTechTitle: "Technologieën Die Wij Beheersen",
     contact: "Contact",
     admin: "Beheer",
     login: "Inloggen",
@@ -1547,5 +1666,8 @@ export const UI_TEXTS = {
       "Wij gebruiken essentiële cookies om deze website te laten werken, en analytische cookies (Google Analytics) om de prestaties van de site te begrijpen en te verbeteren. U kunt kiezen welke cookies u toestaat.",
     cookieConsentAccept: "Alles Accepteren",
     cookieConsentEssential: "Alleen Essentieel",
+    cookieSettingsLinkLabel: "Cookie-instellingen",
+    privacyLinkLabel: "Privacyverklaring",
+    termsLinkLabel: "Algemene Voorwaarden",
   }
 };

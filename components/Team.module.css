@@ -9,11 +9,54 @@
   padding: 0 8px;
 }
 
+.intro {
+  max-width: 56rem;
+  margin: 1.5rem auto 0;
+  color: var(--ax-text-muted);
+  line-height: 1.75;
+  font-size: var(--ax-font-body);
+  text-align: center;
+}
+
+.subheading {
+  margin: 3rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ax-black);
+  text-align: center;
+}
+
 .grid {
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   display: grid;
   gap: 1.5rem;
   justify-items: center;
+}
+
+.chips {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(59, 124, 184, 0.1);
+  border: 1px solid rgba(59, 124, 184, 0.22);
+  color: rgba(20, 42, 66, 0.92);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.chipIcon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
 }
 
 .card {
@@ -49,49 +92,22 @@
   text-align: right;
 }
 
-.avatarWrap {
-  position: relative;
-  width: 12rem;
-  height: 12rem;
+.iconWrap {
   flex-shrink: 0;
-}
-
-@media (min-width: 768px) {
-  .avatarWrap {
-    width: 14rem;
-    height: 14rem;
-  }
-}
-
-.avatarGlow {
-  position: absolute;
-  inset: -4px;
+  width: 5.5rem;
+  height: 5.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--ax-primary), var(--ax-primary-dark));
-  opacity: 0.4;
-  animation: pulseRing 5s ease-in-out infinite;
-}
-
-@keyframes pulseRing {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.55;
-    transform: scale(1.03);
-  }
-}
-
-.avatar {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--ax-white);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    145deg,
+    rgba(59, 124, 184, 0.12),
+    rgba(20, 42, 66, 0.08)
+  );
+  border: 0.5px solid rgba(59, 124, 184, 0.22);
+  color: var(--ax-primary);
+  font-size: 1.85rem;
 }
 
 .content {
@@ -109,21 +125,14 @@
   }
 }
 
-.name {
+.title {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--ax-black);
-  margin: 0;
+  margin: 0 0 0.75rem;
 }
 
-.role {
-  color: var(--ax-primary);
-  font-weight: 600;
-  font-size: 1.05rem;
-  margin: 0.5rem 0 1rem;
-}
-
-.bio {
+.description {
   color: var(--ax-text-muted);
   line-height: 1.65;
   font-size: var(--ax-font-body);

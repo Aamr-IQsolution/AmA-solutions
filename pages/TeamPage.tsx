@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHero from '../components/PageHero';
 import Team from '../components/Team';
+import CTASection from '../components/CTASection';
 import SEO from '../components/SEO';
 import { useApp } from '../context/AppContext';
 import { PAGE_META } from '../constants';
@@ -13,17 +14,26 @@ const TeamPage: React.FC = () => {
     <>
       <SEO title={meta.title} description={meta.description} path="/team" />
       <PageHero
-        eyebrow={lang === 'ar' ? 'فريق العمل' : lang === 'nl' ? 'Ons team' : 'Our Team'}
-        title={lang === 'ar' ? 'خبرات برمجية وحلول أمنية عالية المستوى في فريق واحد' : lang === 'nl' ? 'Software-engineering en beveiligingsoplossingen van hoog niveau in één team' : 'Software Engineering & High-Level Security Solutions In One Team'}
+        eyebrow={
+          lang === 'ar' ? 'فريقنا' : lang === 'nl' ? 'Ons Team' : 'Our Team'
+        }
+        title={
+          lang === 'ar'
+            ? 'خبرة هندسية مباشرة بدون وسطاء'
+            : lang === 'nl'
+              ? 'Directe Technische Expertise, Zonder Tussenpersonen'
+              : 'Direct Engineering Expertise, No Middlemen'
+        }
         subtitle={
           lang === 'ar'
-            ? 'فريق يجمع بين الدقة الهندسية والخبرة العملية لتقديم حلول رقمية متكاملة.'
+            ? 'تواصل مباشر مع مهندس البرمجيات الذي ينفّذ مشروعك فعلياً، من أول فكرة حتى الإطلاق.'
             : lang === 'nl'
-            ? 'Een team dat technische precisie en praktijkervaring combineert voor complete digitale oplossingen.'
-            : 'A hybrid team combining engineering precision and practical growth expertise.'
+              ? 'Directe communicatie met de software-engineer die uw project daadwerkelijk bouwt, van eerste idee tot lancering.'
+              : 'Direct communication with the software engineer who actually builds your project, from first idea to launch.'
         }
       />
       <Team />
+      <CTASection />
     </>
   );
 };

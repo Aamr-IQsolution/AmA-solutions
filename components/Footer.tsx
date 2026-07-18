@@ -102,6 +102,11 @@ const Footer: React.FC = () => {
           © {new Date().getFullYear()} {config.siteName}. {footerData.copyright}
         </p>
         <p className={footStyles.creditsHome}>{footerData.credits}</p>
+        <div className={footStyles.legalRow}>
+          <LocalizedLink to="/cookie-settings">{t.cookieSettingsLinkLabel}</LocalizedLink>
+          <LocalizedLink to="/privacy">{t.privacyLinkLabel}</LocalizedLink>
+          <LocalizedLink to="/terms">{t.termsLinkLabel}</LocalizedLink>
+        </div>
       </div>
     </footer>
   );

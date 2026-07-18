@@ -145,10 +145,10 @@ export interface HomeSectionCopy {
   cta: Record<Language, { title: string; subtitle: string; button: string }>;
 }
 
-export interface TeamMember {
+export interface WorkPrinciple {
   id: string;
-  image: string;
-  translations: Record<Language, { name: string; title: string; bio: string }>;
+  icon: string;
+  translations: Record<Language, { title: string; description: string }>;
 }
 
 export interface SiteConfig {
@@ -167,9 +167,10 @@ export interface SiteConfig {
   servicesHeader: Record<Language, SectionContent>;
   portfolioHeader: Record<Language, SectionContent>;
   teamHeader: Record<Language, SectionContent>;
+  teamIntro: Record<Language, string>;
   footer: Record<Language, { copyright: string; credits: string }>;
   services: Service[];
-  team: TeamMember[];
+  workPrinciples: WorkPrinciple[];
   portfolio: Project[];
   mainPlans: MainPlan[];
   addOns: AddOn[];

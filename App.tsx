@@ -16,6 +16,9 @@ import PortfolioPage from './pages/PortfolioPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import MarketingPricingPage from './pages/MarketingPricingPage';
 import ContactPage from './pages/ContactPage';
+import CookieSettingsPage from './pages/CookieSettingsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsPage from './pages/TermsPage';
 import './styles/theme.css';
 
 const AppLayout: React.FC = () => {
@@ -66,6 +69,9 @@ const AppLayout: React.FC = () => {
               <Route path="web-pricing" element={<Navigate to="../pricing" replace />} />
               <Route path="pricing" element={<MarketingPricingPage />} />
               <Route path="contact" element={<ContactPage />} />
+              <Route path="cookie-settings" element={<CookieSettingsPage />} />
+              <Route path="privacy" element={<PrivacyPolicyPage />} />
+              <Route path="terms" element={<TermsPage />} />
               <Route path="*" element={<Navigate to="." replace />} />
             </Route>
             <Route path="*" element={<Navigate to="/nl" replace />} />
