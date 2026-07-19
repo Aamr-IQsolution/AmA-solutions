@@ -1,7 +1,7 @@
 /**
  * صفحة الخدمات الموسّعة — /services
  */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -10,30 +10,9 @@ import 'swiper/css/navigation';
 import { useApp } from '../context/AppContext';
 import { Language, Service } from '../types';
 import { localizePath } from '../utils/localizePath';
+import { useIsMobileNav } from '../hooks/useIsMobileNav';
+import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
 import styles from './ServicesDetailed.module.css';
-
-const MOBILE_NAV_QUERY = '(max-width: 1023px)';
-
-const useIsMobileNav = () => {
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(MOBILE_NAV_QUERY).matches;
-  });
-
-  useEffect(() => {
-    const mq = window.matchMedia(MOBILE_NAV_QUERY);
-    const sync = () => setIsMobile(mq.matches);
-    sync();
-    mq.addEventListener('change', sync);
-    window.addEventListener('resize', sync);
-    return () => {
-      mq.removeEventListener('change', sync);
-      window.removeEventListener('resize', sync);
-    };
-  }, []);
-
-  return isMobile;
-};
 
 const scrollToService = (e: React.MouseEvent<HTMLAnchorElement>, serviceId: string, lang: Language) => {
   const target = document.getElementById(`service-${serviceId}`);
@@ -42,31 +21,6 @@ const scrollToService = (e: React.MouseEvent<HTMLAnchorElement>, serviceId: stri
   e.preventDefault();
   target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   window.history.replaceState(null, '', localizePath(`/services#service-${serviceId}`, lang));
-};
-
-const useRevealOnScroll = (threshold = 0.12) => {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
 };
 
 interface NavIconLinkProps {

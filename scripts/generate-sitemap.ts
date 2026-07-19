@@ -9,7 +9,17 @@ import { INITIAL_CONFIG, SITE_URL } from '../constants';
 import { SUPPORTED_LANGS, DEFAULT_LANG } from '../utils/localizePath';
 import type { Language } from '../types';
 
-const STATIC_PATHS = ['', 'services', 'team', 'portfolio', 'pricing', 'contact'] as const;
+const STATIC_PATHS = [
+  '',
+  'services',
+  'team',
+  'portfolio',
+  'pricing',
+  'contact',
+  'privacy',
+  'terms',
+  'cookie-settings',
+] as const;
 
 function pageUrl(lang: Language, pathSegment: string): string {
   if (!pathSegment) return `${SITE_URL}/${lang}`;

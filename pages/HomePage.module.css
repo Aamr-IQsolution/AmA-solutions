@@ -2,3 +2,7 @@
   min-height: 100vh;
   padding-top: 88px;
 }
+
+.belowFoldFallback {
+  min-height: 32vh;
+}

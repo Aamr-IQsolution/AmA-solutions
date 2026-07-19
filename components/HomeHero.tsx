@@ -22,14 +22,14 @@ const HomeHero: React.FC = () => {
     >
       <div className={styles.bgPhoto}>
         <img
-          src="/assets/Aamr-with-agroup-op-workers.png"
+          src="/assets/Aamr-with-agroup-op-workers.webp"
           alt={heroPhotoAlt}
           className={styles.bgPhotoImg}
           loading="eager"
           decoding="async"
           fetchPriority="high"
-          width={2304}
-          height={1728}
+          width={1920}
+          height={1440}
         />
       </div>
       <div

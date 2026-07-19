@@ -10,7 +10,7 @@
 - **الموقع المنشور:** [axonxcode.com](https://axonxcode.com)
 
 ## 2) التقنيات والاعتمادات
-(بدون تغيير عن التوثيق السابق: React 19.2.3, react-router-dom 7.14.2, three 0.183.2, swiper, vite 6.2.0, typescript 5.8.2, tailwindcss عبر CDN, Font Awesome, Google Fonts)
+(React 19.2.3, react-router-dom 7.14.2, swiper, vite 6.2.0, typescript 5.8.2, Tailwind عبر `@tailwindcss/vite` محلياً، Font Awesome وInter/Cairo عبر npm — بدون CDN للأنماط/الأيقونات/الخطوط)
 
 ## 3) هيكل المشروع الحالي
 
@@ -27,7 +27,6 @@ axonXcode/
 ├─ .env                           ← محلي فقط — مستثنى من Git (انظر .gitignore)
 ├─ .gitignore                     ← معدّل: يستثني .env و.env.local
 ├─ vercel.json
-├─ metadata.json
 ├─ components/
 │  ├─ Navbar.tsx                  ← معدّل: Axon + صورة X + code
 │  ├─ HomeHero.tsx
@@ -93,6 +92,9 @@ axonXcode/
 | `/pricing` | `MarketingPricingPage` |
 | `/web-pricing` | إعادة توجيه (`Navigate`) إلى `/pricing` — للروابط القديمة |
 | `/contact` | `ContactPage` |
+| `/:lang/privacy` | `PrivacyPolicyPage` |
+| `/:lang/terms` | `TermsPage` |
+| `/:lang/cookie-settings` | `CookieSettingsPage` |
 
 عند وجود `location.hash` (مثل `/pricing#business-pro` أو `/pricing#hosting-bundle`)، `AppLayout` يمرّر التمرير السلس إلى العنصر ذي **`data-scroll-target`** المطابق للـ hash، أو إلى `id` إن وُجد.
 
@@ -227,7 +229,7 @@ axonXcode/
 
 ## 8) تدفّق البيانات (Data Flow)
 1. `lang` يُحمَّل من `localStorage`.
-2. عند وجود `siteConfig` في `localStorage`، يُدمج مع `INITIAL_CONFIG` — لكن **`mainPlans`، `addOns`، `services`، `siteName`، `logo`، `brandXImage` تُستبدل دائماً** من `INITIAL_CONFIG`.
+2. `config` = `INITIAL_CONFIG` مباشرة من `AppContext` (لا يوجد CMS ولا دمج `siteConfig` من `localStorage` — أُزيل في Phase 6).
 3. المكونات تقرأ من `useApp()`: `config.mainPlans` (3 بطاقات)، `config.addOns` (بندان)، `config.services` (9 خدمات).
 4. `CookieConsent`: قرار الكوكيز في `localStorage` تحت مفتاح `cookieConsent` (`all` | `essential`) — انظر القسم 15.
 5. عند اختيار باقة:
@@ -238,7 +240,7 @@ axonXcode/
 ## 9) التهيئة والتشغيل
 - `npm run dev` / `npm run build` / `npm run preview` — Vite على المنفذ 3000.
 - النشر عبر Vercel.
-- **متغيرات البيئة:** `GEMINI_API_KEY` (موجود مسبقاً) و`GA_MEASUREMENT_ID` (جديد — انظر القسم 15). محلياً في `.env`؛ على Vercel عبر Environment Variables. **يجب أن يبدأ `GA_MEASUREMENT_ID` بـ `G-`** لصيغة GA4.
+- **متغيرات البيئة (انظر `.env.example`):** `GA_MEASUREMENT_ID` (عميل)، `TURNSTILE_SITE_KEY` (عميل)، `TURNSTILE_SECRET_KEY` / `RESEND_API_KEY` / Upstash (سيرفر فقط). على Vercel عبر Environment Variables. **يجب أن يبدأ `GA_MEASUREMENT_ID` بـ `G-`** لصيغة GA4. Turnstile وUpstash إلزاميان على Vercel (fail-closed).
 - `@types/react` و`@types/react-dom` مُثبتان لإصلاح أخطاء TypeScript في المحرر.
 
 ## 10) نقاط فنية يجب تذكرها (Lessons Learned) — إضافات هذه المرحلة
@@ -293,8 +295,8 @@ axonXcode/
 |---|---|---|
 | `UI_TEXTS.prices` | ar: «أسعار التسويق»، nl: «Marketing Prijzen» (en: «Pricing» صحيح) | تحديث إلى «الأسعار» / «Prijzen» |
 | `TeamPage` → `PageHero` subtitle | الإنجليزية: *"practical growth expertise"* | إعادة صياغة بما يتوافق مع التركيز على البرمجة والأمن |
-| `components/Pricing.tsx` + `SocialMediaPricing.tsx` | ملفات يتيمة على القرص | حذف فعلي من المشروع |
-| **صفحة سياسة الخصوصية** | **غير موجودة** | إنشاؤها لاحقاً؛ حالياً **لا يوجد رابط** لها في بانر الكوكيز (قرار مقصود في المحادثة الحالية) |
+| `components/Pricing.tsx` + `SocialMediaPricing.tsx` | ملفات يتيمة على القرص (إن بقيت) | حذف فعلي من المشروع |
+| ~~صفحة سياسة الخصوصية~~ | ~~غير موجودة~~ → **موجودة الآن** | المسارات: `/privacy`، `/terms`، `/cookie-settings` عبر `App.tsx` + محتوى في `content/legalPages.ts` |
 
 ## 15) تحديثات المحادثة الحالية (توثيق شامل)
 
@@ -357,8 +359,8 @@ axonXcode/
 ### 15.4 Google Analytics + بانر موافقة الكوكيز
 
 **البنية التحتية:**
-- `.gitignore`: أُضيف `.env` و`.env.local` (لم يكونا مستثنيين — **ثغرة أمان أُغلقت**).
-- `vite.config.ts`: `'process.env.GA_MEASUREMENT_ID': JSON.stringify(env.GA_MEASUREMENT_ID)` بنفس نمط `GEMINI_API_KEY`.
+- `.gitignore`: يستثني `.env` و`.env.*` مع الإبقاء على `.env.example` فقط.
+- `vite.config.ts`: يحقن **`GA_MEASUREMENT_ID` فقط** في الـ client — حُذف حقن `GEMINI_API_KEY` / `API_KEY` (Phase 1 أمن).
 - **لا يوجد** `gtag.js` ثابت في `index.html` — التحميل **ديناميكي فقط** بعد موافقة المستخدم (امتثال EU).
 
 **`CookieConsent.tsx` + `CookieConsent.module.css`:**
@@ -369,7 +371,7 @@ axonXcode/
 - GA يُحمَّل **فقط** عند `all` (أو تلقائياً عند زيارة لاحقة إذا كان المحفوظ `all`).
 - عند `essential`: لا سكريبتات GA.
 - **خلفية البانر داكنة** (`linear-gradient(135deg, #0b1220, #142a42)`) — **عمداً** لتفادي التباس الزائر بين البانر ومحتوى الموقع (امتثال GDPR وليس تفضيلاً تصميمياً فقط).
-- **لا رابط لصفحة سياسة خصوصية** — الصفحة غير موجودة بعد (انظر القسم 14).
+- صفحات قانونية مربوطة: `/privacy`، `/terms`، `/cookie-settings` (انظر `PrivacyPolicyPage` / `TermsPage` / `CookieSettingsPage`).
 
 **⚠️ ملاحظة تشغيلية (GA_MEASUREMENT_ID):**
 - اكتُشف خطأ فعلي: قيمة أولية في `GA_MEASUREMENT_ID` **بدون بادئة `G-`** المطلوبة لـ GA4 — منعت تسجيل البيانات حتى التصحيح.
@@ -700,3 +702,65 @@ Sitemap: https://www.axonxcode.com/sitemap.xml
 - في `SiteConfig` / `INITIAL_CONFIG`: `Record<Language, string>` — مثال nl: `Heerlen, Nederland`.
 - مفروض من `INITIAL_CONFIG` عند دمج `localStorage` في `AppContext`.
 - العرض: نص ثابت في عمود Contact بالـ Footer (`sitemapStatic`) وصف ثالث غير قابل للنقر في `Contact.tsx` (أيقونة `fa-location-dot`) — **بدون** خرائط أو عنوان سكني كامل (خصوصية).
+
+## 17) Phase 1 � ??? ??? (????? 2026)
+
+| ????? | ??????? |
+|---|---|
+| B1 Hooks | ProjectDetailPage: useEffect ??? ?? early return |
+| S5 Gemini | ???? ??? GEMINI_API_KEY / API_KEY ?? ite.config.ts |
+| S2/S3 Rate limit | fail-closed ??? Vercel/production ?? ??? Upstash? IP ?? x-real-ip ?? ??? hop |
+| S8 gitignore | ????? .env.* ?? ??????? ??? .env.example |
+| ????? | ????? ??? ????? /privacy ?/terms ?cookie-settings |
+
+## 18) Phase 2 � ???? (????? 2026)
+
+| ????? | ??????? |
+|---|---|
+| P2 lazy routes | App.tsx: React.lazy + Suspense ??? ???????? ????? ?????? hash scroll |
+| Home below-fold | HomePage: Hero + Statistics ????? ???? ??????? lazy |
+| Hero WebP | Aamr-with-agroup-op-workers.webp (~80KB) ??? PNG (~4.8MB) |
+| ???? ????? | ????? ???/????? ??? ??????? (~15MB+)? ???? assets � 25MB |
+
+## 19) Phase 3 � ????? constants (????? 2026)
+
+?????? ??????? ??????? ???? ??? content/:
+- content/site/ � identity, hero, stats, sectionHeaders
+- content/home/ � testimonials, faqs, homeSectionCopy
+- content/services/ � services, workPrinciples
+- content/portfolio/projects.ts
+- content/pricing/ � mainPlans, addOns
+- content/i18n/ � SITE_URL, PAGE_META, UI_TEXTS
+- content/index.ts � ????? INITIAL_CONFIG
+
+constants.ts ???? barrel ???? ??????? ??? � ?????? ????????? ??????? (rom './constants') ???? ??? ??.
+
+## 20) Phase 4 — Features refactor (يوليو 2026)
+
+| البند | النتيجة |
+|---|---|
+| Pricing shared | utils/pricing/: planHelpers, pricingLabels, buildPlanContactMessage |
+| Contact | useContactForm + ContactInfo + ContactForm؛ Contact.tsx رفيع |
+| Project detail | components/project/: Hero, Gallery, Lightbox, projectDetailCopy |
+| Services hooks | useIsMobileNav, useRevealOnScroll |
+| Navbar | LanguageSwitcher.tsx |
+
+## 21) Phase 5 — أمن متقدم + SEO (يوليو 2026)
+
+| البند | النتيجة |
+|---|---|
+| لا CDN | إزالة Tailwind/FA/Google Fonts من `index.html`؛ حزم محلية عبر npm + `@tailwindcss/vite` |
+| Security headers | `vercel.json`: CSP, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy |
+| Turnstile | ويدجت في نموذج التواصل + تحقق في `api/contact.ts` (fail-closed على Vercel مثل rate limit) |
+| GA cleanup | `clearGoogleAnalytics()` عند اختيار essential فقط (البانر + إعدادات الكوكيز) |
+| SEO bots | توسيع User-Agent في `middleware.ts`؛ مسار `cookie-settings` → meta؛ صفحات قانونية في sitemap |
+
+## 22) Phase 6 — تنظيف كود ميت (يوليو 2026)
+
+| البند | النتيجة |
+|---|---|
+| Types | حذف `User` / `UserRole` / `Permissions` / `Plan` / `Translation` غير المستخدمة |
+| UI_TEXTS | إزالة مفاتيح لوحة التحكم/CMS (~55 مفتاحاً) والإبقاء على مفاتيح الواجهة العامة فقط |
+| AppContext | حذف `setConfig` ودمج `localStorage.siteConfig`؛ `config` = `INITIAL_CONFIG` فقط |
+| metadata.json | حذف ملف بقايا CMS القديم (`requestFramePermissions: camera`) |
+| Assets | لا ملفات يتيمة تحت `public/assets` — لم يُحذف شيء |

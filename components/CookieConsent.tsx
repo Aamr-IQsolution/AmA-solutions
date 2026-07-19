@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
 import {
+  clearGoogleAnalytics,
   getStoredConsent,
   loadGoogleAnalytics,
   persistConsent,
@@ -22,6 +23,9 @@ const CookieConsent: React.FC = () => {
 
   const handleConsent = (value: 'all' | 'essential') => {
     persistConsent(value);
+    if (value === 'essential') {
+      clearGoogleAnalytics();
+    }
     setConsent(value);
   };
 

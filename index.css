@@ -2,6 +2,16 @@
  * أنماط عامة للتطبيق — التوجيه والانتقال وشريط التمرير.
  * ألوان المكونات وبطاقات الـ glass تُعرَّف في styles/theme.css تحت .new-design-wrapper
  */
+@import 'tailwindcss';
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import '@fontsource/inter/300.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/cairo/400.css';
+@import '@fontsource/cairo/600.css';
+@import '@fontsource/cairo/700.css';
 
 :root {
   --app-brand-start: #3b7cb8;

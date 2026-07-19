@@ -1,7 +1,7 @@
 /**
  * المكون الرئيسي للتطبيق (Root Component).
  */
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
@@ -9,17 +9,22 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieConsent from './components/CookieConsent';
 import LangGuard from './components/LangGuard';
-import HomePage from './pages/HomePage';
-import ServicesPage from './pages/ServicesPage';
-import TeamPage from './pages/TeamPage';
-import PortfolioPage from './pages/PortfolioPage';
-import ProjectDetailPage from './pages/ProjectDetailPage';
-import MarketingPricingPage from './pages/MarketingPricingPage';
-import ContactPage from './pages/ContactPage';
-import CookieSettingsPage from './pages/CookieSettingsPage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import TermsPage from './pages/TermsPage';
 import './styles/theme.css';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const TeamPage = lazy(() => import('./pages/TeamPage'));
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
+const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage'));
+const MarketingPricingPage = lazy(() => import('./pages/MarketingPricingPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const CookieSettingsPage = lazy(() => import('./pages/CookieSettingsPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+
+const routeFallback = (
+  <div className="page-route-fallback" aria-hidden="true" style={{ minHeight: '40vh' }} />
+);
 
 const AppLayout: React.FC = () => {
   const location = useLocation();
@@ -47,8 +52,14 @@ const AppLayout: React.FC = () => {
         return false;
       };
       if (scrollToTarget()) return;
-      const timer = window.setTimeout(scrollToTarget, 150);
-      return () => window.clearTimeout(timer);
+
+      // Retry after lazy route/section chunks mount.
+      const timers = [150, 400, 800].map((delay) =>
+        window.setTimeout(() => {
+          scrollToTarget();
+        }, delay),
+      );
+      return () => timers.forEach((timer) => window.clearTimeout(timer));
     }
     window.scrollTo(0, 0);
   }, [location.pathname, location.search, location.hash]);
@@ -58,24 +69,26 @@ const AppLayout: React.FC = () => {
       <Navbar />
       <main className="page-stack flex-1">
         <div key={location.pathname} className="page-route-fade">
-          <Routes>
-            <Route path="/" element={<Navigate to="/nl" replace />} />
-            <Route path="/:lang" element={<LangGuard />}>
-              <Route index element={<HomePage />} />
-              <Route path="services" element={<ServicesPage />} />
-              <Route path="team" element={<TeamPage />} />
-              <Route path="portfolio" element={<PortfolioPage />} />
-              <Route path="portfolio/:id" element={<ProjectDetailPage />} />
-              <Route path="web-pricing" element={<Navigate to="../pricing" replace />} />
-              <Route path="pricing" element={<MarketingPricingPage />} />
-              <Route path="contact" element={<ContactPage />} />
-              <Route path="cookie-settings" element={<CookieSettingsPage />} />
-              <Route path="privacy" element={<PrivacyPolicyPage />} />
-              <Route path="terms" element={<TermsPage />} />
-              <Route path="*" element={<Navigate to="." replace />} />
-            </Route>
-            <Route path="*" element={<Navigate to="/nl" replace />} />
-          </Routes>
+          <Suspense fallback={routeFallback}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/nl" replace />} />
+              <Route path="/:lang" element={<LangGuard />}>
+                <Route index element={<HomePage />} />
+                <Route path="services" element={<ServicesPage />} />
+                <Route path="team" element={<TeamPage />} />
+                <Route path="portfolio" element={<PortfolioPage />} />
+                <Route path="portfolio/:id" element={<ProjectDetailPage />} />
+                <Route path="web-pricing" element={<Navigate to="../pricing" replace />} />
+                <Route path="pricing" element={<MarketingPricingPage />} />
+                <Route path="contact" element={<ContactPage />} />
+                <Route path="cookie-settings" element={<CookieSettingsPage />} />
+                <Route path="privacy" element={<PrivacyPolicyPage />} />
+                <Route path="terms" element={<TermsPage />} />
+                <Route path="*" element={<Navigate to="." replace />} />
+              </Route>
+              <Route path="*" element={<Navigate to="/nl" replace />} />
+            </Routes>
+          </Suspense>
         </div>
       </main>
       <Footer />

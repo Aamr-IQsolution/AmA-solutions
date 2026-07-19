@@ -3,12 +3,12 @@ import { useLocation } from 'react-router-dom';
 import { LocalizedLink, LocalizedNavLink } from './LocalizedLink';
 import { useApp } from '../context/AppContext';
 import { UI_TEXTS } from '../constants';
-import { Language } from '../types';
+import LanguageSwitcher from './LanguageSwitcher';
 import navStyles from './Navbar.module.css';
 
 /** شريط تنقل موحّد (Phase 2) — ثيم فاتح على كل الصفحات */
 const Navbar: React.FC = () => {
-  const { lang, config, setLang } = useApp();
+  const { lang, config } = useApp();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
@@ -61,42 +61,6 @@ const Navbar: React.FC = () => {
     { to: '/pricing', text: texts.prices },
     { to: '/contact', text: texts.contact },
   ];
-
-  const LanguageSwitcher = () => {
-    const options: { code: Language; label: string }[] = [
-      { code: 'nl', label: 'NL' },
-      { code: 'en', label: 'EN' },
-      { code: 'ar', label: 'AR' },
-    ];
-
-    return (
-      <div
-        className={navStyles.langSwitch}
-        role="group"
-        aria-label={texts.selectLang}
-        dir="ltr"
-      >
-        {options.map((opt) => (
-          <button
-            key={opt.code}
-            type="button"
-            className={`${navStyles.langBtn} ${lang === opt.code ? navStyles.langBtnActive : ''}`}
-            onClick={() => setLang(opt.code)}
-            aria-pressed={lang === opt.code}
-            aria-label={
-              opt.code === 'nl'
-                ? 'Nederlands'
-                : opt.code === 'en'
-                  ? 'English'
-                  : 'العربية'
-            }
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-    );
-  };
 
   return (
     <>

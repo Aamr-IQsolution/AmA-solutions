@@ -30,6 +30,48 @@ export function persistConsent(value: 'all' | 'essential'): void {
   }
 }
 
+function deleteCookie(name: string, domain?: string): void {
+  const domainPart = domain ? `; domain=${domain}` : '';
+  document.cookie = `${name}=; Max-Age=0; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT${domainPart}`;
+}
+
+/** Remove GA cookies and revoke analytics consent when user chooses essential-only. */
+export function clearGoogleAnalytics(): void {
+  try {
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+      });
+    }
+  } catch {
+    /* ignore */
+  }
+
+  window.__gaLoaded = false;
+
+  const host = window.location.hostname;
+  const rootDomain = host.includes('.') ? `.${host.split('.').slice(-2).join('.')}` : undefined;
+  const cookieNames = document.cookie
+    .split(';')
+    .map((part) => part.trim().split('=')[0])
+    .filter(Boolean);
+
+  for (const name of cookieNames) {
+    if (
+      name === '_ga' ||
+      name === '_gid' ||
+      name === '_gat' ||
+      name.startsWith('_ga_') ||
+      name.startsWith('_gat_')
+    ) {
+      deleteCookie(name);
+      if (rootDomain) deleteCookie(name, rootDomain);
+      deleteCookie(name, `.${host}`);
+    }
+  }
+}
+
 export function loadGoogleAnalytics(): void {
   const measurementId = (process.env.GA_MEASUREMENT_ID ?? '').trim();
   if (!measurementId || window.__gaLoaded) return;
@@ -39,6 +81,9 @@ export function loadGoogleAnalytics(): void {
   window.gtag = function gtag(...args: unknown[]) {
     window.dataLayer!.push(args);
   };
+  window.gtag('consent', 'update', {
+    analytics_storage: 'granted',
+  });
   window.gtag('js', new Date());
   window.gtag('config', measurementId, { anonymize_ip: true });
 

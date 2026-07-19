@@ -3,7 +3,12 @@ import PageHero from '../components/PageHero';
 import SEO from '../components/SEO';
 import { useApp } from '../context/AppContext';
 import { PAGE_META } from '../constants';
-import { getStoredConsent, persistConsent } from '../utils/cookieConsent';
+import {
+  clearGoogleAnalytics,
+  getStoredConsent,
+  loadGoogleAnalytics,
+  persistConsent,
+} from '../utils/cookieConsent';
 
 const CookieSettingsPage: React.FC = () => {
   const { lang, isRTL } = useApp();
@@ -13,7 +18,13 @@ const CookieSettingsPage: React.FC = () => {
   );
 
   const savePreferences = () => {
-    persistConsent(analyticsEnabled ? 'all' : 'essential');
+    if (analyticsEnabled) {
+      persistConsent('all');
+      loadGoogleAnalytics();
+    } else {
+      persistConsent('essential');
+      clearGoogleAnalytics();
+    }
     window.location.reload();
   };
 

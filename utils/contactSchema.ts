@@ -19,6 +19,10 @@ export const contactFormSchema = z.object({
     .string()
     .optional()
     .transform((val) => val ?? ''),
+  turnstileToken: z
+    .string()
+    .optional()
+    .transform((val) => (val === '' ? undefined : val)),
 });
 
 export type ContactFormInput = z.infer<typeof contactFormSchema>;

@@ -10,13 +10,7 @@ export interface ContactFormData {
   message: string;
   lang: Language;
   honeypot?: string;
-}
-
-export interface Translation {
-  title: string;
-  subtitle: string;
-  description: string;
-  cta: string;
+  turnstileToken?: string;
 }
 
 export interface Service {
@@ -27,17 +21,6 @@ export interface Service {
     description: string;
     expertDetails: string;
     highlights: { icon: string; text: string }[];
-  }>;
-}
-
-export interface Plan {
-  id: string;
-  price: number;
-  isPopular: boolean;
-  translations: Record<Language, { 
-    name: string; 
-    features: string[]; 
-    buttonText: string;
   }>;
 }
 
@@ -174,23 +157,4 @@ export interface SiteConfig {
   portfolio: Project[];
   mainPlans: MainPlan[];
   addOns: AddOn[];
-}
-
-export type UserRole = 'OWNER' | 'ADMIN' | 'MODERATOR';
-
-export interface Permissions {
-  canEditContent: boolean;
-  canDeleteContent: boolean;
-  canManageUsers: boolean;
-  canViewStats: boolean;
-}
-
-export interface User {
-  id: string;
-  username: string;
-  password?: string;
-  role: UserRole;
-  isActive: boolean;
-  permissions: Permissions;
-  createdAt: string;
 }

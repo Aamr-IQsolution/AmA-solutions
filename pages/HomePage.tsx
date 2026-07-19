@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import HomeHero from '../components/HomeHero';
 import StatisticsCounter from '../components/StatisticsCounter';
-import Services from '../components/Services';
-import PricingSection from '../components/PricingSection';
-import Portfolio from '../components/Portfolio';
-import Testimonials from '../components/Testimonials';
-import FAQ from '../components/FAQ';
-import CTASection from '../components/CTASection';
 import SEO from '../components/SEO';
 import { useApp } from '../context/AppContext';
 import { PAGE_META } from '../constants';
 import styles from './HomePage.module.css';
+
+const Services = lazy(() => import('../components/Services'));
+const PricingSection = lazy(() => import('../components/PricingSection'));
+const Portfolio = lazy(() => import('../components/Portfolio'));
+const Testimonials = lazy(() => import('../components/Testimonials'));
+const FAQ = lazy(() => import('../components/FAQ'));
+const CTASection = lazy(() => import('../components/CTASection'));
+
+const belowFoldFallback = <div className={styles.belowFoldFallback} aria-hidden="true" />;
 
 /** الصفحة الرئيسية — الثيم العام يُطبَّق من App عبر .new-design-wrapper */
 const HomePage: React.FC = () => {
@@ -27,12 +30,14 @@ const HomePage: React.FC = () => {
       />
       <HomeHero />
       <StatisticsCounter />
-      <Services />
-      <PricingSection />
-      <Portfolio layout="slider" />
-      <Testimonials />
-      <FAQ />
-      <CTASection />
+      <Suspense fallback={belowFoldFallback}>
+        <Services />
+        <PricingSection />
+        <Portfolio layout="slider" />
+        <Testimonials />
+        <FAQ />
+        <CTASection />
+      </Suspense>
     </div>
   );
 };

@@ -4,9 +4,18 @@ import { INITIAL_CONFIG, PAGE_META, SITE_URL, type PageMetaKey } from './constan
 import { SUPPORTED_LANGS, DEFAULT_LANG, isSupportedLang } from './utils/localizePath';
 
 const BOT_USER_AGENT_PATTERN =
-  /facebookexternalhit|LinkedInBot|WhatsApp|Twitterbot|Slackbot|Discordbot|TelegramBot/i;
+  /Googlebot|Google-InspectionTool|bingbot|BingPreview|DuckDuckBot|Baiduspider|YandexBot|Slurp|facebookexternalhit|LinkedInBot|WhatsApp|Twitterbot|Slackbot|Discordbot|TelegramBot/i;
 
-const STATIC_PAGE_KEYS = new Set<PageMetaKey>(['services', 'team', 'pricing', 'contact']);
+/** URL segment → PAGE_META key (kebab paths differ from camelCase keys). */
+const STATIC_PATH_TO_META: Record<string, PageMetaKey> = {
+  services: 'services',
+  team: 'team',
+  pricing: 'pricing',
+  contact: 'contact',
+  privacy: 'privacy',
+  terms: 'terms',
+  'cookie-settings': 'cookieSettings',
+};
 
 function toAbsoluteImageUrl(pathOrUrl: string): string {
   if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
@@ -50,16 +59,16 @@ function resolveMetaForPath(pathname: string): BotMeta | null {
   }
 
   const first = segments[0];
+  const staticKey = STATIC_PATH_TO_META[first];
 
-  if (STATIC_PAGE_KEYS.has(first as PageMetaKey)) {
-    const key = first as PageMetaKey;
-    const meta = PAGE_META[key][lang];
+  if (staticKey) {
+    const meta = PAGE_META[staticKey][lang];
     return {
       lang,
       title: meta.title,
       description: meta.description,
       image: logoImage,
-      canonicalPath: `/${key}`,
+      canonicalPath: `/${first}`,
     };
   }
 

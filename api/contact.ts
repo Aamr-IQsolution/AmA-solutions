@@ -10,6 +10,7 @@ import {
   getContactFailureMessage,
   getTeamNotificationEmail,
 } from '../utils/emailTemplates.js';
+import { isTurnstileRequired, verifyTurnstileToken } from '../utils/verifyTurnstile.js';
 
 const JSON_CONTENT_TYPE = 'application/json';
 const TEAM_EMAIL = 'axonxcode@gmail.com';
@@ -19,15 +20,37 @@ type SendResult =
   | { ok: true; data: unknown }
   | { ok: false; error: unknown };
 
+function headerValue(value: string | string[] | undefined): string | undefined {
+  if (typeof value === 'string' && value.trim()) return value.trim();
+  if (Array.isArray(value) && value[0]?.trim()) return value[0].trim();
+  return undefined;
+}
+
+/** Prefer Vercel-set IP headers; never trust the leftmost X-Forwarded-For hop alone. */
 function getClientIp(req: VercelRequest): string {
-  const forwarded = req.headers['x-forwarded-for'];
-  if (typeof forwarded === 'string' && forwarded.length > 0) {
-    return forwarded.split(',')[0]?.trim() || 'unknown';
+  const realIp = headerValue(req.headers['x-real-ip']);
+  if (realIp) return realIp;
+
+  const vercelForwarded = headerValue(req.headers['x-vercel-forwarded-for']);
+  if (vercelForwarded) {
+    const parts = vercelForwarded.split(',').map((part) => part.trim()).filter(Boolean);
+    return parts[parts.length - 1] || 'unknown';
   }
-  if (Array.isArray(forwarded) && forwarded[0]) {
-    return forwarded[0].split(',')[0]?.trim() || 'unknown';
+
+  const forwarded = headerValue(req.headers['x-forwarded-for']);
+  if (forwarded) {
+    const parts = forwarded.split(',').map((part) => part.trim()).filter(Boolean);
+    // Rightmost hop is appended by the platform; leftmost can be client-spoofed.
+    return parts[parts.length - 1] || 'unknown';
   }
+
   return 'unknown';
+}
+
+function isRateLimitRequired(): boolean {
+  // Any Vercel deployment (production + preview) must have Upstash configured.
+  if (process.env.VERCEL === '1') return true;
+  return process.env.NODE_ENV === 'production';
 }
 
 function createRateLimiter() {
@@ -95,7 +118,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const rateLimiter = createRateLimiter();
-  if (rateLimiter) {
+  if (!rateLimiter) {
+    if (isRateLimitRequired()) {
+      console.error('Upstash rate limiter is not configured');
+      return res.status(503).json({
+        message: 'الخدمة غير متاحة مؤقتاً، حاول لاحقاً',
+      });
+    }
+  } else {
     const ip = getClientIp(req);
     const { success } = await rateLimiter.limit(ip);
     if (!success) {
@@ -111,7 +141,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ message: 'بيانات غير صحيحة' });
   }
 
-  const { name, email, message, phone, lang } = parsed.data;
+  const { name, email, message, phone, lang, turnstileToken } = parsed.data;
+  const clientIp = getClientIp(req);
+  const turnstileResult = await verifyTurnstileToken(turnstileToken, clientIp);
+
+  if (!turnstileResult.ok) {
+    if (turnstileResult.reason === 'missing_secret') {
+      if (isTurnstileRequired()) {
+        console.error('TURNSTILE_SECRET_KEY is not configured');
+        return res.status(503).json({
+          message: 'الخدمة غير متاحة مؤقتاً، حاول لاحقاً',
+        });
+      }
+    } else {
+      return res.status(400).json({
+        code: 'captcha_failed',
+        message: 'فشل التحقق الأمني، حاول مجدداً',
+      });
+    }
+  }
 
   const sanitized = {
     name: escapeHtml(name),
