@@ -10,7 +10,11 @@ import {
   getContactFailureMessage,
   getTeamNotificationEmail,
 } from '../utils/emailTemplates.js';
-import { isTurnstileRequired, verifyTurnstileToken } from '../utils/verifyTurnstile.js';
+import {
+  isTurnstileFailure,
+  isTurnstileRequired,
+  verifyTurnstileToken,
+} from '../utils/verifyTurnstile.js';
 
 const JSON_CONTENT_TYPE = 'application/json';
 const TEAM_EMAIL = 'axonxcode@gmail.com';
@@ -19,6 +23,12 @@ const FROM_EMAIL = 'noreply@axonxcode.com';
 type SendResult =
   | { ok: true; data: unknown }
   | { ok: false; error: unknown };
+
+function isSendFailure(
+  result: SendResult,
+): result is { ok: false; error: unknown } {
+  return result.ok === false;
+}
 
 function headerValue(value: string | string[] | undefined): string | undefined {
   if (typeof value === 'string' && value.trim()) return value.trim();
@@ -145,7 +155,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const clientIp = getClientIp(req);
   const turnstileResult = await verifyTurnstileToken(turnstileToken, clientIp);
 
-  if (!turnstileResult.ok) {
+  if (isTurnstileFailure(turnstileResult)) {
     if (turnstileResult.reason === 'missing_secret') {
       if (isTurnstileRequired()) {
         console.error('TURNSTILE_SECRET_KEY is not configured');
@@ -191,7 +201,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     html: teamEmail.html,
   });
 
-  if (!teamResult.ok) {
+  if (isSendFailure(teamResult)) {
     console.error('Team notification send failed:', teamResult.error);
     return res.status(502).json({ message: getContactFailureMessage(lang) });
   }
@@ -204,7 +214,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     html: autoReply.html,
   });
 
-  if (!autoReplyResult.ok) {
+  if (isSendFailure(autoReplyResult)) {
     console.error('Auto-reply send failed:', autoReplyResult.error);
   }
 

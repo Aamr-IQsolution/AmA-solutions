@@ -1,129 +1,106 @@
 # توثيق شامل للمشروع - axonXcode
 
-> آخر تحديث: يوليو 2026 — يعكس إعادة الهيكلة الشاملة الثالثة + **القسم 15 (تسعير، خدمات، هوية بصرية، GA، كوكيز)** + **القسم 16 (Portfolio: صفحات مشاريع مستقلة، Lightbox، سلايدر/شبكة)** + **القسم 17 (نموذج التواصل: Resend + Upstash + Zod)** + **القسم 18 (SEO الشامل: لغات فرعية، Meta/hreflang/OG، Sitemap/robots/JSON-LD + موقع Heerlen)**.
+> آخر تحديث: يوليو 2026 — يعكس إعادة الهيكلة الثالثة + الأقسام 15–18 (تسعير/خدمات/GA، Portfolio، Contact API، SEO) + **خطة الإصلاح الشاملة Phases 1–6** (أمن، أداء، تقسيم المحتوى، refactor الميزات، أمن متقدم، تنظيف كود ميت). انظر الأقسام **19–24**.
 
 ## 1) نظرة عامة
-- **النوع:** واجهة React أحادية الصفحة (SPA) مبنية بـ Vite وTypeScript.
+- **النوع:** واجهة React أحادية الصفحة (SPA) مبنية بـ Vite وTypeScript، منشورة على Vercel (Serverless API + Edge Middleware).
 - **الهدف الحالي:** موقع احترافي متعدد اللغات (عربي/إنجليزي/هولندي) لشركة axonXcode، يعمل في السوق الهولندي، ويقدم **منتجين فقط**: تصميم مواقع احترافية (Business Pro) وحلول برمجية مخصصة (Custom Solutions)، بالإضافة إلى باقة مجانية كقناة جذب عملاء (Freemium Funnel) وخدمات صيانة/استضافة متكررة.
 - **تحول استراتيجي جوهري:** تم التخلي نهائياً عن كل خدمات السوشيال ميديا، الفيديوهات الترويجية، التصوير الميداني، والهوية البصرية كخدمات مقدَّمة — الشركة تُركّز حصرياً على البرمجة والحلول الرقمية.
-- **مصدر البيانات:**  يانات ثابتة محلية داخل `constants.ts` + حفظ تفضيلات المستخدم (اللغة) في `localStorage`.
-- **الموقع المنشور:** [axonxcode.com](https://axonxcode.com)
+- **مصدر البيانات:** محتوى ثابت تحت `content/` يُجمَع في `INITIAL_CONFIG` عبر `content/index.ts` ويُعاد تصديره من `constants.ts` (barrel). **لا يوجد CMS** ولا دمج `siteConfig` من `localStorage` (أُزيل في Phase 6). تفضيلات المستخدم في `localStorage`: `lang` (تذكّر فقط) و`cookieConsent`.
+- **الموقع المنشور:** [axonxcode.com](https://www.axonxcode.com) (`SITE_URL` = `https://www.axonxcode.com`)
 
 ## 2) التقنيات والاعتمادات
-(React 19.2.3, react-router-dom 7.14.2, swiper, vite 6.2.0, typescript 5.8.2, Tailwind عبر `@tailwindcss/vite` محلياً، Font Awesome وInter/Cairo عبر npm — بدون CDN للأنماط/الأيقونات/الخطوط)
+- **واجهة:** React 19.2.3، react-router-dom 7.14.2، react-helmet-async، swiper، react-icons، Vite 6، TypeScript 5.8
+- **أنماط/خطوط محلية (Phase 5):** Tailwind عبر `@tailwindcss/vite`، Font Awesome (`@fortawesome/fontawesome-free`)، Inter/Cairo (`@fontsource/*`) — **بدون CDN** في `index.html`
+- **سيرفر/حافة:** `api/contact.ts` (Vercel Node)، `middleware.ts` (Vercel Edge)، Resend، Zod، Upstash Ratelimit، Cloudflare Turnstile
+- **بناء:** `prebuild` → `tsx scripts/generate-sitemap.ts` ثم `vite build`
 
 ## 3) هيكل المشروع الحالي
 
 ```text
 axonXcode/
-├─ App.tsx                        ← معدّل: CookieConsent بعد Footer
-├─ index.tsx
-├─ index.html                     ← معدّل: title AxonXcode + favicon
-├─ constants.ts
-├─ types.ts
-├─ vite.config.ts                 ← معدّل: GA_MEASUREMENT_ID
-├─ vite-env.d.ts                  ← جديد: تعريفات TypeScript لاستيراد CSS
-├─ tsconfig.json
-├─ .env                           ← محلي فقط — مستثنى من Git (انظر .gitignore)
-├─ .gitignore                     ← معدّل: يستثني .env و.env.local
-├─ vercel.json
+├─ App.tsx                 ← lazy routes + Suspense + hash scroll retries
+├─ index.tsx / index.html / index.css
+├─ constants.ts            ← barrel: INITIAL_CONFIG, SITE_URL, PAGE_META, UI_TEXTS
+├─ types.ts                ← أنواع المحتوى فقط (بدون User/CMS)
+├─ middleware.ts           ← OG/meta للبوتات (Google/Bing/سوشيال…)
+├─ vite.config.ts          ← Tailwind plugin + GA_MEASUREMENT_ID + TURNSTILE_SITE_KEY
+├─ vercel.json             ← redirects لغات + security headers (CSP/HSTS/…) + SPA rewrite
+├─ .env.example            ← قالب المتغيرات (لا أسرار في Git)
+├─ api/
+│  └─ contact.ts           ← POST تواصل: honeypot → rate limit → Turnstile → Zod → Resend
+├─ content/                ← مصدر الحقيقة للمحتوى (Phase 3)
+│  ├─ index.ts             ← يجمع INITIAL_CONFIG
+│  ├─ site/                ← identity, hero, stats, sectionHeaders
+│  ├─ home/                ← testimonials, faqs, homeSectionCopy
+│  ├─ services/            ← services, workPrinciples
+│  ├─ portfolio/projects.ts
+│  ├─ pricing/             ← mainPlans, addOns
+│  ├─ i18n/                ← SITE_URL, PAGE_META, UI_TEXTS, pageMetaKey
+│  └─ legalPages.ts
 ├─ components/
-│  ├─ Navbar.tsx                  ← معدّل: Axon + صورة X + code
-│  ├─ HomeHero.tsx
-│  ├─ ThreeDBackground.tsx
-│  ├─ StatisticsCounter.tsx
-│  ├─ Services.tsx                ← معدّل: سلايدر Swiper كامل العرض (9 خدمات، بدون centeredSlides)
-│  ├─ Services.module.css
-│  ├─ ServicesDetailed.tsx        ← جديد: صفحة /services فقط
-│  ├─ ServicesDetailed.module.css ← جديد
-│  ├─ PricingSection.tsx          ← معدّل: زر main-2 + أيقونات مخصصة
-│  ├─ MainPricing.tsx             ← معدّل: renderFeature + أيقونات + data-scroll-target
-│  ├─ AddOnsSection.tsx
-│  ├─ Portfolio.tsx
-│  ├─ Testimonials.tsx
-│  ├─ FAQ.tsx
-│  ├─ CTASection.tsx
-│  ├─ Team.tsx
-│  ├─ Contact.tsx
-│  ├─ Footer.tsx                  ← معدّل: اسم نصي AxonXcode (بدون صورة X)
-│  ├─ CookieConsent.tsx           ← جديد: بانر موافقة الكوكيز + تحميل GA
-│  ├─ CookieConsent.module.css    ← جديد
-│  ├─ PageHero.tsx
-│  ├─ SectionHeader.tsx
-│  ├─ Pricing.tsx                 ← ⚠ كود ميت (غير مستورد)
-│  └─ SocialMediaPricing.tsx      ← ⚠ كود ميت (غير مستورد)
-├─ pages/
-│  ├─ HomePage.tsx
-│  ├─ ServicesPage.tsx            ← يستدعي ServicesDetailed
-│  ├─ PortfolioPage.tsx
-│  ├─ TeamPage.tsx
-│  ├─ ContactPage.tsx
-│  └─ MarketingPricingPage.tsx
+│  ├─ Navbar + LanguageSwitcher
+│  ├─ HomeHero, StatisticsCounter, Services, ServicesDetailed
+│  ├─ PricingSection, MainPricing, AddOnsSection
+│  ├─ Portfolio, Contact (+ ContactForm, ContactInfo), TurnstileWidget
+│  ├─ CookieConsent, SEO, Footer, PageHero, Team, …
+│  └─ project/             ← Hero, Gallery, Lightbox, projectDetailCopy (Phase 4)
+├─ pages/                  ← Home, Services, Team, Portfolio, ProjectDetail, Pricing,
+│                            Contact, Privacy, Terms, CookieSettings
+├─ hooks/                  ← useContactForm, useLocalizedNavigate, useIsMobileNav,
+│                            useRevealOnScroll, useSwiperNavigation
 ├─ utils/
-│  └─ sortPlansPopularFirst.ts
-├─ context/
-│  └─ AppContext.tsx
-├─ styles/
-│  └─ theme.css
+│  ├─ contactSchema, emailTemplates, verifyTurnstile, cookieConsent
+│  ├─ localizePath, techIconMap, sortPlansPopularFirst
+│  └─ pricing/             ← planHelpers, pricingLabels, buildPlanContactMessage
+├─ context/AppContext.tsx  ← lang من المسار؛ config = INITIAL_CONFIG؛ contactMessage
+├─ scripts/generate-sitemap.ts
+├─ styles/theme.css
 └─ public/
-   └─ assets/
-      ├─ simple-logo-X-decoreted-no-background.png  ← شعار الموقع + favicon
-      └─ axon-x-letter.png                         ← حرف X في Navbar
+   ├─ robots.txt / sitemap.xml (يُولَّد عند البناء)
+   └─ assets/              ← شعار، hero webp، مشاريع، شهادات
 ```
 
-**ملفات قديمة غير مستخدمة (كود ميت — ما زالت على القرص لكن لا يستوردها أي صفحة):**
-- `components/SocialMediaPricing.tsx` + `SocialMediaPricing.module.css`
-- `components/Pricing.tsx` + `Pricing.module.css`
-
-> هذه الملفات تعتمد على `config.plans` و`pricingHeader` / `webPricingHeader` المحذوفة من `SiteConfig` — إعادة استيرادها ستكسر البناء. منطق `renderFeature()` نُقل إلى `MainPricing.tsx`. **يُنصح بحذفها فعلياً من المشروع** عند تنظيف الكود.
+**حُذف سابقاً (لم يعد على القرص):** `Pricing.tsx` / `SocialMediaPricing.tsx`، `metadata.json`، حقن `GEMINI_API_KEY` في Vite، أصول يتيمة كبيرة (~15MB+ في Phase 2).
 
 ## 4) معمارية التطبيق (Architecture)
-(بدون تغيير جوهري: `index.tsx` mount، `App.tsx` يلف بـ `AppProvider` و`BrowserRouter`)
+`index.tsx`: `HelmetProvider` → `BrowserRouter` → `AppProvider` → `AppLayout`.
 
-**تخطيط `App.tsx` (`AppLayout`):** `Navbar` → `<main>` (Routes حسب الصفحة) → `Footer` → `CookieConsent` — الـ Navbar والـ Footer وبانر الكوكيز خارج محتوى كل صفحة.
+**تخطيط `AppLayout`:** `Navbar` → `<main>` (`Suspense` + Routes) → `Footer` → `CookieConsent`.
 
-**المسارات (`Routes`):**
-| المسار | الصفحة |
+**المسارات (داخل `/:lang` عبر `LangGuard`):**
+| المسار النسبي | الصفحة |
 |---|---|
-| `/` | `HomePage` |
+| `/` (index) | `HomePage` |
 | `/services` | `ServicesPage` |
 | `/team` | `TeamPage` |
 | `/portfolio` | `PortfolioPage` |
+| `/portfolio/:id` | `ProjectDetailPage` |
 | `/pricing` | `MarketingPricingPage` |
-| `/web-pricing` | إعادة توجيه (`Navigate`) إلى `/pricing` — للروابط القديمة |
 | `/contact` | `ContactPage` |
-| `/:lang/privacy` | `PrivacyPolicyPage` |
-| `/:lang/terms` | `TermsPage` |
-| `/:lang/cookie-settings` | `CookieSettingsPage` |
+| `/privacy` | `PrivacyPolicyPage` |
+| `/terms` | `TermsPage` |
+| `/cookie-settings` | `CookieSettingsPage` |
 
-عند وجود `location.hash` (مثل `/pricing#business-pro` أو `/pricing#hosting-bundle`)، `AppLayout` يمرّر التمرير السلس إلى العنصر ذي **`data-scroll-target`** المطابق للـ hash، أو إلى `id` إن وُجد.
+Redirects قديمة في `vercel.json`: `/` → `/nl`، وكذلك `/services`…`/contact` و`/web-pricing` → نسخ `/nl/...`. الصفحات تُحمَّل بـ `React.lazy` (Phase 2).
 
-### البيانات والمحتوى — `constants.ts` (تغيّر جوهرياً)
-- `mainPlans` — **الآن 3 باقات فقط، وكلها الباقات الوحيدة الظاهرة في الموقع:**
-  - `main-1`: الباقة المجانية (`isFree: true`) — 8 ميزات مفصّلة
-  - `main-2`: باقة الأعمال (Business Pro) — **دُمجت هنا من `webPlans` القديمة**، سعر 1299€ **لمرة واحدة** (وليس اشتراكاً شهرياً)، `isPopular: true`، **10 ميزات** (بما فيها Google Analytics — انظر القسم 15)
-  - `main-3`: الحلول المتقدمة (Custom Solutions، `isCustom: true`) — سعر مخصص، 9 ميزات (تشمل الآن قاعدة بيانات مخصصة)
-- **`plans` (السوشيال ميديا): محذوفة نهائياً بالكامل.**
-- **`webPlans`: محذوفة نهائياً بالكامل** (كانت تحتوي Landing Page + Business Pro القديمة، ودُمجت الأخيرة في `mainPlans`).
-- `addOns` — **بندان فقط الآن** (بالترتيب في `constants.ts`):
-  - `monthly-maintenance` (25€/شهر) — كان `addon-5`
-  - `hosting-bundle` (50€/شهر) — كان `addon-6`
-  - (تم حذف `addon-1`, `addon-2`, `addon-3` — فيديو ترويجي وتصوير ميداني بالكامل)
-- `services` — **9 خدمات الآن** (معرّفات: `1`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`) — توسّعت من خدمتين بعد إعادة الهيكلة الكاملة لقسم الخدمات (انظر القسم 15). كل خدمة تتضمن 3 نقاط `highlights` بكل لغة.
-- `siteName`: `"AxonXcode"` | `logo`: `/assets/simple-logo-X-decoreted-no-background.png` | `brandXImage`: `/assets/axon-x-letter.png`
-- `pricingHeader` و`webPricingHeader`: **محذوفان بالكامل بدون بديل** (لا يوجد `mainPricingHeader` — تقرر عدم الحاجة له لأن `PageHero` في صفحة `/pricing` يغطي العنوان).
-- `team[0]` (عضو الفريق): تم تحديث `title` و`bio` لإزالة أي إشارة لـ"التسويق الرقمي" أو "إدارة السوشيال ميديا"، واستبدالها بالتركيز على "أمن المعلومات" و"جودة الكود".
-- `faqs`: تم تحديث إجابة سؤال تكلفة الموقع من "499€" إلى "1299€".
+عند وجود `location.hash`، `AppLayout` يمرّر التمرير إلى `[data-scroll-target]` أو `id` مع إعادة محاولة عند 150/400/800ms (محتوى lazy).
 
-### `types.ts`
-- حُذف من `SiteConfig`: `plans`, `webPlans`, `pricingHeader`, `webPricingHeader`.
-- **أُضيف إلى `SiteConfig`:** `brandXImage: string`.
-- **أُضيف إلى واجهة `Service`:** `highlights: { icon: string; text: string }[]` داخل `translations` لكل لغة.
-- واجهة `Plan` (النوع) بقيت معرّفة في الملف لكنها لم تعد مستخدمة من `SiteConfig` (احتياطاً لاستخدام مستقبلي).
+### البيانات والمحتوى — `content/` + `constants.ts`
+- المصدر الفعلي: ملفات تحت `content/`؛ `constants.ts` يعيد التصدير فقط لاستقرار مسارات الاستيراد (`from './constants'`).
+- `mainPlans`: `main-1` مجانية، `main-2` Business Pro 1299€ لمرة واحدة (10 ميزات منها GA)، `main-3` مخصصة.
+- `addOns`: `monthly-maintenance` (25€/mo)، `hosting-bundle` (50€/mo).
+- `services`: 9 خدمات مع `highlights`؛ `portfolio`: 4 مشاريع (`souqeastren`, `alasaylf`, `my-work`, `ms-phone-store`).
+- `siteName` / `logo` / `brandXImage` كما في `content/site/identity.ts`.
 
-### `context/AppContext.tsx`
-- حُذفت الأسطر التي كانت تفرض `plans: INITIAL_CONFIG.plans` و`webPlans: INITIAL_CONFIG.webPlans` عند دمج بيانات `localStorage` مع `INITIAL_CONFIG` — كانت ستكسر البناء بعد حذف الحقلين من النوع.
-- **ما يُفرَض من `INITIAL_CONFIG` عند كل تحميل** (حتى لو وُجد `siteConfig` قديم في `localStorage`): `mainPlans`, `addOns`, `services`, `siteName`, `logo`, `brandXImage` — لضمان أحدث بيانات التسعير والخدمات والهوية البصرية دون الاعتماد على نسخة محفوظة قديمة.
+### `types.ts` (بعد Phase 6)
+- أنواع حيّة: `Language`, `ContactFormData`, `Service`, `MainPlan`, `AddOn`, `Project`, `SiteConfig`, … 
+- **محذوف:** `User` / `UserRole` / `Permissions` / `Plan` / `Translation` (بقايا CMS).
+
+### `context/AppContext.tsx` (بعد Phase 6)
+- `config = INITIAL_CONFIG` ثابتاً — لا `setConfig` ولا قراءة `localStorage.siteConfig`.
+- `lang` من `langFromPathname`؛ `setLang` يبدّل مقطع اللغة في المسار ويحفظ تذكّراً في `localStorage`.
+- `contactMessage` / `setContactMessage` لملء نموذج التواصل من صفحات التسعير.
 
 ## 5) المكونات وعلاقاتها
 
@@ -142,7 +119,7 @@ axonXcode/
 ### صفحة التسعير (`MarketingPricingPage.tsx` على `/pricing`)
 الترتيب: `PageHero` (subtitle محدّث: «اختر الباقة المناسبة لمشروعك ومرحلة عملك» — بدون «عقد سنوي أو بدون التزام») → `MainPricing` (البطاقات الثلاث كاملة) → `AddOnsSection` (بندان فقط).
 
-**لا يُستورد** `Pricing.tsx` ولا `SocialMediaPricing` (انظر قسم «ملفات قديمة غير مستخدمة» أعلاه).
+`Pricing.tsx` و`SocialMediaPricing` **محذوفان** من القرص (لم يعودا مستوردَين).
 
 ### `PricingSection.tsx` مقابل `MainPricing.tsx` (فرق مهم — محدَّث)
 | | الصفحة الرئيسية (`PricingSection`) | صفحة `/pricing` (`MainPricing`) |
@@ -164,7 +141,7 @@ axonXcode/
 ### `PricingSection.tsx` — تغيير زر `main-2` فقط
 - للباقة `main-2` (`oneTime`): الزر أصبح `<Link to="/pricing#business-pro">` بنص **«عرض جميع الميزات»** / «View All Features» / «Bekijk Alle Functies» — بدل التوجيه المباشر لـ `/contact`.
 - بقية البطاقات ما زالت تستخدم `handleOrder` → `/contact`.
-- نفس دالة `getFeatureIconClass()` الموجودة في `MainPricing.tsx` (مكررة في الملفين).
+- أيقونات الميزات والمنطق المشترك مُوحَّدان في `utils/pricing/planHelpers.ts` و`pricingLabels.ts` (Phase 4) — لم تعد الدالة مكررة يدوياً بين الملفين كمصدر وحيد.
 
 ### `pages/TeamPage.tsx`
 - **عنوان `PageHero` (`title`):** تغيّر من «خبرات تقنية وتسويقية…» إلى «خبرات برمجية وحلول أمنية عالية المستوى في فريق واحد» (بالثلاث لغات).
@@ -183,7 +160,7 @@ axonXcode/
 - إصلاح انزياح أفقي على الجوال: `overflow-x: hidden` على `.section` و`min-width: 0` على `.visualCol`.
 
 ### `AddOnsSection.tsx`
-لا تغيير في منطق العرض نفسه (`config.addOns.map(...)` بدون فلترة) — الحذف تم من مستوى البيانات في `constants.ts` مباشرة، وليس بإضافة شرط عرض.
+لا فلترة في العرض (`config.addOns.map(...)`) — الحذف تم من مستوى البيانات في `content/pricing/addOns.ts`. منطق الأسعار/الرسائل المشتركة مع باقي التسعير عبر `utils/pricing/` (Phase 4).
 
 ## 6) نظام التسعير الحالي (بعد إعادة الهيكلة الثالثة)
 
@@ -228,14 +205,11 @@ axonXcode/
 **ملاحظة:** لون بطاقات السوشيال ميديا (`rgb(46 87 129 / 75%)`) ولون بطاقات تطوير المواقع المنفصلة (`rgb(15 26 33 / 75%)`) لم يعودا مستخدمين فعلياً بعد حذف المكوّنين المرتبطين بهما، ويمكن إزالتهما من ملفات الـ CSS إذا رغبت مستقبلاً في تنظيف الكود غير المستخدم.
 
 ## 8) تدفّق البيانات (Data Flow)
-1. `lang` يُحمَّل من `localStorage`.
-2. `config` = `INITIAL_CONFIG` مباشرة من `AppContext` (لا يوجد CMS ولا دمج `siteConfig` من `localStorage` — أُزيل في Phase 6).
-3. المكونات تقرأ من `useApp()`: `config.mainPlans` (3 بطاقات)، `config.addOns` (بندان)، `config.services` (9 خدمات).
-4. `CookieConsent`: قرار الكوكيز في `localStorage` تحت مفتاح `cookieConsent` (`all` | `essential`) — انظر القسم 15.
-5. عند اختيار باقة:
-   - `main-1` (مجانية): رسالة "مهتم بالباقة المجانية" بدون سعر.
-   - `main-2` (باقة الأعمال): رسالة تذكر السعر 1299€ **كدفعة واحدة**.
-   - `main-3` (مخصصة): رسالة عامة لطلب مشروع مخصص بدون سعر.
+1. `lang` يُشتق من مقطع المسار (`/nl|en|ar/...`)؛ `localStorage.lang` تذكّر فقط عند التبديل.
+2. `config` = `INITIAL_CONFIG` مباشرة من `AppContext` (لا CMS ولا `siteConfig` — Phase 6).
+3. المكونات تقرأ من `useApp()`: `config.mainPlans` / `addOns` / `services` / `portfolio` / …
+4. `CookieConsent`: مفتاح `cookieConsent` = `all` | `essential`؛ عند `essential` يُستدعى `clearGoogleAnalytics()` (القسمان 15 و23).
+5. اختيار باقة يملأ `contactMessage` ثم يوجّه إلى `/contact` (رسائل موحّدة عبر `buildPlanContactMessage`).
 
 ## 9) التهيئة والتشغيل
 - `npm run dev` / `npm run build` / `npm run preview` — Vite على المنفذ 3000.
@@ -246,9 +220,11 @@ axonXcode/
 ## 10) نقاط فنية يجب تذكرها (Lessons Learned) — إضافات هذه المرحلة
 - **دمج باقة من مصفوفة في أخرى (webPlans → mainPlans):** عند دمج بيانات باقة كانت في مصفوفة منفصلة (`Plan`) داخل مصفوفة أخرى (`MainPlan`)، يجب نقل أي منطق عرض خاص بها (مثل `renderFeature()` وروابط الميزات) إلى المكوّن الجديد المسؤول، وإلا يُفقد هذا السلوك بصمت دون خطأ ظاهر في البناء.
 - **حقول رقمية إلزامية بلا معنى فعلي:** عند تحويل باقة من "اشتراك شهري" إلى "دفعة واحدة"، حقول مثل `annualTotal` و`setupFeeAnnual` تبقى إلزامية في النوع لكنها بلا معنى — يجب وضعها `0` صراحة **و** إضافة شرط عرض خاص يمنع ظهورها في الواجهة، وإلا يظهر للعميل "0€ سنوياً" وهو مضلل.
-- **`localStorage` وحقول محذوفة من النوع:** أي حقل يُحذف من `SiteConfig` يجب البحث عنه أيضاً في منطق دمج `localStorage` بـ `AppContext.tsx`، لأن هذا الملف غالباً ما يُنسى عند إعادة الهيكلة لأنه لا يظهر في نتائج البحث السطحي عن اسم المكوّن المتأثر.
+- **~~`localStorage` وحقول محذوفة من النوع~~ (تاريخي):** كان دمج `siteConfig` يفرض تحديث `AppContext` عند كل حذف حقل — **أُزيل الدمج بالكامل في Phase 6**؛ الدرس يبقى مفيداً إن أُعيد CMS لاحقاً.
 - **ازدواج الروابط داخل نص الميزة:** إذا احتوت أكثر من ميزة واحدة على الفاصل " — " ضمن نفس البطاقة، فإن منطق `renderFeature()` سينشئ رابطين منفصلين يوجّهان لنفس الوجهة — يُفضَّل إبقاء فاصل " — " واحد فقط لكل بطاقة لتفادي التكرار البصري.
-- **كود ميت على القرص:** حذف مكوّن من الاستيراد لا يعني حذف الملف — يجب التحقق بـ `grep` من عدم وجود الملف فعلياً، أو توثيقه كـ «يتيم» حتى يُحذف لاحقاً.
+- **كود ميت على القرص:** حذف الاستيراد ≠ حذف الملف — Phase 6 نظّف الأنواع/`UI_TEXTS`/`metadata.json`؛ ملفات `Pricing.tsx` / `SocialMediaPricing` حُذفت مسبقاً.
+- **Fail-closed على Vercel:** Upstash وTurnstile إن غابا في الإنتاج يُرجعان `503` — لا تخطٍ صامت للسبام.
+- **CDN vs حزم محلية:** إزالة Tailwind/FA/Fonts من CDN يقلل سلاسل التوريد الخارجية ويتطلّب CSP محدّثاً لـ Turnstile/GA فقط.
 - **صياغة تسويقية قد تصبح التزاماً تعاقدياً ضمنياً:** عبارات مثل "SLA" أو "أمان 100%" تحمل دلالة تعاقدية/قانونية أقوى من مجرد وصف تسويقي — يُفضَّل اختيار صياغات وصفية ("دعم بأولوية قصوى") بدل مصطلحات رسمية (SLA) ما لم تكن الشروط الفعلية محددة في العقد.
 
 ## 11) السياق التجاري (محدَّث)
@@ -278,25 +254,27 @@ axonXcode/
 | تحديث بايو الفريق لإزالة "تسويق/سوشيال ميديا" | اتساق مع القرار الاستراتيجي، تفادي تناقض بين محتوى الموقع وخدماته الفعلية |
 
 ## 13) ملخص سريع
-المشروع SPA احترافي بصرياً، مبني بـ React + Vite + TypeScript + Swiper، يدعم 3 لغات:
-- **mainPlans** (3 باقات: مجانية + أعمال (دفعة واحدة، 10 ميزات) + مخصصة)
-- **لا يوجد** `plans` (سوشيال ميديا) — محذوفة نهائياً
-- **addOns** (بندان: صيانة شهرية + باقة استضافة وصيانة شاملة)
-- **services** (9 خدمات برمجية/تقنية — سلايدر في الرئيسية، تفصيلي في `/services`)
-- **هوية بصرية:** `AxonXcode` مع صورة X في Navbar فقط؛ favicon من `simple-logo-X-decoreted-no-background.png`
-- **GA + كوكيز:** `CookieConsent` — تحميل GA ديناميكي بعد «قبول الكل» فقط
-- الشركة تُركّز حصرياً على البرمجة والحلول الرقمية.
+SPA بـ React + Vite + TypeScript + Swiper، 3 لغات تحت `/nl|/en|/ar`:
+- **محتوى:** `content/` → `INITIAL_CONFIG`؛ لا CMS
+- **mainPlans** (3) + **addOns** (2) + **services** (9) + **portfolio** (4 صفحات تفصيل)
+- **تواصل:** `POST /api/contact` (Resend + Upstash + Turnstile + Zod)
+- **SEO:** Helmet + sitemap + Edge middleware للبوتات + صفحات قانونية
+- **أداء:** lazy routes/sections + hero WebP + أصول محلية بدون CDN
+- **كوكيز/GA:** موافقة صريحة؛ مسح كوكيز GA عند «أساسية فقط»
+- التركيز التجاري: برمجة وحلول رقمية فقط
 
 ## 14) محتوى متبقٍ للتحديث (معروف — لم يُنفَّذ بعد)
 
-هذه النقاط **لا تناقض** التوثيق التقني أعلاه، لكنها تناقض **القرار الاستراتيجي** جزئياً أو تتطلب عملاً لاحقاً:
-
 | الموقع | الوضع الحالي | الإجراء المقترح |
 |---|---|---|
-| `UI_TEXTS.prices` | ar: «أسعار التسويق»، nl: «Marketing Prijzen» (en: «Pricing» صحيح) | تحديث إلى «الأسعار» / «Prijzen» |
-| `TeamPage` → `PageHero` subtitle | الإنجليزية: *"practical growth expertise"* | إعادة صياغة بما يتوافق مع التركيز على البرمجة والأمن |
-| `components/Pricing.tsx` + `SocialMediaPricing.tsx` | ملفات يتيمة على القرص (إن بقيت) | حذف فعلي من المشروع |
-| ~~صفحة سياسة الخصوصية~~ | ~~غير موجودة~~ → **موجودة الآن** | المسارات: `/privacy`، `/terms`، `/cookie-settings` عبر `App.tsx` + محتوى في `content/legalPages.ts` |
+| `UI_TEXTS.prices` | ar: «أسعار التسويق»، nl: «Marketing Prijzen» (en صحيح) | «الأسعار» / «Prijzen» |
+| `TeamPage` → `PageHero` subtitle | الإنجليزية: *"practical growth expertise"* | صياغة تركّز على البرمجة والأمن |
+| `stats.projects` | ما زال **5** بينما Portfolio يعرض **4** | تحديث صريح عند الاتفاق (لا تلقائياً) |
+| Instagram في `sameAs` / socials | رابط عام `instagram.com` | بروفايل حقيقي عند التوفر |
+| ~~Pricing / SocialMediaPricing~~ | **محذوفان** | — |
+| ~~صفحات قانونية~~ | **موجودة** (`legalPages.ts`) | — |
+| ~~CDN Tailwind/FA/Fonts~~ | **محلي (Phase 5)** | — |
+| ~~CMS / setConfig / metadata.json~~ | **أُزيل (Phase 6)** | — |
 
 ## 15) تحديثات المحادثة الحالية (توثيق شامل)
 
@@ -319,13 +297,13 @@ axonXcode/
 - `main-2`: `fa-bolt` (index 2) و`fa-shield-halved` (index 3) كما كانا، بالإضافة لبقية الأيقونات في مصفوفة ثابتة.
 
 **ميزة Google Analytics (الميزة العاشرة لـ `main-2`):**
-- نُصت في `constants.ts` قبل السطر الأخير («السعر لا يشمل الدومين والاستضافة…») بثلاث لغات.
+- نُصت في `content/pricing/mainPlans.ts` قبل السطر الأخير («السعر لا يشمل الدومين والاستضافة…») بثلاث لغات.
 - أيقونة: `fa-chart-line` عند **index 8**.
 - السطر الأخير (`fa-circle-info`) أُزيح إلى **index 9**.
 
 ### 15.2 قسم الخدمات — إعادة هيكلة كاملة
 
-**البيانات (`constants.ts` + `types.ts`):**
+**البيانات (`content/services/services.ts` + `types.ts`):**
 - `services` توسّعت من **2 إلى 9** خدمات.
 - واجهة `Service` اكتسبت `highlights: { icon, text }[]` (3 نقاط فرعية لكل خدمة بكل لغة).
 
@@ -360,18 +338,19 @@ axonXcode/
 
 **البنية التحتية:**
 - `.gitignore`: يستثني `.env` و`.env.*` مع الإبقاء على `.env.example` فقط.
-- `vite.config.ts`: يحقن **`GA_MEASUREMENT_ID` فقط** في الـ client — حُذف حقن `GEMINI_API_KEY` / `API_KEY` (Phase 1 أمن).
+- `vite.config.ts`: يحقن في الـ client **`GA_MEASUREMENT_ID`** و**`TURNSTILE_SITE_KEY`** فقط — حُذف حقن `GEMINI_API_KEY` / `API_KEY` (Phase 1).
 - **لا يوجد** `gtag.js` ثابت في `index.html` — التحميل **ديناميكي فقط** بعد موافقة المستخدم (امتثال EU).
 
 **`CookieConsent.tsx` + `CookieConsent.module.css`:**
 - مثبّت في `App.tsx` بعد `Footer` — يظهر في كل الصفحات.
 - `localStorage` مفتاح `cookieConsent`: `all` (قبول الكل) | `essential` (الأساسية فقط).
-- ترحيل تلقائي للقيم القديمة: `accepted` → `all`، `rejected` → `essential`.
-- زرّان فقط: **«قبول الكل»** / **«قبول الأساسية فقط»** — بنفس الحجم والوضوح (لا إخفاء للخيار الثانوي).
-- GA يُحمَّل **فقط** عند `all` (أو تلقائياً عند زيارة لاحقة إذا كان المحفوظ `all`).
-- عند `essential`: لا سكريبتات GA.
-- **خلفية البانر داكنة** (`linear-gradient(135deg, #0b1220, #142a42)`) — **عمداً** لتفادي التباس الزائر بين البانر ومحتوى الموقع (امتثال GDPR وليس تفضيلاً تصميمياً فقط).
-- صفحات قانونية مربوطة: `/privacy`، `/terms`، `/cookie-settings` (انظر `PrivacyPolicyPage` / `TermsPage` / `CookieSettingsPage`).
+- ترحيل تلقائي للقيم القديمة: `accepted` → `all`، `rejected` → `essential` (في `utils/cookieConsent.ts`).
+- زرّان فقط: **«قبول الكل»** / **«قبول الأساسية فقط»**.
+- GA يُحمَّل **فقط** عند `all` عبر `loadGoogleAnalytics()`.
+- عند اختيار `essential`: لا تحميل GA + **`clearGoogleAnalytics()`** (Phase 5) — سحب موافقة analytics ومسح كوكيز `_ga*` / `_gid` / `_gat*`.
+- صفحة `/cookie-settings` تستدعي نفس المنطق عند الحفظ.
+- **خلفية البانر داكنة** عمداً (امتثال GDPR).
+- صفحات قانونية: `/privacy`، `/terms`، `/cookie-settings`.
 
 **⚠️ ملاحظة تشغيلية (GA_MEASUREMENT_ID):**
 - اكتُشف خطأ فعلي: قيمة أولية في `GA_MEASUREMENT_ID` **بدون بادئة `G-`** المطلوبة لـ GA4 — منعت تسجيل البيانات حتى التصحيح.
@@ -385,7 +364,7 @@ axonXcode/
 
 ## 16) إعادة تصميم قسم المشاريع (Portfolio) — توثيق شامل
 
-> هذا القسم يوثّق إعادة بناء قسم «مشاريعنا المختارة» بالكامل (يوليو 2026). السجل التاريخي في الأقسام 1–15 يبقى مرجعاً ولا يُحذف. **ملاحظة:** الأقسام 3 (هيكل المشروع)، 4 (المسارات)، 8 (تدفّق البيانات)، و13 (ملخص سريع) ما زالت تعكس الحالة قبل Portfolio الجديد — يُفضَّل تحديثها لاحقاً عند مراجعة شاملة للتوثيق.
+> هذا القسم يوثّق إعادة بناء قسم «مشاريعنا المختارة» بالكامل (يوليو 2026). الأقسام 1–4 و8 و13 حُدِّثت لاحقاً لتعكس الهيكل الحالي (`content/`، lazy routes، Phase 6).
 
 ### 16.1 القرار الاستراتيجي والسبب
 
@@ -442,28 +421,28 @@ axonXcode/
 
 ### 16.4 صفحة المشروع المستقلة
 
-**الملفات:** `pages/ProjectDetailPage.tsx` + `pages/ProjectDetailPage.module.css`
+**الملفات:** `pages/ProjectDetailPage.tsx` (+ CSS) مع تفكيك Phase 4 إلى `components/project/` (`ProjectDetailHero`, `ProjectDetailGallery`, `ProjectLightbox`, `projectDetailCopy`).
 
-**المسار:** `/portfolio/:id` — Route أُضيف في `App.tsx` بعد `/portfolio`.
+**المسار:** `/:lang/portfolio/:id`.
 
 **ترتيب الأقسام (من الأعلى للأسفل):**
 
-1. **Hero** — `heroImage` أو `coverImage` + `logoImage` (إن وُجد) + `title` + `category` + `shortDescription`
+1. **Hero** — عبر `ProjectDetailHero`
 2. **زر رجوع** → `/portfolio` + شارة `statusLabel`
-3. **التحدي / الحل** — عمودان (يظهران فقط إن وُجد `challenge` أو `solution`)
-4. **شرائح التقنيات** — مع أيقونات Simple Icons حيث متوفرة (انظر 16.5)
-5. **معرض صور** — سلايدر Swiper + Lightbox (انظر 16.6)
-6. **زر «زيارة الموقع المباشر»** — **فقط** إن وُجد `link` بالبيانات
-7. **CTA ختامي** — توجيه إلى `/contact`
+3. **التحدي / الحل** — عمودان (إن وُجد `challenge` أو `solution`)
+4. **شرائح التقنيات** — Simple Icons حيث متوفرة (انظر 16.5)
+5. **معرض صور** — `ProjectDetailGallery` + `ProjectLightbox` (انظر 16.6)
+6. **زر «زيارة الموقع المباشر»** — **فقط** إن وُجد `link`
+7. **CTA ختامي** → `/contact`
 
 عند معرّف غير موجود: إعادة توجيه تلقائية إلى `/portfolio` (`Navigate`).
 
 ### 16.5 أيقونات التقنيات
 
 - **الحزمة:** `react-icons` (حالياً `^5.7.0`) — الاستيراد المباشر من `react-icons/si` (مجموعة Simple Icons).
-- **جدول التطابق:** `utils/techIconMap.ts` — مطابقة نصية **حرفية كاملة (Exact Match)** بين اسم التقنية في `constants.ts` ومكوّن الأيقونة.
+- **جدول التطابق:** `utils/techIconMap.ts` — مطابقة نصية **حرفية كاملة (Exact Match)** بين اسم التقنية في `content/portfolio/projects.ts` ومكوّن الأيقونة.
 
-| اسم التقنية (كما في `constants.ts`) | الأيقونة |
+| اسم التقنية (كما في بيانات المشروع) | الأيقونة |
 |---|---|
 | `Next.js` | `SiNextdotjs` |
 | `React` | `SiReact` |
@@ -532,19 +511,20 @@ axonXcode/
 
 **قرار Lead-The-Way-YZ:** لم يُضف عمداً — بعد نقاش، إضافته كان يكرر فئة My-Work تقريباً (نظام إدارة داخلي غير مُفعَّل) دون تنوّع حقيقي. التفضيل: **4 مشاريع متنوعة الفئات** بدل 5 فيها تكرار.
 
-### 16.10 `localStorage` و`AppContext`
+### 16.10 `AppContext` والمحتوى (محدَّث Phase 6)
 
-- أُضيف `portfolio: INITIAL_CONFIG.portfolio` إلى قائمة الحقول المُفرَضة من `INITIAL_CONFIG` عند دمج `siteConfig` من `localStorage` (بجانب `mainPlans`, `addOns`, `services`…) — لضمان ظهور أحدث بيانات المشاريع بعد أي تحديث في `constants.ts`.
+- سابقاً: فرض `portfolio` (وغيره) من `INITIAL_CONFIG` عند دمج `siteConfig` من `localStorage`.
+- **الآن:** لا دمج أصلاً — `config = INITIAL_CONFIG` دائماً. أي تحديث في `content/portfolio/projects.ts` يظهر مباشرة بعد النشر/إعادة البناء.
 
 ### 16.11 نقطة معلّقة — `stats.projects`
 
 عداد **«مشاريع منجزة»** (`stats.projects` في `StatisticsCounter`) **لم يُحسم رقمه النهائي بعد:**
 
-- القيمة الحالية في `constants.ts`: **5**
+- القيمة الحالية في `content/site/stats.ts`: **5**
 - عدد مشاريع Portfolio المعروضة فعلياً: **4** (`souqeastren`, `alasaylf`, `my-work`, `ms-phone-store`)
-- **يحتاج مراجعة وتحديث صريح لاحقاً** ليطابق العدد الفعلي المتفق عليه — **لا يُعدَّل تلقائياً دون تعليمات صريحة.**
+- **يحتاج مراجعة وتحديث صريح لاحقاً** — **لا يُعدَّل تلقائياً دون تعليمات صريحة.**
 
-## 17) نموذج التواصل (Contact Form + Resend + Upstash)
+## 17) نموذج التواصل (Contact Form + Resend + Upstash + Turnstile)
 
 ### 17.1 التحول من `mailto:` إلى API حقيقي
 
@@ -552,7 +532,7 @@ axonXcode/
 - **بعد:** مسار `POST /api/contact` عبر Serverless Function في `api/contact.ts` باستخدام **Resend**.
 - **السبب:** موثوقية أعلى لتسليم الإيميل من طرف السيرفر، مع تحقق وخنق طلبات وحماية من البوتات.
 
-### 17.2 ترتيب المعالجة داخل `api/contact.ts` (كما هو منفّذ)
+### 17.2 ترتيب المعالجة داخل `api/contact.ts` (محدَّث Phases 1 + 5)
 
 | # | الخطوة | السلوك عند الفشل |
 |---|--------|------------------|
@@ -560,27 +540,31 @@ axonXcode/
 | 2 | `Content-Type` يتضمن `application/json` | `400` |
 | 3 | Parse جسم الطلب | `400` |
 | 4 | **Honeypot** | إن وُجدت قيمة غير فارغة → `200 Success` وهمي (بدون إرسال) |
-| 5 | **Rate Limit** (Upstash) | `429` |
+| 5 | **Rate Limit** (Upstash) | `429`؛ إن غاب Upstash على Vercel/production → **`503` fail-closed** |
 | 6 | تحقق **Zod** (`contactFormSchema`) | `400` |
-| 7 | Sanitize عبر `escapeHtml` للحقول النصية المستخدمة في الرد التلقائي | — |
-| 8 | وجود `RESEND_API_KEY` | `502` + رسالة فشل متعددة اللغات |
-| 9 | إشعار الفريق → `axonxcode@gmail.com` (مع **إعادة محاولة واحدة** عبر `sendEmailWithRetry`) | `502` إن فشل — **شرط نجاح الطلب** |
-| 10 | الرد التلقائي للعميل (best-effort) | يُسجَّل الخطأ في اللوج فقط؛ الطلب يبقى `200 Success` |
-| 11 | نجاح | `200` + `{ message: 'Success' }` |
+| 7 | **Cloudflare Turnstile** (`verifyTurnstileToken`) | `400` + `code: 'captcha_failed'`؛ إن غاب السر على Vercel/production → **`503` fail-closed**؛ محلياً بدون سر يُتخطّى |
+| 8 | Sanitize عبر `escapeHtml` للحقول النصية المستخدمة في الرد التلقائي | — |
+| 9 | وجود `RESEND_API_KEY` | `502` + رسالة فشل متعددة اللغات |
+| 10 | إشعار الفريق → `axonxcode@gmail.com` (إعادة محاولة واحدة) | `502` إن فشل — **شرط نجاح الطلب** |
+| 11 | الرد التلقائي للعميل (best-effort) | يُسجَّل الخطأ؛ الطلب يبقى `200` |
+| 12 | نجاح | `200` + `{ message: 'Success' }` |
 
 **قاعدة النجاح:** إشعار الفريق هو الشرط الأساسي. فشل الرد التلقائي **لا** يُفشل الطلب.
 
-### 17.3 Rate Limiting
+**واجهة النموذج (Phase 4 + 5):** `Contact.tsx` → `ContactInfo` + `ContactForm`؛ المنطق في `hooks/useContactForm.ts`؛ ويدجت `TurnstileWidget.tsx` يظهر فقط إن وُجد `TURNSTILE_SITE_KEY`.
+
+### 17.3 Rate Limiting + IP (Phase 1)
 
 - المكتبة: `@upstash/ratelimit` + `@upstash/redis`.
-- القاعدة الفعلية: `Ratelimit.slidingWindow(3, '10 m')` — **3 طلبات لكل IP خلال 10 دقائق**، مع بادئة المفتاح `axon-contact`.
-- **قبل Zod عمداً:** حتى الطلبات ذات البيانات غير الصالحة تُحسب ضمن الحد — يمنع استنزاف التحقق/المعالجة بهجوم حجم كبير.
-- إن غابت متغيرات Upstash → الـ limiter يُرجع `null` ويُتخطّى التحقق (لا crash).
+- القاعدة: `Ratelimit.slidingWindow(3, '10 m')` — بادئة `axon-contact`.
+- **قبل Zod عمداً** حتى للبيانات غير الصالحة.
+- **Fail-closed:** على `VERCEL=1` أو `NODE_ENV=production` غياب Upstash → `503` (لا تخطٍ).
+- **استخراج IP:** تفضيل `x-real-ip`، ثم آخر hop من `x-vercel-forwarded-for` / `x-forwarded-for` (لا تُؤخذ القيمة اليسرى وحدها — قابلة للتزوير).
 
 ### 17.4 Honeypot
 
 - حقل اختياري `honeypot` في الـ schema والجسم.
-- إن امتلأ (بوتات غالباً) → رد نجاح صامت **قبل** Rate Limit، لذا **لا يستهلك** حصة الـ Rate Limit.
+- إن امتلأ → رد نجاح صامت **قبل** Rate Limit، لذا **لا يستهلك** الحصة.
 
 ### 17.5 التحقق — `utils/contactSchema.ts`
 
@@ -588,10 +572,11 @@ axonXcode/
 |-------|--------|
 | `name` | مطلوب، trim، 1–100 |
 | `email` | مطلوب، email، بحد أقصى 254 |
-| `phone` | اختياري؛ سلسلة فارغة → `undefined`؛ وإلا تطابق `/^\+?[\d\s]{7,20}$/` |
+| `phone` | اختياري؛ فارغ → `undefined`؛ وإلا `/^\+?[\d\s]{7,20}$/` |
 | `message` | مطلوب، 1–2000 |
 | `lang` | `ar` \| `en` \| `nl` |
 | `honeypot` | اختياري؛ يُحوَّل إلى سلسلة |
+| `turnstileToken` | اختياري في الـ schema؛ يُتحقَّق منه في الـ API عبر Cloudflare siteverify |
 
 ### 17.6 تنظيف المدخلات وقوالب الإيميل
 
@@ -611,17 +596,20 @@ axonXcode/
 
 ### 17.9 المكتبات ومتغيرات البيئة
 
-**مكتبات:** `resend`, `zod`, `@upstash/ratelimit`, `@upstash/redis`, `@vercel/node`.
+**مكتبات:** `resend`, `zod`, `@upstash/ratelimit`, `@upstash/redis`, `@vercel/node` (+ تحقق Turnstile عبر `fetch` إلى Cloudflare بدون SDK).
 
-| المتغير | الاستخدام |
-|---------|-----------|
-| `RESEND_API_KEY` | إرسال البريد |
-| `UPSTASH_REDIS_REST_URL` | Rate limit |
-| `UPSTASH_REDIS_REST_TOKEN` | Rate limit |
+| المتغير | أين | الاستخدام |
+|---------|-----|-----------|
+| `GA_MEASUREMENT_ID` | عميل (Vite `define`) | Analytics بعد موافقة |
+| `TURNSTILE_SITE_KEY` | عميل (Vite `define`) | عرض ويدجت CAPTCHA |
+| `TURNSTILE_SECRET_KEY` | سيرفر فقط | siteverify |
+| `RESEND_API_KEY` | سيرفر فقط | إرسال البريد |
+| `UPSTASH_REDIS_REST_URL` | سيرفر فقط | Rate limit |
+| `UPSTASH_REDIS_REST_TOKEN` | سيرفر فقط | Rate limit |
 
-- محلياً: `.env` (مستثنى من Git).
-- على Vercel: Environment Variables منفصلة تماماً — **يلزم إعادة نشر** بعد إضافتها حتى تُفعَّل في الـ Functions.
-- ملاحظة: `/api/contact` لا يعمل محلياً بنفس سلوك Vercel؛ الاختبار النهائي بعد النشر.
+- القالب: `.env.example` — الأسرار **لا** تُحقن في المتصفح.
+- على Vercel: Environment Variables + **إعادة نشر** بعد الإضافة.
+- محلياً: بدون Upstash/Turnstile يمكن تخطي الحماية؛ على Vercel كلاهما إلزامي (fail-closed).
 
 ---
 
@@ -633,7 +621,7 @@ axonXcode/
 
 - **اللغة الافتراضية و`x-default`:** `nl` — السوق الرئيسي هولندا، مع دعم عملاء يبحثون بالعربي والإنجليزي أيضاً.
 - **ترتيب الجذر:** `HelmetProvider` → `BrowserRouter` → `AppProvider` → `AppLayout`.
-- **مصدر اللغة الحالي:** يُشتق من `location.pathname` عبر `langFromPathname` داخل `AppContext` (مشتق أثناء الـ render). `localStorage` للغة أصبح **تذكّراً فقط** عند التبديل — ليس مصدر الحقيقة. (ملاحظة: نظرة القسم 1 ما زالت تذكر `localStorage` تاريخياً؛ المرجع الحديث هو هذا القسم.)
+- **مصدر اللغة الحالي:** يُشتق من `location.pathname` عبر `langFromPathname` داخل `AppContext`. `localStorage` للغة **تذكّر فقط** عند التبديل — ليس مصدر الحقيقة (متوافق مع القسمين 1 و8).
 - **Routes متداخلة:** `/:lang` → `LangGuard` → `Outlet` للصفحات الفرعية (`index`, `services`, `team`, `portfolio`, `portfolio/:id`, `pricing`, `contact`, …).
 - **روابط مُوطَّنة:**
   - `components/LocalizedLink.tsx` — `LocalizedLink` / `LocalizedNavLink` / `LocalizedNavigate`
@@ -659,7 +647,7 @@ axonXcode/
 ### 18.2 Meta Tags، Hreflang، Open Graph
 
 - المكتبة: `react-helmet-async` + مكوّن موحّد `components/SEO.tsx`.
-- البيانات: `SITE_URL = https://www.axonxcode.com` و`PAGE_META` في `constants.ts` — **عنوان ووصف فريدان** لكل صفحة ثابتة (`home`, `services`, `team`, `portfolio`, `pricing`, `contact`) × 3 لغات = **18 نصاً**.
+- البيانات: `SITE_URL` و`PAGE_META` في `content/i18n/` (عبر `constants.ts`) — صفحات ثابتة تشمل أيضاً `privacy` / `terms` / `cookieSettings` × 3 لغات.
 - صفحات المشاريع: توليد من `project.translations[lang]` بصيغة `{title} – {category} | AxonXcode` + `shortDescription` + صورة `coverImage` مطلقة.
 - لكل صفحة داخل `<Helmet>`:
   - `<title>` + `<meta name="description">`
@@ -668,16 +656,17 @@ axonXcode/
   - Open Graph + Twitter Card (`summary_large_image`) + `og:site_name = AxonXcode`
 - **Fallback في `index.html`:** عنوان ووصف هولنديان ثابتان قبل تشغيل JS.
 - **درس React 19 + Helmet:** الإصدار 3 يمرّر الوسوم لـ React 19 لرفعها إلى `<head>` **دون حذف** fallback الثابت في `index.html` — يسبب تكراراً. الحل المنفّذ: `pruneStaticHeadFallbacks` في `SEO.tsx` يزيل النسخ غير المطابقة بعد الهيدرنة.
-- **قيد معماري (مقصود ومؤجَّل):** بوتات السوشيال (Facebook / LinkedIn / WhatsApp / X) لا تنفّذ JS؛ OG الديناميكي غير مرئي لها من الـ HTML الخام. التأجيل لحل عبر Edge Middleware/prerender لاحقاً — لا يؤثر على فهرسة جوجل التي تنفّذ JS عموماً.
+- **Edge Middleware (`middleware.ts` — Phase 5):** عند تطابق User-Agent بوت (Googlebot، bingbot، DuckDuckBot، Yandex، Facebook/LinkedIn/WhatsApp/Twitter/Slack/Discord/Telegram، …) يُرجع HTML خفيفاً بـ title/description/canonical/hreflang/OG للصورة — يعالج قيد «البوتات لا تنفّذ JS». المسارات الثابتة تشمل `privacy` / `terms` / `cookie-settings` (مفتاح meta: `cookieSettings`).
 
 ### 18.3 Sitemap، Robots.txt، البيانات الهيكلية، وموقع Heerlen
 
 #### Sitemap
 
-- السكربت: `scripts/generate-sitemap.ts` عبر `"prebuild": "tsx scripts/generate-sitemap.ts"` (حزمة `tsx` في `devDependencies`).
+- السكربت: `scripts/generate-sitemap.ts` عبر `"prebuild": "tsx scripts/generate-sitemap.ts"`.
 - يكتب `public/sitemap.xml` بـ `writeFileSync` (استبدال كامل).
-- **30 رابطاً:** (6 صفحات ثابتة × 3 لغات) + (4 مشاريع × 3 لغات).
-- لكل `<url>`: `<xhtml:link rel="alternate" hreflang="...">` للغات الثلاث + `x-default`، و`<lastmod>` بتاريخ يوم البناء (ISO `YYYY-MM-DD`).
+- **39 رابطاً حالياً:** (9 مسارات ثابتة × 3 لغات) + (4 مشاريع × 3 لغات)  
+  الثابتة: الرئيسية، services، team، portfolio، pricing، contact، **privacy**، **terms**، **cookie-settings**.
+- لكل `<url>`: hreflang الثلاث + `x-default`، و`<lastmod>` بتاريخ يوم البناء.
 - Vite ينسخ الملف إلى `dist/`؛ Vercel يقدّمه كملف ثابت قبل SPA rewrite.
 
 #### `public/robots.txt`
@@ -699,68 +688,115 @@ Sitemap: https://www.axonxcode.com/sitemap.xml
 
 #### حقل `location` (Heerlen)
 
-- في `SiteConfig` / `INITIAL_CONFIG`: `Record<Language, string>` — مثال nl: `Heerlen, Nederland`.
-- مفروض من `INITIAL_CONFIG` عند دمج `localStorage` في `AppContext`.
-- العرض: نص ثابت في عمود Contact بالـ Footer (`sitemapStatic`) وصف ثالث غير قابل للنقر في `Contact.tsx` (أيقونة `fa-location-dot`) — **بدون** خرائط أو عنوان سكني كامل (خصوصية).
+- في `SiteConfig` / `content/site/identity.ts`: `Record<Language, string>` — مثال nl: `Heerlen, Nederland`.
+- جزء من `INITIAL_CONFIG` مباشرة عبر `AppContext` (لا دمج localStorage).
+- العرض: Footer + صف موقع في `ContactInfo` (أيقونة `fa-location-dot`) — **بدون** خرائط أو عنوان سكني كامل.
 
-## 17) Phase 1 � ??? ??? (????? 2026)
+#### Security headers (`vercel.json` — Phase 5)
 
-| ????? | ??????? |
-|---|---|
-| B1 Hooks | ProjectDetailPage: useEffect ??? ?? early return |
-| S5 Gemini | ???? ??? GEMINI_API_KEY / API_KEY ?? ite.config.ts |
-| S2/S3 Rate limit | fail-closed ??? Vercel/production ?? ??? Upstash? IP ?? x-real-ip ?? ??? hop |
-| S8 gitignore | ????? .env.* ?? ??????? ??? .env.example |
-| ????? | ????? ??? ????? /privacy ?/terms ?cookie-settings |
+على كل المسارات (`/(.*)`):
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()`
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
+- **CSP:** `default-src 'self'` مع استثناءات لـ Google Tag Manager/Analytics وCloudflare Turnstile؛ `frame-ancestors 'none'`؛ `object-src 'none'`
 
-## 18) Phase 2 � ???? (????? 2026)
+---
 
-| ????? | ??????? |
-|---|---|
-| P2 lazy routes | App.tsx: React.lazy + Suspense ??? ???????? ????? ?????? hash scroll |
-| Home below-fold | HomePage: Hero + Statistics ????? ???? ??????? lazy |
-| Hero WebP | Aamr-with-agroup-op-workers.webp (~80KB) ??? PNG (~4.8MB) |
-| ???? ????? | ????? ???/????? ??? ??????? (~15MB+)? ???? assets � 25MB |
+## 19) Phase 1 — أمن حرج + Hooks + توثيق خفيف (يوليو 2026)
 
-## 19) Phase 3 � ????? constants (????? 2026)
+| البند | المشكلة | الحل المنفّذ |
+|---|---|---|
+| B1 Hooks | `useEffect` بعد early return في صفحة المشروع | نقل الـ hook قبل أي return شرطي |
+| S5 Gemini | حقن `GEMINI_API_KEY` / `API_KEY` في حزمة المتصفح عبر Vite | حذفها من `define`؛ الإبقاء على مفاتيح عامة فقط |
+| S2/S3 Rate limit | تخطٍ صامت بدون Upstash؛ IP من hop أيسر قابل للتزوير | fail-closed على Vercel؛ IP من `x-real-ip` / آخر hop |
+| S8 Secrets | خطر تتبع ملفات `.env` | `.gitignore`: `.env.*` + استثناء `.env.example` |
+| توثيق قانوني | إشارات قديمة لغياب privacy | تأكيد وجود `/privacy` `/terms` `/cookie-settings` |
 
-?????? ??????? ??????? ???? ??? content/:
-- content/site/ � identity, hero, stats, sectionHeaders
-- content/home/ � testimonials, faqs, homeSectionCopy
-- content/services/ � services, workPrinciples
-- content/portfolio/projects.ts
-- content/pricing/ � mainPlans, addOns
-- content/i18n/ � SITE_URL, PAGE_META, UI_TEXTS
-- content/index.ts � ????? INITIAL_CONFIG
+---
 
-constants.ts ???? barrel ???? ??????? ??? � ?????? ????????? ??????? (rom './constants') ???? ??? ??.
-
-## 20) Phase 4 — Features refactor (يوليو 2026)
+## 20) Phase 2 — أداء (صور + lazy) (يوليو 2026)
 
 | البند | النتيجة |
 |---|---|
-| Pricing shared | utils/pricing/: planHelpers, pricingLabels, buildPlanContactMessage |
-| Contact | useContactForm + ContactInfo + ContactForm؛ Contact.tsx رفيع |
-| Project detail | components/project/: Hero, Gallery, Lightbox, projectDetailCopy |
-| Services hooks | useIsMobileNav, useRevealOnScroll |
-| Navbar | LanguageSwitcher.tsx |
+| Lazy routes | كل الصفحات عبر `React.lazy` + `Suspense` في `App.tsx` |
+| Hash scroll | إعادة محاولة التمرير 150 / 400 / 800ms بعد تحميل كسول |
+| Home below-fold | `HomePage`: Hero + Statistics فوري؛ الباقي lazy |
+| Hero WebP | `Aamr-with-agroup-op-workers.webp` (~80KB) بدل PNG ضخم؛ **الصورة مستخدمة في `HomeHero` — ليست يتيمة** |
+| تنظيف أصول | حذف أصول غير مستخدمة (~15MB+)؛ مجلد assets ≈ 25MB |
+| مفاتيح React | إصلاح `key` ناقص في شبكة `PricingSection` |
 
-## 21) Phase 5 — أمن متقدم + SEO (يوليو 2026)
+---
 
-| البند | النتيجة |
+## 21) Phase 3 — تقسيم `constants.ts` → `content/*` (يوليو 2026)
+
+المحتوى مُقسَّم حسب المجال:
+
+| المسار | المحتوى |
 |---|---|
-| لا CDN | إزالة Tailwind/FA/Google Fonts من `index.html`؛ حزم محلية عبر npm + `@tailwindcss/vite` |
-| Security headers | `vercel.json`: CSP, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy |
-| Turnstile | ويدجت في نموذج التواصل + تحقق في `api/contact.ts` (fail-closed على Vercel مثل rate limit) |
-| GA cleanup | `clearGoogleAnalytics()` عند اختيار essential فقط (البانر + إعدادات الكوكيز) |
-| SEO bots | توسيع User-Agent في `middleware.ts`؛ مسار `cookie-settings` → meta؛ صفحات قانونية في sitemap |
+| `content/site/` | identity, hero, stats, sectionHeaders |
+| `content/home/` | testimonials, faqs, homeSectionCopy |
+| `content/services/` | services, workPrinciples |
+| `content/portfolio/projects.ts` | المشاريع الأربعة |
+| `content/pricing/` | mainPlans, addOns |
+| `content/i18n/` | SITE_URL, PAGE_META, UI_TEXTS, pageMetaKey |
+| `content/index.ts` | تجميع `INITIAL_CONFIG` |
 
-## 22) Phase 6 — تنظيف كود ميت (يوليو 2026)
+`constants.ts` = **barrel** يعيد التصدير فقط — الاستيرادات القديمة `from './constants'` تبقى صالحة.
 
-| البند | النتيجة |
+---
+
+## 22) Phase 4 — Features refactor (يوليو 2026)
+
+| البند | الملفات / النتيجة |
 |---|---|
-| Types | حذف `User` / `UserRole` / `Permissions` / `Plan` / `Translation` غير المستخدمة |
-| UI_TEXTS | إزالة مفاتيح لوحة التحكم/CMS (~55 مفتاحاً) والإبقاء على مفاتيح الواجهة العامة فقط |
-| AppContext | حذف `setConfig` ودمج `localStorage.siteConfig`؛ `config` = `INITIAL_CONFIG` فقط |
-| metadata.json | حذف ملف بقايا CMS القديم (`requestFramePermissions: camera`) |
-| Assets | لا ملفات يتيمة تحت `public/assets` — لم يُحذف شيء |
+| Pricing shared | `utils/pricing/planHelpers.ts`, `pricingLabels.ts`, `buildPlanContactMessage.ts` — يستخدمها `PricingSection` و`MainPricing` |
+| Contact | `hooks/useContactForm.ts` + `ContactInfo.tsx` + `ContactForm.tsx`؛ `Contact.tsx` رفيع |
+| Project detail | `components/project/`: Hero, Gallery, Lightbox, `projectDetailCopy.ts` |
+| Services/nav hooks | `useIsMobileNav`, `useRevealOnScroll` |
+| Navbar | `LanguageSwitcher.tsx` مستخرج |
+
+---
+
+## 23) Phase 5 — أمن متقدم + SEO (يوليو 2026)
+
+| البند | التفاصيل |
+|---|---|
+| بدون CDN | حذف سكربتات Tailwind/FA/Google Fonts من `index.html`؛ استيراد عبر `index.css` + npm |
+| حزم | `tailwindcss`, `@tailwindcss/vite`, `@fortawesome/fontawesome-free`, `@fontsource/inter`, `@fontsource/cairo` |
+| Headers | انظر القسم 18.3 — CSP يسمح بـ Turnstile وGA فقط خارج `'self'` |
+| Turnstile | `TurnstileWidget` + `utils/verifyTurnstile.ts` + حقل `turnstileToken`؛ fail-closed على Vercel |
+| GA cleanup | `clearGoogleAnalytics()` من البانر وإعدادات الكوكيز عند essential |
+| SEO bots | توسيع UA في `middleware.ts`؛ خريطة `cookie-settings` → `cookieSettings` |
+| Sitemap | إضافة privacy / terms / cookie-settings → **39 URL** |
+
+**تحقق بعد النشر:** مظهر بدون CDN؛ نموذج تواصل مع مفاتيح Turnstile؛ مسح `_ga` عند essential؛ `/sitemap.xml`.
+
+---
+
+## 24) Phase 6 — تنظيف كود ميت (يوليو 2026)
+
+| البند | التفاصيل |
+|---|---|
+| Types | حذف `User` / `UserRole` / `Permissions` / `Plan` / `Translation` |
+| UI_TEXTS | إزالة ~55 مفتاح CMS/admin؛ الإبقاء على nav/contact/cookie/hero/footer |
+| AppContext | حذف `setConfig` و`siteConfig` localStorage؛ `config = INITIAL_CONFIG` |
+| metadata.json | حذف بقايا CMS (`requestFramePermissions: camera` كان يتعارض مع Permissions-Policy) |
+| Assets | مراجعة: لا يتيم تحت `public/assets` — لا حذف إضافي |
+| أثر البناء | تصغير طفيف لحزمة JS الرئيسية بعد تقليم النصوص |
+
+**ملاحظة تشغيلية:** زائر لديه `siteConfig` قديم في المتصفح لن يؤثر بعد الآن — المحتوى دائماً من البناء الحالي.
+
+---
+
+## 25) فهرس سريع للأقسام
+
+| قسم | الموضوع |
+|---|---|
+| 1–14 | نظرة عامة، هيكل، تسعير، دروس، متبقٍ |
+| 15 | تسعير/خدمات/هوية/GA (قبل خطة الإصلاح) |
+| 16 | Portfolio |
+| 17 | Contact API (+ Turnstile) |
+| 18 | SEO + middleware + headers |
+| 19–24 | Phases 1–6 لخطة الإصلاح الشاملة |

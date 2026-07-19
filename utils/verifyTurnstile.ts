@@ -2,6 +2,12 @@ type TurnstileVerifyResult =
   | { ok: true }
   | { ok: false; reason: 'missing_secret' | 'missing_token' | 'rejected' | 'network' };
 
+export function isTurnstileFailure(
+  result: TurnstileVerifyResult,
+): result is { ok: false; reason: 'missing_secret' | 'missing_token' | 'rejected' | 'network' } {
+  return result.ok === false;
+}
+
 export async function verifyTurnstileToken(
   token: string | undefined,
   remoteIp: string,
